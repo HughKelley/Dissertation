@@ -1,0 +1,86 @@
+%% This is annot.tex.
+%% 
+%% You'll need to change the title and author fields to reflect your
+%% information.
+%%
+%% Author: Titus Barik (titus@barik.net)
+%% Homepage: http://www.barik.net/sw/ieee/
+%% Reference: http://www.ctan.org/tex-archive/info/simplified-latex/
+
+% work todo
+% actually read, group, and annotate references
+
+
+% formatting todo 
+% get rid of numbers and use author,date
+% fix screwy ref??
+
+
+
+
+
+
+
+\documentclass [12pt]{article}
+
+\title{Bicycle Network Analysis\\\medskip An Annotated Bibliography}
+\author{Hugh Kelley}
+
+\begin{document}
+\maketitle
+
+\section{General Strategy}
+
+The overall goal of this work is to study how an understanding of the populations willingness to cycle in stressfull environments can inform predictions about mode of transport choice. The foundational theory is that the city's bike network looks very different to cyclists of different abilities. A highly confident cyclist can use almost any road in London, while someone just starting out may be uncomfortable anywhere with other traffic of any sort or confined spaces. 
+
+\subsection{relevant articles}
+
+Duthie, optimization framework for bicycle networks
+\cite{Duthie14}\\
+Furth, low stress bicycling network connectivity
+\cite{Furth16}\\
+Macmillan Understanding bicycling in cities, systems dynamics moelling
+\cite{Macmillan17}\\
+Mesbah, Bilevel optimization approach to design of network of bikelanes
+\cite{Mesbah12}\\
+Tower, Prioritizing bicycle facility improvement projects based on low stress network connectivity
+\cite{Tower14}
+Wang, bicycle network level of traffic stress
+\cite{Wang16}
+
+
+\subsection{Resilience?}
+
+By grading links by their perceived "level of stress" a network resilience analysis is possible. This is not resilience in the traditional sense of a broken link but from the perspective of a steadily less confident individual, about the link options available to them. 
+
+\section{Measurement of Stress}
+
+The incidence of bicycle crashes are fairly low compared to other transportation metrics and influenced by enumerable factors. Even egregiously bad behavior by the driver of a car or a cyclist rarely results in a counted incident. \\
+
+This makes the estimation of "risk" very interesting. 
+
+\section{Estimate of population confidence distribution}
+
+This methodology requires an estimate of the distribution of cycling confidence over the possible population. 
+
+\subsection{discrete or continuous?}
+
+Some literature identifies 4 buckets for cyclists. This may be a workable framework. More optimal would be to estimate a population distribution somehow.
+
+\subsection {In the context of the data available}
+
+It may be possible to compare data from Strava, to data from deliveroo, to data from cycle hire, to incident data to form a distribution of confidence levels 
+
+\section{Questions to be resolved}
+
+Which locations? This could be a sinlge point study, a study of a city like london over time, or a comparative study. \\
+
+How to estimate the level of stress on a road.
+
+
+
+
+\nocite{*}
+\bibliographystyle{IEEEannot}
+\bibliography{ann_bib}
+\end{document}

@@ -1,0 +1,72 @@
+* Select your program
+
+* Provisional Dissertation Title
+
+Network Characteristics of London Cycling Routes with respect to cyclist confidence and traffic stress. 
+
+* Potential Supervisor
+
+Elsa Arcaute
+
+* Are you planning to collaborate with an external partner? If yes give details
+
+Possibly for data purposes. 
+
+* Proposed Research Topic, 300 words, what you wish to study, why it's important or useful
+
+Because the London cycling network has changed so much over the past ten years and is expected to continue evolving, and because it is much more developed than American peers, studying its evolution is useful both to inform continuing future investment  and investment in other cities. The knowledge is useful in the context of safety for existing cyclists and the induction of higher levels of cycling activity in the city for environmental purposes. Studying cycling infrastructure with network analysis techniques could allow a comparison of a model for "optimal" network shape with the results of the political process that has determined London's current cycling infrastructure. For example, Westminister council has largely refused cycling infrastructure, what effect has this had on the overall network? Alternatively, some councils have embraced investment through the construction of the "super highways" how have these large scale projects affected network characteristics, especially in comparison to smaller scale distributed projects? This research put could context around TFL goals like maintaining cycle infrastructure within 400m of 70% of London's residents. Lastly, the research could inform the induced demand effect of cycle infrastructure that changes network connectivity. 
+
+185 words
+
+* Overarching aims of dissertation, 300 words
+
+Specifically, I would like to understand how changes that have been made to the cycling network have effected behavior on the network. How much more cycling occurs around the cycle super highways? What is the relationship between network growth and cycling growth? As discussed in the methodology section, it would be useful to build a picture of how friendly London's roads are to cyclists and what the distribution of cycling behavior is over the population. Network analysis may also offer an ability to compare large scale projects with small scale distributed inrastructure changes.  It could also offer an improved understanding of how fractured London is for cyclists based on an individual cyclists willingness to cycle roads of varying danger. 
+
+Most optimistically, the research could be a paired study of a change that has occurred in order to inform an estimate of the effect of a change that is proposed. 
+
+149 words
+
+* Methodology 300 words
+
+I've found existing papers that use estimates of the stress cyclists experience on a given road to understand
+ what the network looks like to cyclists of different levels of confidence. London looks very different to a confident cyclist comfortable with cycling alongside or between cars than it does to a new or less confident cyclist who is only willing to cycle on quiet streets and dedicated paths. 
+
+The main inspirational paper simply graded streets into one of four buckets of difficulty. An obvious improvement to this methodology is a continuous metric. Because traffic, incident, and street characteristic data for London is relatively  plentiful, my hope is that this is feasible. 
+
+A key concern is London's size relative to the processing power I have available.
+
+This estimation could be complemented by an estimation of the distribution of cycling confidence in wards or boroughs so that the research could say that a given change in traffic stress may result in a certain increase in cycling. 
+
+164 words
+
+
+
+* Data sources
+
+https://developers.strava.com/
+
+cycle hire data, London data store: traffic data, cyclist and pedestrian KSI data. Open Street Maps: London street network
+
+London Data store: cycle hire data, cycle flows data, traffic flows data, cycle and pedestrian KSI data
+
+Open Street Maps: London Street network data
+
+Strava API trip data. 
+
+Spoke to Sarah Wise briefly about using data CASA has from Just Eat. 
+
+Would love to find a connection to deliveroo to see about using their data but haven't yet found anyone with a
+ contact. 
+
+Spoke  to Sustrans but their data collection agreements don't allow them to share data with outside researchers. 
+
+* Action Plan for March, initial steps
+
+I have completed  the basics for an annotated bibliography in order to  put this research proposal together and would like to have an outline of a literature review done before the end of the spring term so that I could start putting a specific methodology together for the summer.  
+
+I also plan to familiarize my self with the data sources listed above and continue looking for a partnership that could expand the cycling trip data that I have available. 
+
+Being able to read through the literature with an idea of the data available for this specific research is a key goal. 
+
+
+https://www.cardiff.ac.uk/people/view/363285-spinney-justin

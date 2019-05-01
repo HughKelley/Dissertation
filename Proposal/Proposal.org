@@ -1,0 +1,75 @@
+* Select your program
+
+* Provisional Dissertation Title
+
+Network Strength of London Cycling Routes considering cyclist confidence and traffic stress. 
+
+* Potential Supervisor
+
+Elsa Arcaute
+
+* Are you planning to collaborate with an external partner? If yes give details
+
+Possibly for data purposes. 
+
+* Proposed Research Topic, 300 words, what you wish to study, why it's important or useful
+
+I would like to study the evolution of London's cycling infrastructure with network analysis. Because the cycling network has been the target of so much investment over the past decade, it will be interesting to use network analysis techniques to  see how specific changes affected the characteristics of the network overall. Most optimistically I could combine a network analysis with a spatial interaction type understanding of how changes to the network changed the cycling population by increasing access. On that basis, it could be possible to estimate the effect of future changes to the network. 
+
+I'm interested in network analysis and mode of transport choice. London's bike network has changed substantially in the last  few years and is more mature than most comparable bike networks in the US. 
+
+I'm interested in network analysis and mode of transport choice. London's bike network has changed substantially in the last few years and is more mature than most comparable bike networks in the US.
+Hopefully I could do research about the relationship between network characteristics and the tendency to choose bikes as a preferred mode of transport. It would be interesting to investigate network 
+effects on cycling, for instance, cycle usage accelerating as the network grows. It would be interesting to compare small distributed improvements to the cycle network with large scale projects like the cycle super highways. 
+
+TFL mentions a key goal of having 70% of Londoners live within 400 metres of the London Wide cycle network but this aggregate meausre might not reflect varying need of cycle infrastructure across neighborhoods. 
+
+It would also be interesting to calibrate cycling prefernce for going downhill rather than uphill. 
+
+
+* Overarching aims of dissertation, 300 words
+I'm considering a few different overarching focuses. One is estimating the effect of the construction of one or
+ some of the cycle highways or the conversion of tottenham court rd. 
+Another is simply studying how fractured the london cycling network is for cyclists of certain confidence levels. 
+
+Possible conclusions of the research include, an understanding of network effects on cycling growth, an understanding of effect size for an additional investment in cycle infrastructure, or an estimate of the retail potential for 
+
+Particularly interesting would be thinking about tipping points in behavior due to network effects, and how fractured the london transportation network is to a rider of a given ability. 
+
+
+* Methodology 300 words
+I've found existing papers that use estimates of the stress cyclists experience on a given road to estimate
+ what the network looks like to cyclists of different levels of confidence. London looks very different to a confident cyclist comfortable with cycling along side cars than it does to a new or less confident cyclist who is only willing to cycle on quiet streets and dedicated paths. 
+
+In this context, I found a paper that used Markov chain monte carlo sampling of data to fit a multi level model of cycling volumes for network edges. Another paper used bayesian conditional autoregressive logit models to estimate the porbability of a bicycle crash at an intersection. These more complicated methods are generally necessary because of the low data availability for cycling behavior and incidents. 
+
+This estimation could be complemented by an estimation of the distribution of cycling confidence in wards or boroughs so that the research could say that a given change in traffic stress may result in a certain increase in cycling. 
+
+The more difficult part is estimating traffic stress for cyclists and the population distribution of cycling
+ confidence.
+
+Overall it would interesting too to model how TFL makes their decisions about where to build cycle infrastructure, is it consistent with network theory? 
+
+Key concerns, exactly what to study, scope of analysis, is london too big, do I need to pick a subset? Not really sure how I'll estimate cycling confidence and traffic stress. 
+
+
+
+
+
+* Data sources
+
+https://developers.strava.com/
+
+cycle hire data, London data store: traffic data, cyclist KSI data. Open Street Maps: London street network
+
+Talked to Sarah Wise briefly about using data CASA has from Just Eat. 
+
+Would love to find a connection to deliveroo to see about using their data but haven't yet found anyone with a
+ contact. 
+
+Talked to Sustrans but they're data collection agreements don't allow them to share data with outside researchers. 
+
+* Action Plan for March, initial steps
+
+
+https://www.cardiff.ac.uk/people/view/363285-spinney-justin

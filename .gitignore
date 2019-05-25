@@ -1,3 +1,10 @@
+## ignore raw data files
+
+*.zip
+*.csv
+osmnx/
+
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof

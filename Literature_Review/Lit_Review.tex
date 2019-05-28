@@ -12,12 +12,11 @@
 % basic bib file
 \addbibresource{bibliography.bib}
 % by lit type
-\addbibresource{related_work.bib}
-\addbibresource{network_lit.bib}
-\addbibresource{general_cycling.bib}
+\addbibresource{Literature/Past_Similar_Work/related_work.bib}
+\addbibresource{Literature/Network_Analysis/network_lit.bib}
 
-
-
+% problem here
+%\addbibresource{Literature/Bicycling/general_cycling.bib}
 
 %%% Examples of Article customizations
 % These packages are optional, depending whether you want the features they provide.
@@ -80,7 +79,9 @@
 Half of the world's population lives in cities. Cycling is of obvious importance to the well being of the world's  urban population in terms of the macro-climate crisis, local pollution problems, and public health issues. A commonly researched question is ``what factors have the most significant effect on cycling rates?'' The review of literature that follows will argue that the majority of work on this question approaches the matter from a perspective of discrete policy intervention and the effect of marginal improvements on cycling. This fails to build a comprehensive theory of cycling rates that a network analysis approach can offer. Only network theory can offer a high level look at the level of service in a community. The review that follows takes the structure of an initial look at typical literature considering how to promote cycling, recent attempts to use network analysis to accomplish this same goal, and closes with a look at work in network analysis that can inform applying the field to cycle networks. The overarching theme of the review and the research that is proposed is the idea that no individual intervention is sufficient to change behavior until a comprehensive network of infrastructure that reflects the importance of locations according to centrality is created. The implication of this view is that infrastructure changes are unlikely to have a meaningful effect on behavior in the system until a critical mass or tipping point is reached. 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Relevant Literature regarding cycling generally}
+\section{Literature Review}
+
+\subsection{Relevant Literature regarding cycling generally}
 
 Dill, 4 types of cyclists, ``strong and fearless'', ``enthused and confident'', ``interested but concerned'', no way no how''.   \cite{dill2013four}
 
@@ -110,20 +111,39 @@ Vandenbulcke, Predicting cycling accident risk in Brussels: A Spatial case contr
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Literature addressing cycling From a network perspective}
+\subsection{Literature addressing cycling From a network perspective}
 
 Akbarzadeh, Designing Bike networks using the concept of network clusters, Taxi trips to indicate links between nodes. Not a very good method for understanding where to build networks, needlessly complicated. \cite{akbarzadeh2018designing}
 
 
 Data from online survey to get a cost function, predicted travel routes, compared to shortest route, which is used to measure network connectivity. 
 %%%%%%%%%%%%%%%%%%%%%
-Counter intuitively, if one was to measure the total distance of the network, that would incentivize less direct links, since these tend to be longer.  
+
+\textbf{
+Counter intuitively, if one was to measure the total distance of the network, that would incentivize less direct links, since these tend to be longer.}  
 %%%%%%%%%%%%%%%%%%%%%%
 \cite{boisjoly2019bicycle} 
 
+
+
+Buehler \& Dill's  particularly helpful review of literature on bike networks uses a framework that groups the literature by two categories, that focusing on the links of the network, different types of cycle lanes, and that focusing on the nodes of the network, intersections. It ends by addressing the possibility of a cohesive study of a bicycle network holistically.
+
+	For instance \textit{One study linked cycling levels to self reported measures of the bicycling environment, including being able to take shortcuts on a bicycle compared to routes available to cars. This measure of connectivity was found to be significant (Titze, Stronegger, Janschitz, \& Oja, 2008).}
+	
+	\textit{ a recent paper using aggregate bicycle commuting data from 74 US cities (Schoner \& Levinson, 2014). The authors develop several different measures that represent the size, connectivity, density, fragmentation, and directness of the bicycle network. The density of the bikeway network (all types of facilities combined) had the largest elasticity value, larger than connectivity, fragmentation, and directness combined.}
+	
+	This includes a Bicycle Compatibility Index (BCI) combination of distance and safety, Bicycle level of service (BLOS) from ``Highway Capacity Manual'', \cite{Lowry} and Level of Traffic Stress (LTS) \cite{Mekuria and Furth} a four point scale based on architectural features of the route.
+	
+	Basically, these four don't really constitute a holistic approach still. 
+	
+	Difficulty of validating the effect because there isn't a lot of cyclist behavior data available.
+	
+	
+Since Buehler's literature review was published 115 subsequent papers have cited it but only a few have taken the author's central recommendation that a holistic approach to evaluating a bike network be employed. 
+
+
 Starting point for the lit review since it covers everthing prior to 2016, node, link and network focused lit. 
 \cite{buehler2016bikeway}
-
 
 Edmonton did a rapid full network implementation instead of a incremental approach. 
 \cite{cabral2019low}
@@ -131,15 +151,12 @@ Edmonton did a rapid full network implementation instead of a incremental approa
 Genetic algorithm used to solve a mathematical program with equillibrium constraints. 
 \cite{doorley2019designing}
 
-
 Optimization problem: retrofitting existing roadway infrastructure for bicycles. Minimize cost while conncting all origin destination pairs considering bicycling level of service. 
 \cite{duthie2014optimization}
-
 
 San Jose, vizualizing and analyzing lack of connectivity. 
 First low stress network analysis. Focuses on \% of pairs connected with low stress links. A few improvements would dramatically increase connectivity. 
 \cite{furth2016network}
-
 
 Seattle , tool for analyzing low stress connectivity. 
 \cite{lowry2016prioritizing}
@@ -168,109 +185,97 @@ Does level of traffic stress explain bicycle travel behavior. Uses census data ,
 \cite{wang2016does}
 
 
-
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\section{Network analysis Literature relevant to the research methodology proposed}
-
+\subsection{Network analysis Literature relevant to the research methodology proposed}
+\textbf{
 The key questions that need to be addressed by this lit are: 
-
-How to rigorously compare distributions of centrality
-Dual or Primal graph? 
-How to actually do what I intend to do, a manual of some sort?
-Anything to do with growing one network on top of another. 
-Address and dismiss multiplex  networks. 
-The potential for a ``transition''
-Which centrality networks to use?
-Justify centrality as a way of prioritizing connectivity as a shortcut
-Potential for local communities of small world world networks? 
-Can planar graphs be small world?
-Community identification in planar graphs? 
-
-
-\cite{}
-
-\cite{}
-
-
-
-
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Intended research procedure}
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{}
-
-\section{}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-\section{Introduction}
-
-	Cycling has been promoted with increasing frequency as a solution to a number of problems facing cities and the world currently including the climate crisis, local pollution, and population health problems. The following review of literature will consider previous work on the effect of various changes to cycling infrastructure on the population's propensity to cycle. This will indicate the potential for network analysis to improve the understanding of the relationship between cycling infrastructure and behavior. Then the review will turn to a series of work that provides a framework for applying network analysis to cycling infrastructure in order to evaluate the resilience and efficiency of the infrastructure and predict the effect of a change. 
-	
-\section{The Effect of Infrastructure Changes on Cycling Rates}
-
-	Buehler \& Dill's \cite{Buehler and Dill} particularly helpful review of literature on bike networks uses a framework that groups the literature by two categories, that focusing on the links of the network, different types of cycle lanes, and that focusing on the nodes of the network, intersections. It ends by addressing the possibility of a cohesive study of a bicycle network holistically. 
-	
-	For instance \textit{One study linked cycling levels to self reported measures of the bicycling environment, including being able to take shortcuts on a bicycle compared to routes available to cars. This measure of connectivity was found to be significant (Titze, Stronegger, Janschitz, \& Oja, 2008).}
-	
-	\textit{ a recent paper using aggregate bicycle commuting data from 74 US cities (Schoner \& Levinson, 2014). The authors develop several different measures that represent the size, connectivity, density, fragmentation, and directness of the bicycle network. The density of the bikeway network (all types of facilities combined) had the largest elasticity value, larger than connectivity, fragmentation, and directness combined.}
-	
-	This includes a Bicycle Compatibility Index (BCI) combination of distance and safety, Bicycle level of service (BLOS) from ``Highway Capacity Manual'', \cite{Lowry} and Level of Traffic Stress (LTS) \cite{Mekuria and Furth} a four point scale based on architectural features of the route.
-	
-	Basically, these four don't really constitute a holistic approach still. 
-	
-	Difficulty of validating the effect because there isn't a lot of cyclist behavior data available.
-	
-	
-Since Buehler's literature review was published 115 subsequent papers have cited it but only a few have taken the author's central recommendation that a holistic approach to evaluating a bike network be employed. 
-	
-	
-	
-\section{Crucial Authors}
-
-
-
 \begin{itemize}
-\item Buehler \cite{Buehler2016}
-
-Lit Review of cycling network research
-
-\item Furth Low Stress Bicycling Network Connectivity
-
-\item 
-  \begin{itemize}
-  \item one point one
-  \item one point two
-  \end{itemize}
+\item How to rigorously compare distributions of centrality
+\item Dual or Primal graph? 
+\item How to actually do what I intend to do, a manual of some sort?
+\item Anything to do with growing one network on top of another. 
+\item Address and dismiss multiplex  networks approach. 
+\item The potential for a ``transition''
+\item Which centrality networks to use?
+\item Justify centrality as a way of prioritizing connectivity as a shortcut
+\item Potential for local communities of small world world networks? 
+\item Can planar graphs be small world?
+\item Community identification in planar graphs? 
+\item Could a weighted random walk be a good proxy for trips? 
 \end{itemize}
+}
 
-Buehler
 
-Furth
-Lowry
-	
-	
-	
-\section{Research Framework}
+Crossover from scale free to spatial network:
+
+What is distinct about spatial networks: distance weighted, preferntial attachment and distance selection. When distance effect is significant, connectivity dist has a cutoff depending on node density, clustering coeff is very high, assortivity, positive max to degree correlation
+\cite{barthelemy2003crossover}
+
+Spatial Networks:
+
+relevant part is the review of processes that take place on spatial networks. 
+Phase transitions, random walks, synchronization, navigation, resilience, disease spread. 
+\cite{barthelemy2011spatial}
+
+Centrality Measures in spatial networks of urban streets
+
+Uses 4 indices of centrality: closeness, betweenness, straightness, information. 
+\cite{crucitti2006centrality}
+
+
+Nonparametric resampling of random walks for spectral network clustering
+
+goal is to assess the statistical significance of clustering and robustness of community identification. 
+\cite{fallani2014nonparametric}
+
+
+\cite{feliciotti2016design}
+
+\cite{}
+
+\cite{}
+
+\cite{}
+
+\cite{}
+
+\cite{}
+
+Planar graphs
+Connection between centrality and economic activity
+	Porta 2012, Barcelona
+Transitions in spatial networks: percolation and small world stuff
+Multiplex networks probably not relevant because it's hard to take a bike on a train or bus or whatever
+	Urban accessibility measurement
+		Porta 
+		Biazzo
+		Need to weight edges but inverse of distance
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Intended research Questions and Methodology}
+
+
+Possible Research Questions
+	Conservative: What does London look like to a cyclist? Build network according to different rules and compare
+		traffic stress
+			intersections
+			streets
+		no right turns
+		only official bike network
+			
+	Moderate: community detection using the stuff from the conservative project, where is the network the strongest?
+	Aggressive: how closely has the London network followed an optimal growth of network on network? 
+		This could use standard measures of street centrality for the road network and look at accessibility for the most important streets. 
+		Or compare centrality distribution of bike networks to streets, use street centrality for given bike lane, are lanes relatively central or no? 
+		Or compare evolution of rd networks to evolution of bike networks
+		
+Straightness is an interesting one but distance matters most I guess. 
+Congestion is not really a problem for cyclists
 
 Road network
 	attach attributes to links and nodes
@@ -285,39 +290,6 @@ Compare distribution of centrality between estimated bike network and real road 
 
 Use Cycle Hire data to validate centrality preference?
 	But hires are station to station so would have to show that the probability of a station being a destination for a trip is influenced by stations centrality. 
-
-
-	
-	
-
-
-
-
-
-
-
-
-
-\section{Introduction}
-
-	More than half of the world's population lives in cities. Current mode share of transportation is problematic on a global scale, where the climate emergency is fueled by carbon emmissions, a significant portion of which are driven by transportation, and on a local scale, where particulate and Nitrous Oxide pose a public health threat. Thus changing transportation methods is a clear necessity in addressing one of the world's most crucial problems. 
-	
-	Part of this change can come from increasing bicycle usage in a number of travel types. The choice to ride a bike is a complex one, involving fitness, origin and destination, safety and security infrastructure for cyclists, and weather. A less considered factor is that of network strength and resilience.
-	
-	Network analysis offers a toolset for assessing the extent to which the road and cycle-lane network is a hindrance to a person's preference for cycling. Building a cycle network efficiently is a unique problem in network analysis to some extent because the challenge is to build the most efficient network on top of the existing road network with the lowest cost to metrics for the existing network. 
-	
-	Thus this work aims to answer the question, how efficiently has the cycle infrastructure added to London's streets been implemented? To do this, a framework for building an efficient network across an existing network must be defined. This requires defining a cost and benefit of adding a cycle lane to a road/link in the network. This should consider the centrality of the link, and the change in accessibility to car and bike uses as a result of the change.
-	
-	Parts
-	
-how to define the cost and benefit of this stuff?
-
-How to define the optimal bike network?
-
-How to 
-
-
-
 
 Steps:
 
@@ -336,122 +308,56 @@ Steps:
 	compare disributions of centrality scores between road network and bike network. 
 	
 	compare network before and after Super Highway constructions
-	
-	
-	
-	
-	
-Lit Review Structure
 
-	Research goal  and specific question
-	
-		Goal is to figure out how to apply network science to the study of bike infrastructure. Specifically, analyze the resilience and efficiency of a cycle network. 
-	
-	Context
-	
-		Global climate crisis, 
-		local urban pollution
-		health crisis
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-	Why it matters
-		
-		Cycling solves too many problems to be ignored
-		Most academics that might be interested in cycling don't have a background in network analysis or the required skillset. 
-	
-	Previous work on cycling
-	
-		Cite Buehler Lit review
-		Different environmental and demographic predictors of cycling
-		Measurement of ``effect'' of different infrastructure stuff
-		civil engineering type of work on specific situations
-	
-	Previous attempts to use network science for biking stuff
-		Furth Level of traffic stress thing
-			I think he just interprets the result qualitatively
-	
-	Relevant network analysis papers
-		
-		Planar graphs
-		Connection between centrality and economic activity
-			Porta 2012, Barcelona
-		Transitions in spatial networks: percolation and small world stuff
-		Multiplex networks probably not relevant because it's hard to take a bike on a train or bus or whatever
-		Urban accessibility measurement
-			Porta 
-			Biazzo
-			Need to weight edges but inverse of distance
-	
-	Methodology
-	
-	
+\section{}
 
-Possible Research Questions
-	Conservative: What does London look like to a cyclist? Build network according to different rules and compare
-		traffic stress
-			intersections
-			streets
-		no right turns
-		only official bike network
-		
-		
-	Moderate: community detection using the stuff from the conservative project, where is the network the strongest?
-	Aggressive: how closely has the London network followed an optimal growth of network on network? 
-		This could use standard measures of street centrality for the road network and look at accessibility for the most important streets. 
-		Or compare centrality distribution of bike networks to streets, use street centrality for given bike lane, are lanes relatively central or no? 
-		Or compare evolution of rd networks to evolution of bike networks
-		
-Straightness is an interesting one but distance matters most I guess. 
-Congestion is not really 
+\section{}
 
-
-	
-	
-
-
-\begin{itemize}
-\item one
-\item two
-  \begin{itemize}
-  \item one point one
-  \item one point two
-  \end{itemize}
-\end{itemize}
-
-\subsection{Subsection 1}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.8\textwidth]{example}
-\caption{Correlation between station/node metrics}
-\end{figure}
-
-\begin{tabular}{|l|l|l|l|}\hline
-  \multirow{10}{*}{numeric literals} 				& \multirow{5}{*}{integers} 	& in decimal 					& \verb|8743| \\ \cline{3-4}
-  					    				& 				       	& \multirow{2}{*}{in octal}   		& \verb|0o7464| \\ \cline{4-4}
-  					    				& 					& 						& \verb|0O103| \\ \cline{3-4}
-  					    				& 					& \multirow{2}{*}{in hexadecimal}	& \verb|0x5A0FF| \\ \cline{4-4}
- 				 	    				& 					& 						& \verb|0xE0F2| \\ \cline{2-4}
-  					    				& \multirow{5}{*}{fractionals} 	& \multirow{5}{*}{in decimal} 		& \verb|140.58| \\ \cline{4-4}
- 				 					& 					& 						& \verb|8.04e7| \\ \cline{4-4}
-  									& 					& 						& \verb|0.347E+12| \\ \cline{4-4}
-  									& 					& 						& \verb|5.47E-12| \\ \cline{4-4}
-  									& 					& 						& \verb|47e22| \\ \cline{1-4}
-  \multicolumn{3}{|l|}{\multirow{3}{*}{char literals}} 													& \verb|'H'| \\ \cline{4-4}
-  \multicolumn{3}{|l|}{} 																	& \verb|'\n'| \\ \cline{4-4}          %% here
-  \multicolumn{3}{|l|}{} 																	& \verb|'\x65'| \\ \cline{1-4}        %% here
-  \multicolumn{3}{|l|}{\multirow{2}{*}{string literals}} 												& \verb|"bom dia"| \\ \cline{4-4}
-  \multicolumn{3}{|l|}{} 																	& \verb|"ouro preto\nmg"| \\ \cline{1-4}          %% here
-\end{tabular}
-
-
-
-
-\begin{verbatim}
-use pseudocode
-\end{verbatim}
-
-\textit{italics}
-\textbf{bold}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+%\begin{itemize}
+%\item one
+%\item two
+%  \begin{itemize}
+%  \item one point one
+%  \item one point two
+%  \end{itemize}
+%\end{itemize}
+%
+%\subsection{Subsection 1}
+%
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.8\textwidth]{example}
+%\caption{Correlation between station/node metrics}
+%\end{figure}
+%
+%\begin{tabular}{|l|l|l|l|}\hline
+%  \multirow{10}{*}{numeric literals} 				& \multirow{5}{*}{integers} 	& in decimal 					& \verb|8743| \\ \cline{3-4}
+%  					    				& 				       	& \multirow{2}{*}{in octal}   		& \verb|0o7464| \\ \cline{4-4}
+%  					    				& 					& 						& \verb|0O103| \\ \cline{3-4}
+%  					    				& 					& \multirow{2}{*}{in hexadecimal}	& \verb|0x5A0FF| \\ \cline{4-4}
+% 				 	    				& 					& 						& \verb|0xE0F2| \\ \cline{2-4}
+%  					    				& \multirow{5}{*}{fractionals} 	& \multirow{5}{*}{in decimal} 		& \verb|140.58| \\ \cline{4-4}
+% 				 					& 					& 						& \verb|8.04e7| \\ \cline{4-4}
+%  									& 					& 						& \verb|0.347E+12| \\ \cline{4-4}
+%  									& 					& 						& \verb|5.47E-12| \\ \cline{4-4}
+%  									& 					& 						& \verb|47e22| \\ \cline{1-4}
+%  \multicolumn{3}{|l|}{\multirow{3}{*}{char literals}} 													& \verb|'H'| \\ \cline{4-4}
+%  \multicolumn{3}{|l|}{} 																	& \verb|'\n'| \\ \cline{4-4}          %% here
+%  \multicolumn{3}{|l|}{} 																	& \verb|'\x65'| \\ \cline{1-4}        %% here
+%  \multicolumn{3}{|l|}{\multirow{2}{*}{string literals}} 												& \verb|"bom dia"| \\ \cline{4-4}
+%  \multicolumn{3}{|l|}{} 																	& \verb|"ouro preto\nmg"| \\ \cline{1-4}          %% here
+%\end{tabular}
+%
+%\begin{verbatim}
+%use pseudocode
+%\end{verbatim}
+%
+%\textit{italics}
+%\textbf{bold}
 
 XXXX words excluding headings, figures, and references. \\
 

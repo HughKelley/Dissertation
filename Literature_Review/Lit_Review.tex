@@ -132,7 +132,7 @@ Overall, it is not clear that a model for building cycle paths should be particu
 
 Lastly, \cite{osama2017models} uses a number of predictors including network statistics to predict bike travel within zones of Vancouver similar to \cite{schoner2014missing}. They found a positive coefficient for the density of the bike network in the zone. 
 
-5 papers:
+5 papers since Buehler:
 \begin{itemize}
 
 \item \cite{boisjoly2019bicycle}
@@ -198,7 +198,7 @@ Seattle , tool for analyzing low stress connectivity.
 Compare connectivity for different types of cyclists in different neighborhoods. 
 \cite{lowry2017quantifying}
 
-Algorithm for bicycle netowrk design: balance interests of users and planners, construction v user cost, proportional to distance, adjusted for usage rates, and ``discontinuities'' 
+Algorithm for bicycle network design: balance interests of users and planners, construction v user cost, proportional to distance, adjusted for usage rates, and ``discontinuities'' 
 \cite{mauttone2017bicycle}
 
 Original study on low stress network connectivity
@@ -227,17 +227,17 @@ Does level of traffic stress explain bicycle travel behavior. Uses census data ,
 
 \subsection{Network analysis Literature relevant to the research methodology proposed}
 
+This work intended to improve upon the work detailed above through the inclusion of more ideas from network science that can improve and extend and simplify the models already specified. 
+
 There are a number of considerations from network analysis literature that can complement the work already applying the field to cycling networks. Perhaps the most important is the idea that the transportation network and the location of activities in a city reinforce each other. The most productive activities that occur in a city tend to be the most easily accessed according to central place theory. This has been shown empirically for instance by \cite{porta2012street} and by \cite{wang2011street}. In the literature discussed above authors address the key change in networks of defining a computationally feasible set of trips between nodes in a few different ways. This is misguided though as network theory offers a number of tools for exploring a graph efficiently, according to centrality. A random walk weighted by a centrality measure will tend toward trips between more important nodes because these tend to be more central. 
 
 A number of network statistics are used in the literature reviewed above. \cite{crucitti2006centrality} complements these as the centrality and connectedness measures used should be more formally justified according to network theory. 
 
 While, the multiplex offers an interesting approach to studying the interaction between bicycle usage and train and bus, this is beyond the scope of this work and perhaps beyond the scope of London , where bicycles are not generally allowed on public transport, unlike some other cities. 
 
-The potential for a ``transition'' in the cycle network per \cite{barthelemy2018transitions} is an exciting possibility. Finding edges that need to be added to a network in order for a transition in network connectivity to occur is a valuable exercise. In addition, specifiying network characteristics according to those specified by \cite{barthelemy2011spatial} is also very valuable. 
+The potential for a ``transition'' in the cycle network per \cite{barthelemy2018transitions} is an exciting possibility. Finding edges that need to be added to a network in order for a transition in network connectivity to occur is a valuable exercise. In addition, specifying network characteristics according to those specified by \cite{barthelemy2011spatial} is also very valuable. 
 
-
-
-
+Overall there are a number of considerations from network science that this research intends to add to the analysis of cycle networks. The exact implementation of these considerations will be specifiying in the methodology section. 
 
 \textbf{
 The key questions that need to be addressed by this lit are: 
@@ -371,9 +371,29 @@ Steps:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{}
+\section{Data}
 
-\section{}
+Street network data from OSM.
+
+Cycle network data from OSM and London data store
+
+Street traffic volumes
+
+Street characteristics
+
+Cycle network characteristics
+
+Street traffic incident data
+
+
+
+\section{Things that would improve this methodology}
+
+Good model of cyclist route choice
+
+near miss data
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  
@@ -420,11 +440,6 @@ Steps:
 %\textbf{bold}
 
 XXXX words excluding headings, figures, and references. \\
-
-\nocite{*}
-
-\medskip
-
 
 \printbibliography
 

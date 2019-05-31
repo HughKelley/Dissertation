@@ -32,6 +32,7 @@
 \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
 
 %%% PACKAGES
+\usepackage{hyperref}
 \usepackage{booktabs} % for much better looking tables
 \usepackage{array} % for better arrays (eg matrices) in maths
 \usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
@@ -349,160 +350,117 @@ There is traffic volume data but it's at a few thousand observation points, so a
 I think OSM is my only source for street characteristics, not clear that it's accurate or up to date.
 
 
-Official data for cycle infrastructure is from 2014: https://data.gov.uk/dataset/47f0a282-3356-4530-8e7b-f67aaf4bec63/cycle-routes
+Official data for cycle infrastructure is from 2014: \href{https://data.gov.uk/dataset/47f0a282-3356-4530-8e7b-f67aaf4bec63/cycle-routes}{link}
 
-This says it's updated and maybe integrated into OSM? https://www.cyclestreets.net/blog/category/open-data/
+This says it's updated and maybe integrated into OSM? \href{https://www.cyclestreets.net/blog/category/open-data/}{link}
 
-Press release about data set https://www.london.gov.uk/press-releases/mayoral/action-plan-to-get-more-londoners-cycling
+Press release about data set \href{https://www.london.gov.uk/press-releases/mayoral/action-plan-to-get-more-londoners-cycling}{link}
 
-But no actual data. 
+But no actual data. Seems like OSM is the delivery mechanism, unclear how integrated the data is into OSM. 
 
+
+\section{Going Forward}
+
+
+\subsection{Questions}
+
+Data status, it seems like the basic data required for the work exists but it isn't clear how to access it and how to match different data sets up with each other. 
+
+Methodology status, clearly the methodologies I intend to use are possible, they're used in other papers, but I need to find manuals/text books that actually discuss how to implement the methods. 
+
+\subsection{Tasks}
+
+\subsubsection{Data}
+		\begin{itemize}
+			\item Geoff Boeoing network X OSM tutorial
+			\item read through Talk GB mailing list for OSM info
+		\end{itemize}
+
+\subsubsection{Analysis}
+		\begin{itemize}
+			\item centrality distribution comparison method
+			\item weighted random walk method
+			\item ``transition'' identification method
+			\item ``community detection method
+		\end{itemize}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Intended research Questions and Methodology}
-
-Overall Goal is to assess London's cycle network. 
-	Sub goal 1 is to define the London cycle network, which streets and intersections should be added to the official cycle lanes? I can use the standards from the literature cited above. 
-		Start with all nodes and edges. Delete according to standards taken from lit. 
-			standards: safety incidents, road characteristics, bike infrastructure presence, traffic data. 
-	Sub goal 2 is to define a standard to evaluate the network by. This could be, percolation, community,  detection, centrality distribution, or \% of trips possible, random walk. 
-	
-	Sub goal 3, identify the edges/nodes that are the most beneficial to add to the network. 
-	
-	
-	
-	Outcomes are: differences in network according to different rules. 
-	Priority of projects to add different edges/nodes to network. 
-	
-
-Possible Specific Research Questions
-	Conservative: What does London look like to a cyclist? Build network according to different rules and compare
-		traffic stress
-			intersections
-			streets
-		no right turns
-		only official bike network
-			
-			
-	Moderate: community detection using the stuff from the conservative project, where is the network the strongest? Are there parts of London with particularly good local networks? 
-	
-	
-	Aggressive: how closely has the London network followed an optimal growth of network on network? 
-		This could use standard measures of street centrality for the road network and look at accessibility for the most important streets.  
-		
-		
-		Or compare centrality distribution of bike networks to streets, use street centrality for given bike lane, are lanes relatively central or no? 
-		
-		Or compare evolution of rd networks to evolution of bike networks
-		
-Straightness is an interesting one but distance matters most I guess. 
-Congestion is not really a problem for cyclists
-
-Road network
-	attach attributes to links and nodes
-		bike lane with type
-		traffic characteristics
-		road characteristics
-		traffic incidents
-		
-Remove links and nodes according to attributes
-
-Compare distribution of centrality between estimated bike network and real road network. 
-
-Use Cycle Hire data to validate centrality preference?
-	But hires are station to station so would have to show that the probability of a station being a destination for a trip is influenced by stations centrality. 
-
-Steps:
-
-	get london road network
-		just the data
-		get the distribution of centrality measures
-	get the london bike network
-		just the data
-		get the distribution of centrality measures
-		
-	give a road an index grade
-		using accident stats and road characteristics
-		
-	add ``safe'' roads to cycle network
-	
-	compare disributions of centrality scores between road network and bike network. 
-	
-	compare network before and after Super Highway constructions
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Data}
-
-Street network data from OSM.
-
-Cycle network data from OSM and London data store
-
-Street traffic volumes
-
-Street characteristics
-
-Cycle network characteristics
-
-Street traffic incident data
-
-
-
-\section{Things that would improve this methodology}
-
-Good model of cyclist route choice
-
-near miss data
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
-%\begin{itemize}
-%\item one
-%\item two
-%  \begin{itemize}
-%  \item one point one
-%  \item one point two
-%  \end{itemize}
-%\end{itemize}
+%\section{Intended research Questions and Methodology}
 %
-%\subsection{Subsection 1}
+%Overall Goal is to assess London's cycle network. 
+%	Sub goal 1 is to define the London cycle network, which streets and intersections should be added to the official cycle lanes? I can use the standards from the literature cited above. 
+%		Start with all nodes and edges. Delete according to standards taken from lit. 
+%			standards: safety incidents, road characteristics, bike infrastructure presence, traffic data. 
+%	Sub goal 2 is to define a standard to evaluate the network by. This could be, percolation, community,  detection, centrality distribution, or \% of trips possible, random walk. 
+%	
+%	Sub goal 3, identify the edges/nodes that are the most beneficial to add to the network. 
+%	
+%	Outcomes are: differences in network according to different rules. 
+%	Priority of projects to add different edges/nodes to network. 
+%	
 %
-%\begin{figure}
-%\centering
-%\includegraphics[width=0.8\textwidth]{example}
-%\caption{Correlation between station/node metrics}
-%\end{figure}
+%Possible Specific Research Questions
+%	Conservative: What does London look like to a cyclist? Build network according to different rules and compare
+%		traffic stress
+%			intersections
+%			streets
+%		no right turns
+%		only official bike network
+%			
+%			
+%	Moderate: community detection using the stuff from the conservative project, where is the network the strongest? Are there parts of London with particularly good local networks? 
+%	
+%	
+%	Aggressive: how closely has the London network followed an optimal growth of network on network? 
+%		This could use standard measures of street centrality for the road network and look at accessibility for the most important streets.  
+%		
+%		
+%		Or compare centrality distribution of bike networks to streets, use street centrality for given bike lane, are lanes relatively central or no? 
+%		
+%		Or compare evolution of rd networks to evolution of bike networks
+%		
+%Straightness is an interesting one but distance matters most I guess. 
+%Congestion is not really a problem for cyclists
 %
-%\begin{tabular}{|l|l|l|l|}\hline
-%  \multirow{10}{*}{numeric literals} 				& \multirow{5}{*}{integers} 	& in decimal 					& \verb|8743| \\ \cline{3-4}
-%  					    				& 				       	& \multirow{2}{*}{in octal}   		& \verb|0o7464| \\ \cline{4-4}
-%  					    				& 					& 						& \verb|0O103| \\ \cline{3-4}
-%  					    				& 					& \multirow{2}{*}{in hexadecimal}	& \verb|0x5A0FF| \\ \cline{4-4}
-% 				 	    				& 					& 						& \verb|0xE0F2| \\ \cline{2-4}
-%  					    				& \multirow{5}{*}{fractionals} 	& \multirow{5}{*}{in decimal} 		& \verb|140.58| \\ \cline{4-4}
-% 				 					& 					& 						& \verb|8.04e7| \\ \cline{4-4}
-%  									& 					& 						& \verb|0.347E+12| \\ \cline{4-4}
-%  									& 					& 						& \verb|5.47E-12| \\ \cline{4-4}
-%  									& 					& 						& \verb|47e22| \\ \cline{1-4}
-%  \multicolumn{3}{|l|}{\multirow{3}{*}{char literals}} 													& \verb|'H'| \\ \cline{4-4}
-%  \multicolumn{3}{|l|}{} 																	& \verb|'\n'| \\ \cline{4-4}          %% here
-%  \multicolumn{3}{|l|}{} 																	& \verb|'\x65'| \\ \cline{1-4}        %% here
-%  \multicolumn{3}{|l|}{\multirow{2}{*}{string literals}} 												& \verb|"bom dia"| \\ \cline{4-4}
-%  \multicolumn{3}{|l|}{} 																	& \verb|"ouro preto\nmg"| \\ \cline{1-4}          %% here
-%\end{tabular}
+%Road network
+%	attach attributes to links and nodes
+%		bike lane with type
+%		traffic characteristics
+%		road characteristics
+%		traffic incidents
+%		
+%Remove links and nodes according to attributes
 %
-%\begin{verbatim}
-%use pseudocode
-%\end{verbatim}
+%Compare distribution of centrality between estimated bike network and real road network. 
 %
-%\textit{italics}
-%\textbf{bold}
+%Use Cycle Hire data to validate centrality preference?
+%	But hires are station to station so would have to show that the probability of a station being a destination for a trip is influenced by stations centrality. 
+%
+%Steps:
+%
+%	get london road network
+%		just the data
+%		get the distribution of centrality measures
+%	get the london bike network
+%		just the data
+%		get the distribution of centrality measures
+%		
+%	give a road an index grade
+%		using accident stats and road characteristics
+%		
+%	add ``safe'' roads to cycle network
+%	
+%	compare disributions of centrality scores between road network and bike network. 
+%	
+%	compare network before and after Super Highway constructions
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\medskip 
 
 XXXX words excluding headings, figures, and references. \\
-
+\pagebreak
 \printbibliography
 
 

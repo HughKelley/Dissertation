@@ -315,11 +315,66 @@ Overall there are a number of considerations from network science that this rese
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Most optimistic Project Plan/Methodology}
+
+Goal is to quantify the quality of the London Cycling Network with the working assumption that a better network has a meaningful positive effect on the rate of cycling in a city. 
+
+The first step in this investigation is to build a data set that represents the London cycling network as accurately as possible. This representation needs to reflect the fact that different cyclists are willing to use different streets as a function of the perceived safety of the street and the level of confidence of that cyclist. Thus the data set will be multiple representations of the city cycling network that each represent a level of confidence, only including streets with a certain level of safety. 
+
+A key question then is, how to quantify ``safety''. In a perfect world, this would be done empirically. This would involve a combination of cycle traffic volume collection, cycle traffic behavior observation, and interviews with a representative set of cyclists and non-cyclists about their decision making. All of this data could be compared to the cycling environment in different locations to find cyclist sensitivity to different factors.  
+
+The literature provides a number of methods, which will be explored to the fullest extent possible. Factors that will be considered include, the presence of dedicated bike infrastructure, traffic volumes, traffic speeds, road characteristics, historical traffic incidents, and intersection characteristics. 
+
+Once the network has been quantified in this way, two basic methods will be applied to evaluate it. The first is to compare the distribution of edges by centrality for each of the networks. Are cars and high confidence cyclists at a significant advantage in terms of the edges available to them compared to lower confidence cyclists? Does does the centrality of edges allowed under the most conservative standards explain many Londoner's choice not to cycle at all? 
+
+The second method is intended to extend the first. Looking at the distribution of centrality is unable to reveal the network's actual service for common trips between important nodes on the network, because a high number of very central but disconnected edges is not as useful as a high number of high centrality edges with high connectivity. To investigate this, a random walk between nodes, weighted by node importance will be used. This will build a sample of trips and statistics about the random walk can be used to compare the experience of representative users of different networks. 
+
+Finally, the possibility of a ``transition'' in the networks defined will be explored. What changes to the network are required for a dramatic change in connectivity to occur? This is the most uncertain but potentially most valuable part of the research. Past research has analyzed the linear individual effect of cycling infrastructure, but has not considered the possibility of a rapid acceleration in cycling usage as the result of a network wide transition in connectivity. 
+
+Finally, community identification could be applied to the networks to find whether particular neighborhoods in London are especially good for cyclists. 
+
+
+\section{Data considerations}
+
+I still need to spend a lot of time with OSM, networkx, and the London data store. 
+
+OSM has street network data, bike network data and some road characteristics. 
+
+Networkx should be able to turn this data into a usable file. 
+
+The London data store has traffic incident data but I haven't found data with exact locations yet
+
+There is traffic volume data but it's at a few thousand observation points, so a continuous data set needs to be estimated. 
+
+I think OSM is my only source for street characteristics, not clear that it's accurate or up to date.
+
+
+Official data for cycle infrastructure is from 2014: https://data.gov.uk/dataset/47f0a282-3356-4530-8e7b-f67aaf4bec63/cycle-routes
+
+This says it's updated and maybe integrated into OSM? https://www.cyclestreets.net/blog/category/open-data/
+
+Press release about data set https://www.london.gov.uk/press-releases/mayoral/action-plan-to-get-more-londoners-cycling
+
+But no actual data. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Intended research Questions and Methodology}
 
 Overall Goal is to assess London's cycle network. 
 	Sub goal 1 is to define the London cycle network, which streets and intersections should be added to the official cycle lanes? I can use the standards from the literature cited above. 
-	Sub goal 2 is to define a standard to evaluate the network by. This could be, percolation, community detection, centrality distribution, or \% of trips possible.   
+		Start with all nodes and edges. Delete according to standards taken from lit. 
+			standards: safety incidents, road characteristics, bike infrastructure presence, traffic data. 
+	Sub goal 2 is to define a standard to evaluate the network by. This could be, percolation, community,  detection, centrality distribution, or \% of trips possible, random walk. 
+	
+	Sub goal 3, identify the edges/nodes that are the most beneficial to add to the network. 
+	
+	
+	
+	Outcomes are: differences in network according to different rules. 
+	Priority of projects to add different edges/nodes to network. 
+	
 
 Possible Specific Research Questions
 	Conservative: What does London look like to a cyclist? Build network according to different rules and compare

@@ -2,6 +2,8 @@
 osmnx/
 osmnx_work/
 tutorials/
+london_shapefile/
+__MACOSX/
 
 ## ignore raw data files
 
@@ -9,6 +11,17 @@ tutorials/
 *.csv
 *xls
 *.xlsx
+*.graphml
+*.json
+
+## shapefile files
+*.prj
+*.shp
+*.shx
+*.cpg
+*.dbf
+*qpj
+
 
 
 

@@ -9,6 +9,8 @@ import osmnx as ox
 ox.config(use_cache=True, log_console=True)
 
 
+
+
 # explicitly uses the second result
 london = ox.graph_from_place('London, United Kingdom', network_type='drive', which_result=2)
 

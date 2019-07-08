@@ -53,8 +53,22 @@ print("zeros: ", zeros)
 
 
 f.close()
-out.close()      
+out.close() 
 
+
+#Results: 
+
+#with self loops
+
+#runtime in seconds:  33.74353218078613
+#read:  23377225 wrote:  5825329
+#zeros:  17551896
+
+    
+# no loops
+#runtime in seconds:  35.11475610733032
+#read:  5825329 wrote:  5820494
+#zeros:  17551896
 
 #build dataframe of LSOA's bordering Origin LSOA 
 #

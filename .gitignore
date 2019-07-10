@@ -14,13 +14,22 @@ __MACOSX/
 *.graphml
 *.json
 
-## shapefile files
+## shapefile and mapinfo files
 *.prj
 *.shp
 *.shx
 *.cpg
 *.dbf
 *qpj
+*.sbn
+*sbx
+*.atx
+*xml
+*.DAT
+*.ID
+*.MAP
+*.TAB
+
 
 
 

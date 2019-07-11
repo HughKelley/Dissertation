@@ -10,3 +10,5 @@ import geopandas as gpd
 file = "Data/statistical-gis-boundaries-london/ESRI\LSOA_2011_London_gen_MHW.shp"
 shapefile = gpd.read_file(file)
 print(shapefile)
+
+import psycopg2

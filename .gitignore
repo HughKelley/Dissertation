@@ -5,6 +5,9 @@ tutorials/
 london_shapefile/
 __MACOSX/
 
+# virtual environment folder
+Environment/
+
 ## ignore raw data files
 
 *.zip

@@ -1,0 +1,27 @@
+original function call is:
+
+test_net = ox.graph_from_bbox(north, south, east, west, network_type = 'all_private', name = 'London_box')
+
+
+output to console is 
+
+graph_frombbox()
+osm_net_download
+get_osm_filter
+osm_filter for osm_net_download:  ["area"!~"yes"]["highway"!~"proposed|construction|abandoned|platform|raceway"]
+consolidate_subdivide_geometry()
+query string to Overpass:  [out:json][timeout:180];(way["highway"]["area"!~"yes"]["highway"!~"proposed|construction|abandoned|platform|raceway"](51.474015,-0.180287,51.539253,-0.053244);>;);out;
+overpass_request()
+get_from_cache()
+get_pause_duration()
+get_http_headers()
+get_http_headers()
+save_to_cache()
+create_graph()
+parse_osm_nodes_paths()
+add_paths()
+add_edge_lengths()
+truncate_graph_bbox()
+truncate_graph_bbox()
+remove_isolated_nodes()
+

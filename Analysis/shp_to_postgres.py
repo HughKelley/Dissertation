@@ -5,76 +5,66 @@ Created on Wed Jul 10 11:02:56 2019
 @author: Hugh
 """
 
-# modules 
-import pandas as pd
-import geopandas as gpd
-import psycopg2
+# Imports
 from geoalchemy2 import Geometry, WKTElement
 import sqlalchemy
+import pandas as pd
+import geopandas as gpd
+
+# make SQLAlchemy engine
+engine = sqlalchemy.create_engine('postgresql://postgres:tuesday789@localhost:5432/Dissertation')
+
+# get geodataframe
 
 # get data file
 file = "Data/statistical-gis-boundaries-london/ESRI\LSOA_2011_London_gen_MHW.shp"
-LSOA_shp = gpd.read_file(file)
+lsoa_shp = gpd.read_file(file)
 #print(LSOA_shp)
 
-column_names = list(LSOA_shp.columns.values)
-column_types = list(LSOA_shp.dtypes)
+column_names = list(lsoa_shp.columns.values)
+column_types = list(lsoa_shp.dtypes)
+
+crs = lsoa_shp.crs
+# crs = {'init':'epsg:27700'}
+# British National Grid
+# https://epsg.io/27700
 
 # convert to geodataframe
+# geo_lsoa = gpd.GeoDataFrame(LSOA_shp)
 
-geo_lsoa = gpd.GeoDataFrame(LSOA_shp)
+lsoa_shp['geom'] = lsoa_shp['geometry'].apply(lambda x: WKTElement(x.wkt, srid = crs))
 
-# where dtype is 'O', python is indicating that the column is not a base type, it's a python Object
+lsoa_shp.drop('geometry', 1, inplace=True)
 
-##############################################################################
-# with sqlalchemy engine
-###################################################################
+table_name = 'lsoa_table'
 
-engine = sqlalchemy.create_engine('postgresql://postgres:tuesday789@localhost:5432/Dissertation')
-
-## test operation
-#data = [['Alex',10],['Bob',12],['Clarke',13]]
-#df = pd.DataFrame(data,columns=['Name','Age'])
-#df.to_sql('test4', engine)
-
-LSOA_shp.to_sql('lsoa_data', engine)
-# https://gis.stackexchange.com/questions/310912/importing-geojson-into-postgis-with-python
-
-# about to be so easy with SQLalpchemy GEO extension
-# https://gis.stackexchange.com/questions/239198/adding-geopandas-dataframe-to-postgis-table/239231
-
-##############################################################################
-# with psycopg2
-###################################################################
-
-# start connection to DB
-conn = psycopg2.connect(database="Dissertation", user="postgres", password="tuesday789")
-cur = conn.cursor()
-
-#cur.execute("CREATE TABLE lsoa (id serial PRIMARY KEY, LSOA11CD varchar(32), LSOA11NM varchar(32), geom geometry);")
-# looks in pgAdmin like this was fine and postgis is installed correctly because geometry dat type was accepted? 
-
-# put the data from the shapefile as a geodataframe into the table
+lsoa_shp.to_sql(table_name, engine, if_exists='fail', index=False, dtype={'geom' : Geometry('Point', srid = crs)})
 
 
 
+# Well Known Text for BNG
 
-# does this need to iterate through the rows of the GDF?
-#cur.execute("INSERT INTO lsoa VALUES " from GDF)
+# PROJCS["OSGB 1936 / British National Grid",
+#     GEOGCS["OSGB 1936",
+#         DATUM["OSGB_1936",
+#             SPHEROID["Airy 1830",6377563.396,299.3249646,
+#                 AUTHORITY["EPSG","7001"]],
+#             TOWGS84[446.448,-125.157,542.06,0.15,0.247,0.842,-20.489],
+#             AUTHORITY["EPSG","6277"]],
+#         PRIMEM["Greenwich",0,
+#             AUTHORITY["EPSG","8901"]],
+#         UNIT["degree",0.0174532925199433,
+#             AUTHORITY["EPSG","9122"]],
+#         AUTHORITY["EPSG","4277"]],
+#     PROJECTION["Transverse_Mercator"],
+#     PARAMETER["latitude_of_origin",49],
+#     PARAMETER["central_meridian",-2],
+#     PARAMETER["scale_factor",0.9996012717],
+#     PARAMETER["false_easting",400000],
+#     PARAMETER["false_northing",-100000],
+#     UNIT["metre",1,
+#         AUTHORITY["EPSG","9001"]],
+#     AXIS["Easting",EAST],
+#     AXIS["Northing",NORTH],
+#     AUTHORITY["EPSG","27700"]]
 
-
-# put upload code here
-
-
-#
-#cur.execute("CREATE TABLE test3 (id serial PRIMARY KEY, num integer, data varchar);")
-#cur.execute("INSERT INTO test3 (num, data) VALUES (%s, %s)",(100, "abc'def"))
-#cur.execute("SELECT * FROM test3;")
-#cur.fetchone()
-
-
-conn.commit()
-
-cur.close()
-
-conn.close()

@@ -25,6 +25,13 @@ column_names = list(lsoa_shp.columns.values)
 column_types = list(lsoa_shp.dtypes)
 
 crs = lsoa_shp.crs
+print(crs)
+crs_val = crs['init']
+print(crs_val)
+crs = 27700
+
+# seems like a really bad way to store the crs...
+
 # crs = {'init':'epsg:27700'}
 # British National Grid
 # https://epsg.io/27700

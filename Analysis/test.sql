@@ -1,0 +1,6 @@
+-- SELECT * from  LIMIT 10;
+
+-- DROP TABLE IF EXISTS test, ;
+
+-- ALTER TABLE "QUANT" RENAME TO quant;
+

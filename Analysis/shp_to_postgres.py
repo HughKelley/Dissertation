@@ -25,19 +25,22 @@ file = "Data/statistical-gis-boundaries-london/ESRI\LSOA_2011_London_gen_MHW.shp
 
 
 def explode(indata):
-    indf = gpd.GeoDataFrame.from_file(indata)
-    outdf = gpd.GeoDataFrame(columns=indf.columns)
-    for idx, row in indf.iterrows():
-        if type(row.geometry) == Polygon:
-            outdf = outdf.append(row,ignore_index=True)
-        if type(row.geometry) == MultiPolygon:
-            multdf = gpd.GeoDataFrame(columns=indf.columns)
-            recs = len(row.geometry)
-            multdf = multdf.append([row]*recs,ignore_index=True)
-            for geom in range(recs):
-                multdf.loc[geom,'geometry'] = row.geometry[geom]
-            outdf = outdf.append(multdf,ignore_index=True)
-    return outdf
+	count_mp = 0
+	indf = gpd.GeoDataFrame.from_file(indata)
+	outdf = gpd.GeoDataFrame(columns=indf.columns)
+	for idx, row in indf.iterrows():
+		if type(row.geometry) == Polygon:
+			outdf = outdf.append(row,ignore_index=True)
+		if type(row.geometry) == MultiPolygon:
+			count_mp = count_mp + 1
+			multdf = gpd.GeoDataFrame(columns=indf.columns)
+			recs = len(row.geometry)
+			multdf = multdf.append([row]*recs,ignore_index=True)
+			for geom in range(recs):
+				multdf.loc[geom,'geometry'] = row.geometry[geom]
+			outdf = outdf.append(multdf,ignore_index=True)
+	print("There were ", count_mp, "Multipolygons found and exploded")
+	return outdf
 
 
 lsoa_shp = explode(file)

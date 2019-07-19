@@ -51,3 +51,19 @@ print(next(iter(actual_data)))
 # {'type': 'node', 'id': 78112, 'lat': 51.526976, 'lon': -0.1457924}
 # every list item should have these attributes
 # some items will have other attributes
+
+
+
+# so with the actual data
+
+# check that length is >= than 4 and that the 4 basic keys are there
+
+# write 4 basic key values to object and push to DB
+
+# if there are other keys, they need to be handled, write entire item to other holder object
+
+# if it's 4, write to object, pass object to DB
+
+# if it's more than 4, write and pass, but also save it somewhere else, for further parsing? 
+
+

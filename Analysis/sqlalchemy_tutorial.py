@@ -6,14 +6,11 @@ sqlalchemy.__version__
 
 engine = sqlalchemy.create_engine('postgresql://postgres:tuesday789@localhost:5432/Dissertation')
 
-
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
 # define tables we'll be working with, and then define classes that we will map to those tables
-
-
 
 from sqlalchemy import Column, Integer, String
 
@@ -30,22 +27,18 @@ class User(Base):
                              self.name, self.fullname, self.nickname)
 
 
-
+# executes "command" to create the classes/tables defined above
 Base.metadata.create_all(engine)
+
+from sqlalchemy.orm import sessionmaker
+Session = sessionmaker(bind=engine)
+
+session = Session()
 
 ed_user = User(name='ed', fullname='Ed Jones', nickname='edsnickname')
 ed_user.name
 ed_user.nickname
 print(str(ed_user.id))
-
-
-
-from sqlalchemy.orm import sessionmaker
-Session = sessionmaker(bind=engine)
-
-
-session = Session()
-
 
 # add a row to the table
 ed_user = User(name='ed', fullname='Ed Jones', nickname='edsnickname')
@@ -62,3 +55,4 @@ session.add_all([
     User(name='fred', fullname='Fred Flintstone', nickname='freddy')])
 
 
+session.commit()

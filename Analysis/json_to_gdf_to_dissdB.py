@@ -16,6 +16,8 @@ from sqlalchemy.orm import sessionmaker
 from datetime import datetime
 startTime = datetime.now()
 
+import pickle
+
 # open json file into memory
 
 file = 'Data/sample_overpass_output.json'
@@ -65,6 +67,9 @@ Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 
 session = Session()
+
+
+
 
 # subset json data to actual data, without metadata
 
@@ -129,6 +134,10 @@ for item in data:
 	session.commit()
 
 
+with open("super.file", "wb") as f:
+    pickle.dump(missing_key, f, pickle.HIGHEST_PROTOCOL)
+
+print("missing keys: ", missing_key)
 
 print('total items: ', count)
 

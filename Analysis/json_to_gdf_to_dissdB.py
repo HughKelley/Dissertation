@@ -54,10 +54,14 @@ class tag(Base):
 	def __repr__(self):
 		return "<tag(prim_key='%s', id='%s', key='%s', value='%s'>" % (self.prim_key, self.id, self.key, self.value)
 
+
+# create in DB
+# should really handle case where it already exists
 Base.metadata.create_all(engine)
 
 Session = sessionmaker(bind=engine)
 
+session = Session()
 
 # subset json data to actual data, without metadata
 
@@ -69,6 +73,18 @@ Session = sessionmaker(bind=engine)
 #   "example": "an_example"
 # },
 
+
+
+# {'type': 'node', 
+# 	'id': 99939, 
+# 	'lat': 51.5224429, 
+# 	'lon': -0.1554618, 
+# 	'tags': 
+# 		{'highway': 'traffic_signals', 
+# 		'traffic_signals:direction': 'forward'}}
+
+
+# should really check for key in table already....
 
 # loop through nodes
 count = 0
@@ -83,11 +99,15 @@ for item in data:
 	if count > 100: break
 
 	# ed_user = User(name='ed', fullname='Ed Jones', nickname='edsnickname')
-	new_element = element(id = x['id'], kind = x['type'], lat = x['lat'], lon = x['lon'])
+	new_element = element(id = item['id'], kind = item['type'], lat = item['lat'], lon = item['lon'])
 	session.add(new_element)
 
-	if len(x) > 4:
-		for pair in x:
+	# here there's a "tags" key that holds all of the random stuff. 
+
+	if len(item) > 4:
+		print(item)
+		for pair in item:
+			print(pair)
 			if pair == 'id':
 				continue
 			if pair == 'type':
@@ -98,7 +118,7 @@ for item in data:
 				continue
 
 			key_int = key_int + 1
-			new_tag = tag(prim_key = key_int, id = x['id'], key=pair, value=x[pair])
+			new_tag = tag(prim_key = key_int, id = item['id'], key=pair, value=item[pair])
 
 			# send to sql
 			session.add(new_tag)

@@ -10,8 +10,11 @@ Created on Fri Jul 12 11:57:04 2019
 import json
 import sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy import Column, Integer, String, Float, BigInteger
 from sqlalchemy.orm import sessionmaker
+
+from datetime import datetime
+startTime = datetime.now()
 
 # open json file into memory
 
@@ -34,7 +37,7 @@ Base = declarative_base()
 class element(Base):
      __tablename__ = 'osm_elements'
 
-     id = Column(Integer, primary_key=True)
+     id = Column(BigInteger, primary_key=True)
      kind = Column(String)
      lat = Column(Float)
      lon = Column(Float)
@@ -46,8 +49,8 @@ class element(Base):
 class tag(Base):
 	__tablename__= 'osm_tags'
 
-	prim_key = Column(String, primary_key=True)
-	id = Column(Integer)
+	prim_key = Column(Integer, primary_key=True)
+	id = Column(BigInteger)
 	key = Column(String)
 	value = Column(String)
 
@@ -93,10 +96,10 @@ key_int = 0
 
 for item in data: 
 
-	print("json item number: ", count)
+	# print("json item number: ", count)
 	count = count + 1
 
-	if count > 100: break
+	if count > 100000: break
 
 	# ed_user = User(name='ed', fullname='Ed Jones', nickname='edsnickname')
 	new_element = element(id = item['id'], kind = item['type'], lat = item['lat'], lon = item['lon'])
@@ -104,33 +107,38 @@ for item in data:
 
 	# here there's a "tags" key that holds all of the random stuff. 
 
-	if len(item) > 4:
-		print(item)
-		for pair in item:
-			print(pair)
-			if pair == 'id':
-				continue
-			if pair == 'type':
-				continue
-			if pair == 'lat':
-				continue
-			if pair == 'lon':
-				continue
+	if 'tags' in item:
+		tags = item['tags']
+		# print(tags)
+		for pair in tags:
+			# print(pair)
 
 			key_int = key_int + 1
-			new_tag = tag(prim_key = key_int, id = item['id'], key=pair, value=item[pair])
+			new_tag = tag(prim_key = key_int, id = item['id'], key=pair, value=tags[pair])
 
 			# send to sql
 			session.add(new_tag)
 
 	session.commit()
 
+
+
+print('total items: ', count)
+
+print('total tags: ', key_int)
 	# next
 
+print(datetime.now() - startTime)
 
+
+# results for 100,000
+
+# total items:  100001
+# total tags:  30827
+# 0:01:42.270171
 
 # close connection
-
+	# automatic at end of script?
 # close json file: happens at end of "with"
 
 

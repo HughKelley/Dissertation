@@ -92,7 +92,7 @@ session = Session()
 # loop through nodes
 count = 0
 key_int = 0
-
+missing_key = []
 
 for item in data: 
 
@@ -105,8 +105,12 @@ for item in data:
 		print(count)
 
 	# ed_user = User(name='ed', fullname='Ed Jones', nickname='edsnickname')
-	new_element = element(id = item['id'], kind = item['type'], lat = item['lat'], lon = item['lon'])
-	session.add(new_element)
+
+	if 'id' in item and 'type' in item and 'lat' in item and 'lon' in item: 
+		new_element = element(id = item['id'], kind = item['type'], lat = item['lat'], lon = item['lon'])
+		session.add(new_element)
+	else: 
+		missing_key.append(item)
 
 	# here there's a "tags" key that holds all of the random stuff. 
 

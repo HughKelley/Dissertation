@@ -48,6 +48,12 @@ actual_data = data['elements']
 
 print(next(iter(actual_data)))
 
+
+
+
+
+
+
 # {'type': 'node', 'id': 78112, 'lat': 51.526976, 'lon': -0.1457924}
 # every list item should have these attributes
 # some items will have other attributes

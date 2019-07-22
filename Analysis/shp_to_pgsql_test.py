@@ -6,7 +6,7 @@ from geoalchemy2 import Geometry, WKTElement
 import sqlalchemy
 
 
-where dtype is 'O', python is indicating that the column is not a base type, it's a python Object
+# where dtype is 'O', python is indicating that the column is not a base type, it's a python Object
 
 #############################################################################
 # with sqlalchemy engine

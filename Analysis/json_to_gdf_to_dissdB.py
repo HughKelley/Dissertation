@@ -36,8 +36,8 @@ Base = declarative_base()
 
 # define classes
 
-class element(Base):
-     __tablename__ = 'osm_elements'
+class node(Base):
+     __tablename__ = 'osm_nodes'
 
      id = Column(BigInteger, primary_key=True)
      kind = Column(String)
@@ -60,6 +60,22 @@ class tag(Base):
 		return "<tag(prim_key='%s', id='%s', key='%s', value='%s'>" % (self.prim_key, self.id, self.key, self.value)
 
 
+
+class way(Base):
+	__tablename__ = 'osm_ways'
+
+	prim_key = Column(Integer, primary_key=True)
+	id = Column(BigInteger)
+	node = Column(BigInteger)
+
+class way_tag(Base):
+	__tablename__ = 'osm_way_tags'
+
+	prim_key = Column(Integer, primary_key=True)
+	id = Column(BigInteger)
+	key = Column(String)
+	value = Column(String)
+
 # create in DB
 # should really handle case where it already exists
 Base.metadata.create_all(engine)
@@ -67,9 +83,6 @@ Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 
 session = Session()
-
-
-
 
 # subset json data to actual data, without metadata
 
@@ -81,8 +94,6 @@ session = Session()
 #   "example": "an_example"
 # },
 
-
-
 # {'type': 'node', 
 # 	'id': 99939, 
 # 	'lat': 51.5224429, 
@@ -91,13 +102,23 @@ session = Session()
 # 		{'highway': 'traffic_signals', 
 # 		'traffic_signals:direction': 'forward'}}
 
+# or if it's a way
+
+# {'type': 'way', 
+# 	'id': 667548455, 
+# 	'nodes': [6250303376, 3069487527], 
+# 	'tags': {'access': 'no', 
+# 		'highway': 'footway', 
+# 		'lit': 'yes'}}, 
 
 # should really check for key in table already....
 
 # loop through nodes
 count = 0
-key_int = 0
-missing_key = []
+node_key_int = 0
+way_key = 0
+way_tag_key = 0
+missing_type = []
 
 for item in data: 
 
@@ -105,12 +126,39 @@ for item in data:
 	count = count + 1
 
 	# if count > 100000: break
+	# if (count % 100000) == 0:
+	# 	print(count)
 
-	if (count % 100000) == 0:
-		print(count)
+	if 'type' in item == 'way':
+		# it's a way
+		if 'id' in item and 'nodes' in item:
 
-	# ed_user = User(name='ed', fullname='Ed Jones', nickname='edsnickname')
+			for node in item['nodes']:
+				new_way = way(prim_key = way_key, id = item['id'], node=item[node])
+				session.add(new_way)
+				way_key = way_key + 1
 
+
+			tags = item['tags']
+			for pair in tags:
+				new_way_tag = way_tag(prim_key = way_tag_key, id = item['id'], key=pair , value=tags[pair] )
+				session.add(new_way_tag)
+				way_tag_key = way_tag_key + 1
+
+	elif 'type' in item == 'node':
+		# it's a node
+
+		if 'id' in item and 'type' in item and 'lat' in item and 'lon' in item: 
+		new_element = element(id = item['id'], kind = item['type'], lat = item['lat'], lon = item['lon'])
+		session.add(new_element)
+
+	else :
+
+		missing_type.append(item)
+
+
+
+######################################################
 	if 'id' in item and 'type' in item and 'lat' in item and 'lon' in item: 
 		new_element = element(id = item['id'], kind = item['type'], lat = item['lat'], lon = item['lon'])
 		session.add(new_element)
@@ -118,6 +166,9 @@ for item in data:
 		missing_key.append(item)
 
 	# here there's a "tags" key that holds all of the random stuff. 
+
+
+
 
 	if 'tags' in item:
 		tags = item['tags']
@@ -134,14 +185,16 @@ for item in data:
 	session.commit()
 
 
-with open("super.file", "wb") as f:
+with open("saver.file", "wb") as f:
     pickle.dump(missing_key, f, pickle.HIGHEST_PROTOCOL)
 
-print("missing keys: ", missing_key)
+print("missing type: ", len(missing_type))
 
 print('total items: ', count)
 
-print('total tags: ', key_int)
+print('total node tags: ', node_key_int)
+
+print('total way tags: ', way_tag_key)
 	# next
 
 print(datetime.now() - startTime)

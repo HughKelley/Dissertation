@@ -13,7 +13,6 @@ import geopandas as gpd
 from shapely.geometry.polygon import Polygon
 from shapely.geometry.multipolygon import MultiPolygon
 
-
 # make SQLAlchemy engine
 engine = sqlalchemy.create_engine('postgresql://postgres:tuesday789@localhost:5432/Dissertation')
 

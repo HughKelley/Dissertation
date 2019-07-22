@@ -129,12 +129,12 @@ for item in data:
 	# if (count % 100000) == 0:
 	# 	print(count)
 
-	if 'type' in item == 'way':
+	if item['type'] == 'way':
 		# it's a way
 		if 'id' in item and 'nodes' in item:
 
 			for node in item['nodes']:
-				new_way = way(prim_key = way_key, id = item['id'], node=item[node])
+				new_way = way(prim_key = way_key, id = item['id'], node=node)
 				session.add(new_way)
 				way_key = way_key + 1
 
@@ -145,48 +145,39 @@ for item in data:
 				session.add(new_way_tag)
 				way_tag_key = way_tag_key + 1
 
-	elif 'type' in item == 'node':
+	elif item['type'] == 'node':
 		# it's a node
 
 		if 'id' in item and 'type' in item and 'lat' in item and 'lon' in item: 
-		new_element = element(id = item['id'], kind = item['type'], lat = item['lat'], lon = item['lon'])
-		session.add(new_element)
+			new_node = node(id = item['id'], kind = item['type'], lat = item['lat'], lon = item['lon'])
+			session.add(new_node)
+
+			##################################################################
+		
+		if 'tags' in item:
+			tags = item['tags']
+			# print(tags)
+
+			for pair in tags:
+				# print(pair)
+
+				node_key_int = node_key_int + 1
+				new_tag = tag(prim_key = node_key_int, id = item['id'], key=pair, value=tags[pair])
+
+				# send to sql
+				session.add(new_tag)
+
+			####################################################33
 
 	else :
 
 		missing_type.append(item)
 
-
-
-######################################################
-	if 'id' in item and 'type' in item and 'lat' in item and 'lon' in item: 
-		new_element = element(id = item['id'], kind = item['type'], lat = item['lat'], lon = item['lon'])
-		session.add(new_element)
-	else: 
-		missing_key.append(item)
-
-	# here there's a "tags" key that holds all of the random stuff. 
-
-
-
-
-	if 'tags' in item:
-		tags = item['tags']
-		# print(tags)
-		for pair in tags:
-			# print(pair)
-
-			key_int = key_int + 1
-			new_tag = tag(prim_key = key_int, id = item['id'], key=pair, value=tags[pair])
-
-			# send to sql
-			session.add(new_tag)
-
 	session.commit()
 
 
 with open("saver.file", "wb") as f:
-    pickle.dump(missing_key, f, pickle.HIGHEST_PROTOCOL)
+    pickle.dump(missing_type, f, pickle.HIGHEST_PROTOCOL)
 
 print("missing type: ", len(missing_type))
 
@@ -200,11 +191,11 @@ print('total way tags: ', way_tag_key)
 print(datetime.now() - startTime)
 
 
-# results for 100,000
-
-# total items:  100001
-# total tags:  30827
-# 0:01:42.270171
+# most recent results
+# total items:  137397
+# total node tags:  31031
+# total way tags:  159993
+# 0:03:23.724521
 
 # close connection
 	# automatic at end of script?

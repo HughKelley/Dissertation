@@ -1,5 +1,6 @@
 ## ignore non-core folders
 osmnx/
+networkx/
 osmnx_work/
 tutorials/
 london_shapefile/

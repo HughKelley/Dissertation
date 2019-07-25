@@ -22,15 +22,12 @@
 --
 --
 
+--create table if not exists jtw_data(
+--	index integer,
+--	geography varchar(15),
+--	geography_code varchar(15),
+--	rural-urban varchar(20),
+--	method_all integer,	
+--)
 
-
-create table if not exists jtw_data(
-	index integer,
-	geography varchar(15),
-	geography_code varchar(15),
-	rural-urban varchar(20),
-	method_all integer,
-	
-	
-	
-)
+select ST_SRID(geom) from public.inner_london_boundary;

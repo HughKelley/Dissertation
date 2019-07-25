@@ -30,4 +30,29 @@
 --	method_all integer,	
 --)
 
-select ST_SRID(geom) from public.inner_london_boundary;
+
+--select ST_SRID(geom) from public.inner_london_boundary;
+
+-- these seemed to hang, several minutes...
+--alter table inner_london_boundary add column wsg_boundary geometry(Geometry, 4326) ;
+--ALTER TABLE public.inner_london_boundary ADD wsg84_geom geometry NULL;
+
+
+-- it isn't a big table
+--select count(*) from public.inner_london_boundary;
+
+--so make new table and insert after transforming instead. 
+
+
+--create table if not exists geo_crs_lbound (
+--	id integer not null,
+--	geom geometry,
+--	constraint p_key primary key (id)
+--) 
+
+
+--insert into geo_crs_lbound(select id, st_transform(geom, 4326) from public.inner_london_boundary);
+
+select * from inner_london_boundary;
+select * from geo_crs_lbound;
+

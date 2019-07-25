@@ -56,18 +56,18 @@ def loadSession():
 
 
 
-def get_network(polygon, filter, name, filename):
-	""""""
-	try:
-		graph = ox.graph_from_polygonpolygon=polygon, network_type = filter, name =name)
+# def get_network(polygon, filter, name, filename):
+# 	""""""
+# 	try:
+# 		graph = ox.graph_from_polygon(polygon=polygon, network_type = filter, name = name)
 	
-	except: 'error getting graph'
+# 	except: 'error getting graph'
 
-	try: 
-		ox.save_graphml(g=graph, filename=filename, )
-	except: graph
+# 	try: 
+# 		ox.save_graphml(g=graph, filename=filename, )
+# 	except: graph
 
-	return 0
+# 	return 0
 
 
 
@@ -88,7 +88,7 @@ if __name__ == "__main__":
 
 	shapely_geom = to_shape(boundary_geom)
 
-	success = get_network(shapely_geom, filter = 'all_private', filename = "all_priv_inner_london.graphml")
+	# success = get_network(shapely_geom, filter = 'all_private', name = 'london_all', filename = "all_priv_inner_london.graphml")
 
 	# call function for getting and saving network from OSMnx
 

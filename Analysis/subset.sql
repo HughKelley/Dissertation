@@ -56,3 +56,6 @@
 select * from inner_london_boundary;
 select * from geo_crs_lbound;
 
+SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE';
+
+select * from lsoa_subset limit 20;

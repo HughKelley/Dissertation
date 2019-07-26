@@ -88,11 +88,22 @@ if __name__ == "__main__":
 
 	shapely_geom = to_shape(boundary_geom)
 
+	# buffer to get valid outer ring polygon instead of invalid multipolygon. 
+
+	valid_poly = shapely_geom.buffer(0)
+
+
+
 	# success = get_network(shapely_geom, filter = 'all_private', name = 'london_all', filename = "all_priv_inner_london.graphml")
 
 	# call function for getting and saving network from OSMnx
 
 
+
+# lines for getting and saving graph to graphml
+graph = ox.graph_from_polygon(valid_poly, name = 'london_all')
+
+file = ox.save_graphml(graph, filename = 'all.graphml', grephi = True)
 
 
 # not clear how to check the shapely object

@@ -100,10 +100,16 @@ if __name__ == "__main__":
 
 
 
-# lines for getting and saving graph to graphml
-graph = ox.graph_from_polygon(valid_poly, name = 'london_all')
+	# lines for getting and saving graph to graphml
+	graph = ox.graph_from_polygon(valid_poly, name = 'london_all')
 
-file = ox.save_graphml(graph, filename = 'all.graphml', gephi = True)
+	# file = ox.save_graphml(graph, filename = 'all.graphml', gephi = True)
+
+
+	# multidigraph to geodataframes
+	nodes, edges  = ox.graph_to_gdfs(graph, nodes = True, edges = True, node_geometry = True, fill_edge_geometry = True)
+
+
 
 
 # not clear how to check the shapely object

@@ -88,10 +88,10 @@ def gml_to_db(net_type, net_file, engine):
 
 
 
-if __name__ == '__main__'
+if __name__ == '__main__' :
 
 	# define connection
-	engine = sqlalchemy.create_engine('postgresql://postgres:tuesday789@localhost:5432/Dissertation')
+	engine = create_engine('postgresql://postgres:tuesday789@localhost:5432/Dissertation')
 
 	# list of network types to be uploaded
 	file_list = ['all', 'bike', 'drive', 'walk']
@@ -100,6 +100,8 @@ if __name__ == '__main__'
 	for item in file_list:
 		file_name = item + '.graphml'
 		print(file_name)
+
+	test = gml_to_db('drive', 'data/drive.graphml', engine = engine)
 
 
 

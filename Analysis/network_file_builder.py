@@ -103,7 +103,7 @@ if __name__ == "__main__":
 # lines for getting and saving graph to graphml
 graph = ox.graph_from_polygon(valid_poly, name = 'london_all')
 
-file = ox.save_graphml(graph, filename = 'all.graphml', grephi = True)
+file = ox.save_graphml(graph, filename = 'all.graphml', gephi = True)
 
 
 # not clear how to check the shapely object

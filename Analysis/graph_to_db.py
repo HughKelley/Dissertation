@@ -101,7 +101,7 @@ if __name__ == '__main__' :
 		file_name = item + '.graphml'
 		print(file_name)
 
-	test = gml_to_db('drive', 'data/drive.graphml', engine = engine)
+	test = gml_to_db('drive', 'drive.graphml', engine = engine)
 
 
 

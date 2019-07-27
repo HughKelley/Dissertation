@@ -19,3 +19,9 @@ west = west - (west - east) / 4
 
 test_net = ox.graph_from_bbox(north, south, east, west, network_type = 'all_private', name = 'London_box')
 
+print(test_net.graph['crs'])
+
+test_file = ox.save_graphml(test_net, filename = 'test.graphml', gephi = True)
+
+new_net = ox.load_graphml('test.graphml')
+print(new_net.graph['crs'])

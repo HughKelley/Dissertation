@@ -128,3 +128,8 @@ INSERT INTO nearest_node (nearest_drive_node) SELECT osmid FROM london_drive_nod
 --SQL Error [42P01]: ERROR: invalid reference to FROM-clause entry for table "nearest_node"
 --  Hint: There is an entry for table "nearest_node", but it cannot be referenced from this part of the query.
 
+
+
+select distinct highway from london_bike_edges;
+--84 values, but some are combinations of multiple values so fewer than that
+--https://wiki.openstreetmap.org/wiki/Tags

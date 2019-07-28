@@ -17,11 +17,15 @@ east = east + (west - east) / 4
 west = west - (west - east) / 4
 
 
-test_net = ox.graph_from_bbox(north, south, east, west, network_type = 'all_private', name = 'London_box')
+test_net = ox.graph_from_bbox(north, south, east, west, network_type = 'drive', name = 'London_box')
 
-print(test_net.graph['crs'])
 
-test_file = ox.save_graphml(test_net, filename = 'test.graphml', gephi = True)
+nodes, edges = ox.graph_to_gdfs(test_net, nodes = True, edges = True, node)
 
-new_net = ox.load_graphml('test.graphml')
-print(new_net.graph['crs'])
+
+# print(test_net.graph['crs'])
+
+# test_file = ox.save_graphml(test_net, filename = 'test.graphml', gephi = True)
+
+# new_net = ox.load_graphml('test.graphml')
+# print(new_net.graph['crs'])

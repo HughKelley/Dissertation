@@ -59,3 +59,8 @@ select * from geo_crs_lbound;
 SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE';
 
 select * from lsoa_subset limit 20;
+
+select * from london_all_edges limit 20;
+
+alter table london_walk_edges alter column geom type geometry(Linestring, 27700) using ST_Transform(geom, 27700);
+alter table london_walk_nodes alter column geom type geometry(Point, 27700) using ST_Transform(geom, 27700);

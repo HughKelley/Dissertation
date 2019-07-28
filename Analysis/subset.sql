@@ -58,9 +58,73 @@ select * from geo_crs_lbound;
 
 SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE';
 
-select * from lsoa_subset limit 20;
+select * from lsoa_subset limit 2000;
 
-select * from london_all_edges limit 20;
+select count(*) from london_all_edges;
 
 alter table london_walk_edges alter column geom type geometry(Linestring, 27700) using ST_Transform(geom, 27700);
 alter table london_walk_nodes alter column geom type geometry(Point, 27700) using ST_Transform(geom, 27700);
+
+
+
+drop table public.nearest_node;
+
+create table if not exists public.nearest_node (
+	id serial primary key,
+	lsoa_id text,
+	lsoa_centroid geometry,
+	nearest_bike_node int8,
+	nearest_all_node int8,
+	nearest_drive_node int8,
+	nearest_walk_node int8
+	)
+	
+	
+select * from lsoa_subset limit 1;
+	
+insert into public.nearest_node (lsoa_id, lsoa_centroid) 
+	select "LSOA11CD", center from lsoa_subset;
+
+select count(*), count(distinct "LSOA11CD") from lsoa_subset;
+--  looks like there were 11 lsoas with multipolygon dimensions
+
+select "LSOA11CD", count("LSOA11CD") from lsoa_subset group by "LSOA11CD" having count("LSOA11CD") > 1;
+
+--'E01003236', 'E01033730', 'E01032834', 'E01000928', 'E01004596', 'E01004015', 'E01003199', 'E01032775', 'E01033740', 'E01032783', 'E01032739'
+	
+-- add primary key to lsoa_subset
+alter table lsoa_subset add column id serial primary key;
+select * from lsoa_subset limit 2;
+-- add area column to lsoa_subset
+alter table lsoa_subset add column area double precision;
+--ALTER TABLE public.lsoa_subset ALTER COLUMN area TYPE double precision USING area::double precision;
+
+update lsoa_subset set area=ST_AREA(geom);
+-- update 1620 rows, 
+select count(*) from lsoa_subset;
+-- that's the correct number of row
+
+insert into lsoa_subset (area) values ST_area(geom);
+
+--to aoid having to use ""
+ALTER TABLE public.lsoa_subset RENAME COLUMN "LSOA11CD" TO lsoa11cd;
+
+--create copy table for safety
+
+create table clean_lsoa as table lsoa_subset;
+
+-- delete row where area is less 
+delete from clean_lsoa a using clean_lsoa b where a.area < b.area and a.lsoa11cd = b.lsoa11cd;
+
+--check number of rows
+select count(*) from clean_lsoa;
+
+--now pass that data into the nearest node table
+insert into public.nearest_node (lsoa_id, lsoa_centroid) select lsoa11cd, center from clean_lsoa;
+
+--insert into the other column the node from the node table that's closest to the center point.
+
+INSERT INTO nearest_node (nearest_drive_node) SELECT osmid FROM london_drive_nodes ORDER BY nearest_node.lsoa_centroid <->  london_drive_nodes.geom LIMIT 1;
+--SQL Error [42P01]: ERROR: invalid reference to FROM-clause entry for table "nearest_node"
+--  Hint: There is an entry for table "nearest_node", but it cannot be referenced from this part of the query.
+

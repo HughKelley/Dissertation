@@ -88,8 +88,8 @@ if __name__ == "__main__":
 
 
 	# define list of network types
-	file_list = ['all', 'bike', 'walk']
-	# file_list = ['drive']
+	# file_list = ['all', 'bike', 'walk']
+	file_list = ['drive']
 
 
 
@@ -99,8 +99,11 @@ if __name__ == "__main__":
 
 		# get the network from osm
 
-		name = 'london_' + item
-		graph = ox.graph_from_polygon(polygon, network_type = item, name = name)
+		name = 'london_' + item + '_projected'
+		geo_graph = ox.graph_from_polygon(polygon, network_type = item, name = name)
+		graph = ox.project_graph(geo_graph)
+
+		# project graph using osmnx function instead of doing it in postgis
 
 		# convert the network to 2 gdf's
 

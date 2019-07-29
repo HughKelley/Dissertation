@@ -3,7 +3,7 @@ import pandas as pd
 import sqlalchemy
 import osmnx as ox 
 from shapely.wkt import loads
-from geopandas import GeoDataFrame
+import geopandas as gpd 
 
 
 
@@ -17,15 +17,18 @@ engine = sqlalchemy.create_engine('postgresql://postgres:tuesday789@localhost:54
 
 # pull tables into gdf's
 
-query = 'SELECT * FROM london_drive_nodes'
-
-nodes = pd.read_sql(query, con = engine, )
+node_query = 'SELECT * FROM london_drive_nodes'
+edge_query = 'SELECT * FROM london_drive_edges'
 
 # convert to geodataframe
 # http://geopandas.org/reference.html?highlight=wkb#geopandas.GeoDataFrame.from_postgis
 
-df = geopandas.GeoDataFrame.from_postgis(sql = query, con = engine, geom_col = geom, crs= 27700,  )
+nodes = gpd.GeoDataFrame.from_postgis(sql = node_query, con = engine, geom_col = 'geom', crs= 27700)
+edges = gpd.GeoDataFrame.from_postgis(sql = edge_query, con = engine, geom_col = 'geom', crs= 27700)
 
+nodes.gdf_name = 'nodes'
+
+edges.gdf_name = 'edges'
 
 # ox.graph_to_gdfs() returns gdf with structure:
 #            highway       osmid         x          y                       geometry
@@ -33,8 +36,11 @@ df = geopandas.GeoDataFrame.from_postgis(sql = query, con = engine, geom_col = g
 
 
 # convert WKB into geoalchemy geometry column
+# postgis handles this 
 
 # turn gdf's into network
+net = ox.gdfs_to_graph(gdf_nodes = nodes, gdf_edges = edges)
+
 
 
 # 

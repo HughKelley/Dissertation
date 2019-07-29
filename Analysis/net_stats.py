@@ -118,7 +118,7 @@ if __name__ == "__main__":
 	# calc net stats from projected network 
 	net_stats = ox.basic_stats(graph, area = graph_area_m, clean_intersects=True, circuity_dist='euclidean')
 
-
+	more_net_stats = ox.extended_stats(graph, ecc=True, bc=True, cc=True)
 
 
 		# convert the geometry of each gdf to WKB

@@ -11,14 +11,31 @@
 
 --insert into lsoa_subset(select * from lsoa_table where "LAD11NM" in ('Camden', 'Greenwich', 'Hackney', 'Hammersmith and Fulham', 'Islington', 'Kensington and Chelsea', 'Lambeth', 'Lewisham', 'Southwark', 'Tower Hamlets', 'Wandsworth', 'Westminister', 'City of London'));
 
---select postgis_full_version();
-
 --create table if not exists inner_london_boundary (
 --	id integer ,
 --	geom geometry
 --	);
---
+
+
 --insert into inner_london_boundary(id, geom) values (1, (select ST_Union(geom) from lsoa_subset));
+
+--insert into geo_crs_lbound(select id, st_transform(geom, 4326) from public.inner_london_boundary);
+
+--make inner london boroughs north of the river subset
+
+create table if not exists north_inner_subset (like lsoa_table);
+
+insert into north_inner_subset(select * from lsoa_table where "LSOA11NM" in ('Camden', 'Hackney', 'Hammersmith and Fulham', 'Islington', 'Kensington and Chelsea', 'Tower Hamlets', 'Westminister', 'City of London'));
+
+insert into inner_london_boundary(id, geom) values (3, (select ST_UNION(geom) from north_inner_subset));
+
+
+
+--select postgis_full_version();
+
+
+--
+
 --
 --
 
@@ -50,8 +67,12 @@
 --	constraint p_key primary key (id)
 --) 
 
+create table if not exists geo_north_inner_bound (like geo_crs_lbound);
 
---insert into geo_crs_lbound(select id, st_transform(geom, 4326) from public.inner_london_boundary);
+
+hugh
+
+insert into geo_north_inner_bound (select id, st_transform(geom, 4326) from public.north_inner_subset);
 
 select * from inner_london_boundary;
 select * from geo_crs_lbound;
@@ -67,7 +88,7 @@ alter table london_walk_nodes alter column geom type geometry(Point, 27700) usin
 
 
 
-drop table public.nearest_node;
+--drop table public.nearest_node;
 
 create table if not exists public.nearest_node (
 	id serial primary key,
@@ -136,6 +157,7 @@ create index london_all_edges_gix on london_all_edges using GIST (geom);
 
 
 select distinct highway from london_bike_edges;
+select distinct highway from london_bike_nodes;
 --84 values, but some are combinations of multiple values so fewer than that
 --https://wiki.openstreetmap.org/wiki/Tags
 

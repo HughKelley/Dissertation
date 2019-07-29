@@ -8,6 +8,7 @@ __MACOSX/
 
 # virtual environment folder
 Environment/
+env64/
 
 ## ignore raw data files
 

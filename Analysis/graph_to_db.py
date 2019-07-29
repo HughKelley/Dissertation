@@ -99,6 +99,8 @@ if __name__ == "__main__":
 
 		# get the network from osm
 
+		filter = ''
+
 		name = 'london_' + item + '_projected'
 		geo_graph = ox.graph_from_polygon(polygon, network_type = item, name = name)
 		graph = ox.project_graph(geo_graph)

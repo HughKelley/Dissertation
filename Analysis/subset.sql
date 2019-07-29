@@ -124,7 +124,12 @@ insert into public.nearest_node (lsoa_id, lsoa_centroid) select lsoa11cd, center
 
 --insert into the other column the node from the node table that's closest to the center point.
 
-INSERT INTO nearest_node (nearest_drive_node) SELECT osmid FROM london_drive_nodes ORDER BY nearest_node.lsoa_centroid <->  london_drive_nodes.geom LIMIT 1;
+--create index to speed up <->
+create index london_all_nodes_gix on london_all_nodes using GIST (geom);
+create index london_all_edges_gix on london_all_edges using GIST (geom);
+
+--This was the wrong thing to do, should be update, not insert. update adds columns insert adds rows
+--INSERT INTO nearest_node (nearest_drive_node) SELECT osmid FROM london_drive_nodes ORDER BY nearest_node.lsoa_centroid <->  london_drive_nodes.geom LIMIT 1;
 --SQL Error [42P01]: ERROR: invalid reference to FROM-clause entry for table "nearest_node"
 --  Hint: There is an entry for table "nearest_node", but it cannot be referenced from this part of the query.
 
@@ -133,3 +138,12 @@ INSERT INTO nearest_node (nearest_drive_node) SELECT osmid FROM london_drive_nod
 select distinct highway from london_bike_edges;
 --84 values, but some are combinations of multiple values so fewer than that
 --https://wiki.openstreetmap.org/wiki/Tags
+
+--drive
+--bike
+--walk
+--all
+
+
+
+

@@ -145,5 +145,6 @@ select distinct highway from london_bike_edges;
 --all
 
 
-
-
+select * from  london_all_nodes limit 1;
+select * from london_drive_nodes limit 1;
+select * from london_drive_projected_nodes limit 1;

@@ -1,0 +1,102 @@
+OSM filters
+
+
+
+Overpass Turbo Cycleway and Cycle Route
+[out:json];
+
+(
+  // get cycle route relations
+  relation[route=bicycle]({{bbox}});
+  // get cycleways
+  way[highway=cycleway]({{bbox}});
+  way[highway=path][bicycle=designated]({{bbox}});
+);
+
+out body;
+>;
+out skel qt;
+
+
+
+
+
+Preliminary Custom Filter
+
+'["area"!~"yes"]["highway"="cycleway"]'
+
+
+
+
+OSMnx drive filter
+
+["area"!~"yes"]
+["highway"!~"cycleway|footway|path|pedestrian|steps|track|corridor|elevator|escalator|proposed|construction|bridleway|abandoned|platform|raceway|service"]
+["motor_vehicle"!~"no"]
+["motorcar"!~"no"]
+["access"!~"private"]
+["service"!~"parking|parking_aisle|driveway|private|emergency_access"]
+
+[out:json]
+[timeout:180];
+(way
+	["highway"]
+	["area"!~"yes"]
+	["highway"!~"cycleway|footway|path|pedestrian|steps|track|corridor|elevator|escalator|proposed|construction|bridleway|abandoned|platform|raceway|service"]
+	["motor_vehicle"!~"no"]
+	["motorcar"!~"no"]
+	["access"!~"private"]
+	["service"!~"parking|parking_aisle|driveway|private|emergency_access"]
+	(51.474015,-0.180287,51.539253,-0.053244);>;
+);
+out;
+
+
+
+
+
+Highway tags in edges pulled by OSMnx "All"
+
+bridleway
+corridor
+cycleway
+elevator
+escalator
+footway
+highway
+living_street
+no
+path
+ped
+pedestrian
+primary
+primary_link
+residential
+road
+secondary
+secondary_link
+service
+services
+steps
+tertiary
+tertiary_link
+track
+trunk
+trunk_link
+unclassified
+unsurfaced
+
+
+OSMnx All private filter
+
+'["area"!~"yes"]
+["highway"!~"proposed|construction|abandoned|platform|raceway"]'
+
+
+
+
+Notes
+
+area is filtered out basically because they are really weird and not relevant. 
+it's a way, that is "closed" creating a polygon
+

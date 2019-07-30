@@ -27,7 +27,6 @@ class geo_crs_lbound(Base):
 def wkb_hexer(line):
     return line.wkb_hex
 
-
 # convert geometry to usable type
 def geom_column_to_wkb(gdf):
 
@@ -100,25 +99,30 @@ if __name__ == "__main__":
 		# get the network from osm
 
 	name = 'london_' + item + '_projected'
-	geo_graph = ox.graph_from_polygon(polygon, network_type = item, name = name)
-	graph = ox.project_graph(geo_graph)
+	cycle_filter = '["area"!~"yes"]["highway"="cycleway"]'
+
+	geo_graph = ox.graph_from_polygon(polygon, network_type = item, name = name, custom_filter=cycle_filter)
+
+	fig, ax = ox.plot_graph(geo_graph)
+
+	# graph = ox.project_graph(geo_graph)
 
 	# project graph using osmnx function instead of doing it in postgis
 
 	# convert the network to 2 gdf's
 
-	nodes, edges = ox.graph_to_gdfs(graph, nodes = True, edges = True, node_geometry = True, fill_edge_geometry = True)
+	# nodes, edges = ox.graph_to_gdfs(graph, nodes = True, edges = True, node_geometry = True, fill_edge_geometry = True)
 
-	print('retrieved')
+	# print('retrieved')
 
 	# graph_area
-	graph_area_m = nodes.unary_union.convex_hull.area
-	print('graph area: ', graph_area_m)
+	# graph_area_m = nodes.unary_union.convex_hull.area
+	# print('graph area: ', graph_area_m)
 
 	# calc net stats from projected network 
-	net_stats = ox.basic_stats(graph, area = graph_area_m, clean_intersects=True, circuity_dist='euclidean')
+	# net_stats = ox.basic_stats(graph, area = graph_area_m, clean_intersects=True, circuity_dist='euclidean')
 
-	more_net_stats = ox.extended_stats(graph, ecc=True, bc=True, cc=True)
+	# more_net_stats = ox.extended_stats(graph, ecc=True, bc=True, cc=True)
 
 
 		# convert the geometry of each gdf to WKB

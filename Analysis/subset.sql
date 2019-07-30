@@ -1,3 +1,11 @@
+
+
+
+
+
+
+
+
 --select distinct "LAD11NM" from public.lsoa_table;
 
 
@@ -9,7 +17,7 @@
 
 --create table if not exists lsoa_subset (like lsoa_table);
 
---insert into lsoa_subset(select * from lsoa_table where "LAD11NM" in ('Camden', 'Greenwich', 'Hackney', 'Hammersmith and Fulham', 'Islington', 'Kensington and Chelsea', 'Lambeth', 'Lewisham', 'Southwark', 'Tower Hamlets', 'Wandsworth', 'Westminister', 'City of London'));
+--insert into lsoa_subset(select * from lsoa_table where "LAD11NM" in ('Camden', 'Greenwich', 'Hackney', 'Hammersmith and Fulham', 'Islington', 'Kensington and Chelsea', 'Lambeth', 'Lewisham', 'Southwark', 'Tower Hamlets', 'Wandsworth', 'Westminster', 'City of London'));
 
 --create table if not exists inner_london_boundary (
 --	id integer ,
@@ -21,15 +29,21 @@
 
 --insert into geo_crs_lbound(select id, st_transform(geom, 4326) from public.inner_london_boundary);
 
+ALTER TABLE public.geo_crs_lbound ADD "name" varchar NULL;
+
 --make inner london boroughs north of the river subset
 
-create table if not exists north_inner_subset (like lsoa_table);
+--create table if not exists north_inner_subset (like lsoa_table);
 
-insert into north_inner_subset(select * from lsoa_table where "LSOA11NM" in ('Camden', 'Hackney', 'Hammersmith and Fulham', 'Islington', 'Kensington and Chelsea', 'Tower Hamlets', 'Westminister', 'City of London'));
+select count(*) from lsoa_subset limit 1;
+
+insert into north_inner_subset(select * from lsoa_table where "LAD11NM" in ('Camden', 'Hackney', 'Hammersmith and Fulham', 'Islington', 'Kensington and Chelsea', 'Tower Hamlets', 'Westminster', 'City of London'));
 
 insert into inner_london_boundary(id, geom) values (3, (select ST_UNION(geom) from north_inner_subset));
 
+select distinct "LAD11NM" from lsoa_table;
 
+select * from london_bike_nodes limit 200;
 
 --select postgis_full_version();
 
@@ -170,3 +184,12 @@ select distinct highway from london_bike_nodes;
 select * from  london_all_nodes limit 1;
 select * from london_drive_nodes limit 1;
 select * from london_drive_projected_nodes limit 1;
+
+
+
+
+select distinct highway from london_all_edges;
+select distinct highway from london;
+
+
+select count(*) from north_inner_subset;

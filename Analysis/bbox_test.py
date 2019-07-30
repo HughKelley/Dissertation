@@ -16,11 +16,31 @@ south = south + (north - south) / 4
 east = east + (west - east) / 4
 west = west - (west - east) / 4
 
+cycle_filter = '["area"!~"yes"]["highway"="cycleway"]'
 
-test_net = ox.graph_from_bbox(north, south, east, west, network_type = 'drive', name = 'London_box')
+cycle_plus_filter = '["area"!~"yes"]["highway"="cycleway"]'
 
 
-nodes, edges = ox.graph_to_gdfs(test_net, nodes = True, edges = True, node)
+test_net = ox.graph_from_bbox(north, south, east, west, network_type = 'all_private', name = 'London_box')
+
+
+fig, ax = ox.plot_graph(test_net)
+
+
+
+# osm_filter for osm_net_download:  
+
+# ["area"!~"yes"]
+["highway"!~"cycleway|footway|path|pedestrian|steps|track|corridor|elevator|escalator|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["access"!~"private"]["service"!~"parking|parking_aisle|driveway|private|emergency_access"]
+
+
+
+ # Overpass:  
+ # [out:json][timeout:180];(way["highway"]["area"!~"yes"]["highway"!~"cycleway|footway|path|pedestrian|steps|track|corridor|elevator|escalator|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["access"!~"private"]["service"!~"parking|parking_aisle|driveway|private|emergency_access"]
+ # 	(51.474015,-0.180287,51.539253,-0.053244);>;);out;
+
+# nodes, edges = ox.graph_to_gdfs(test_net, nodes = True, edges = True, node_geometry = True, fill_edge_geometry = True)
+
 
 
 # print(test_net.graph['crs'])

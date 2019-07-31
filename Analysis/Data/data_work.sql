@@ -53,12 +53,25 @@ insert into north_inner_subset(select * from lsoa_table where "LAD11NM" in ('Cam
 -- calculate a boundary around the north inner london subset
 create table if not exists boundaries (
 	id integer ,
-	name text,
+	b_name text,
 	geom geometry,
 	constraint p_key primary key (id)
 	);
 
-insert into boundaries(id, name, geom) values (1, 'inner_north_london', (select ST_UNION(geom) from north_inner_subset));
+insert into boundaries(id, b_name, geom) values (1, 'inner_north_london', (select ST_UNION(geom) from north_inner_subset));
+
+-- inner london boundary
+create temp table if not exists inner_subset as select * from lsoa_table where "LAD11NM" in ('Camden', 'Greenwich', 'Hackney', 'Hammersmith and Fulham', 'Islington', 'Kensington and Chelsea', 'Lambeth', 'Lewisham', 'Southwark', 'Tower Hamlets', 'Wandsworth', 'Westminster', 'City of London');
+insert into boundaries(id, b_name, geom) values (2, 'inner_london', (select ST_union(geom) from inner_subset));
+-- london boundary
+insert into boundaries(id, b_name, geom) values (3, 'london', (select ST_union(geom) from public.lsoa_table));
+
+-- do boundaries in QGIS, then ST_Dump them into component polygons and select the largest one. 
+
+
+
+
+
 
 -- make a second table to hold wsg84 boundary for OSM queries. 
 create table if not exists wsg_boundaries as table boundaries;

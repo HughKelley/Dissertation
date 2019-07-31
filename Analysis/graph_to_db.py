@@ -19,9 +19,9 @@ engine = sqlalchemy.create_engine('postgresql://postgres:tuesday789@localhost:54
 Base = declarative_base(engine)
 metadata = sqlalchemy.MetaData()
 
-class geo_crs_lbound(Base):
+class wsg_boundaries(Base):
 
-	__table__ = sqlalchemy.Table('geo_crs_lbound', metadata, autoload=True, autoload_with=engine)
+	__table__ = sqlalchemy.Table('wsg_boundaries', metadata, autoload=True, autoload_with=engine)
 
 # Function to generate WKB hex
 def wkb_hexer(line):
@@ -83,7 +83,7 @@ if __name__ == "__main__":
 
 	session = loadSession()
 
-	polygon = get_poly(session, geo_crs_lbound)
+	polygon = get_poly(session, wsg_boundary)
 
 
 
@@ -111,7 +111,7 @@ if __name__ == "__main__":
 
 		nodes, edges = ox.graph_to_gdfs(graph, nodes = True, edges = True, node_geometry = True, fill_edge_geometry = True)
 
-		print('retrieved')
+		print(item, ' network retrieved and converted to gdfs')
 
 		# convert the geometry of each gdf to WKB
 
@@ -127,15 +127,15 @@ if __name__ == "__main__":
 
 		# alter the geometry of the column
 
-		crs = str(4326)
+		# crs = str(4326)
 
-		with engine.connect() as conn, conn.begin():
-			sql = 'ALTER TABLE ' + name + '_nodes' + ' ALTER COLUMN geom TYPE Geometry(Point, ' + crs + ') USING ST_SetSRID(geom::Geometry, ' + crs + ')'
-			conn.execute(sql)
+		# with engine.connect() as conn, conn.begin():
+		# 	sql = 'ALTER TABLE ' + name + '_nodes' + ' ALTER COLUMN geom TYPE Geometry(Point, ' + crs + ') USING ST_SetSRID(geom::Geometry, ' + crs + ')'
+		# 	conn.execute(sql)
 
-		with engine.connect() as conn, conn.begin():
-			sql = 'ALTER TABLE ' + name + '_edges' + ' ALTER COLUMN geom TYPE Geometry(LineString, ' + crs + ') USING ST_SetSRID(geom::Geometry, ' + crs + ')'
-			conn.execute(sql)
+		# with engine.connect() as conn, conn.begin():
+		# 	sql = 'ALTER TABLE ' + name + '_edges' + ' ALTER COLUMN geom TYPE Geometry(LineString, ' + crs + ') USING ST_SetSRID(geom::Geometry, ' + crs + ')'
+		# 	conn.execute(sql)
 
 
 

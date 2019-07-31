@@ -1,15 +1,85 @@
+-- Raw data tables are:
+
+-- lsoa_table
+-- casualties
+-- edges
+-- nodes
+-- journey to work
+-- quant
+
+
 -- Tasks
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+-- clean up DB
+
+--london_all_edges, london_all_nodes, london_bike_edges, london_bike_nodes, london_drive_edges, london_drive_nodes, london_drive_projected_edges, london_drive_projected_nodes, london_walk_edges, london_walk_nodes
+drop table if exists london_all_edges, london_all_nodes, london_bike_edges, london_bike_nodes, london_drive_edges, london_drive_nodes, london_drive_projected_edges, london_drive_projected_nodes, london_walk_edges, london_walk_nodes;
+
+-- drop osm tables
+drop table if exists osm_nodes, osm_tags, osm_ways, osm_way_tags;
+
+-- old subsets
+drop table if exists north_inner_subset, lsoa_subset;
+
+-- old boundaries
+drop table if exists geo_crs_lbound, geo_north_inner_bound, inner_london_boundary;
+
+
+-- check lsoa table multipolygons in QGIS
+-- drop table multipolygon_lsoas;
+-- instead of defining this table explicitly, easier to build it from the select statement
+-- create table if not exists multipolygon_lsoas (like lsoa_table);
+select * from lsoa_table limit 1;
+create temp table if not exists multi as select "LSOA11CD", count("LSOA11CD") from lsoa_table group by "LSOA11CD" having count("LSOA11CD") > 1;
+
+create table if not exists multi_polygon_lsoas as select multi."LSOA11CD" as lsoa11cd, "LSOA11NM" as lsoa11nm, geom  from multi left join lsoa_table on multi."LSOA11CD" = lsoa_table."LSOA11CD";
+
+-- and then inspect this in QGIS ot understand why these are multipolygons
+
+---- build table of lsoa's with small parts cleaned out
+--create table clean_lsoa as table lsoa_subset;
+---- delete row where area is less 
+--delete from clean_lsoa a using clean_lsoa b where a.area < b.area and a.lsoa11cd = b.lsoa11cd;
+----check number of rows
+--select count(*) from clean_lsoa;
+
 -- build north inner london subset
+create table if not exists north_inner_subset (like lsoa_table);
+insert into north_inner_subset(select * from lsoa_table where "LAD11NM" in ('Camden', 'Hackney', 'Hammersmith and Fulham', 'Islington', 'Kensington and Chelsea', 'Tower Hamlets', 'Westminster', 'City of London'));
 
--- build boundary around north inner london subset
+-- calculate lsoa polygon area column
 
--- convert north inner london subset to wsg84
+-- calculate a boundary around the north inner london subset
+create table if not exists boundaries (
+	id integer ,
+	name text,
+	geom geometry,
+	constraint p_key primary key (id)
+	);
 
+insert into boundaries(id, name, geom) values (1, 'inner_north_london', (select ST_UNION(geom) from north_inner_subset));
 
+-- make a second table to hold wsg84 boundary for OSM queries. 
+create table if not exists wsg_boundaries as table boundaries;
+alter table wsg_boundaries alter column geom using st_transform;
 
+-- delete polygons where the id is not unique and the area is less
+alter table north_inner_subset add column area double precision;
+update north_inner_subset set area=st_area(geom);
 
+-- check the column names
+select * from north_inner_subset limit 1;
+
+-- then delete small polygons
+delete from north_inner_subset a using north_inner_subset b where a.area < b.area and a."LSOA11CD"= b."LSOA11CD";
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- in python, use the wsg84 boundary calculated to grab networks from OSM
+
+-- index necessary columns
+
+-- then calcualate descriptive statistics
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -1,15 +1,71 @@
+--describe_data.sql
+
+-- DROP TABLE osm_nodes;
+-- DROP TABLE osm_tags;
+-- DROP TABLE osm_way_tags;
+-- Drop TABLE osm_ways;
 
 
 
+-- SELECT COUNT(DISTINCT "value" ) FROM osm_way_tags;
+
+-- SELECT COUNT(DISTINCT "key") FROM osm_way_tags;
+-- SELECT * from osm_way_tags LIMIT 10;
+
+-- SELECT DISTINCT "value" from osm_way_tags WHERE "key" = 'maxspeed';
+
+-- SELECT COUNT(*) from osm_way_tags WHERE "key" = 'maxspeed';
+
+-- SELECT * from lsoa_table LIMIT 5;
+--
+--CREATE INDEX ind on lsoa_table ["LSOA11CD"];
+--
+--
+--
+--
+---- DROP INDEX public.ind;
+--
+--CREATE INDEX ind
+--    ON public.lsoa_table USING btree
+--    ("LSOA11CD" COLLATE pg_catalog."default" varchar_ops)
+--    TABLESPACE pg_default;
+--
+--COMMENT ON INDEX public.ind
+--    IS 'just a test';
+   
+   
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--centroid.sql
+
+--SELECT * FROM lsoa_table LIMIT 10;
+
+-- test it out
+-- SELECT ST_centroid(geom) from lsoa_table LIMIT 10;
+
+-- ALTER TABLE lsoa_table ADD COLUMN center GEOMETRY;
+
+-- UPDATE lsoa_table SET center = ST_Centroid(geom);
 
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--clean_up.sql
 
+-- Select COUNT(*) from osm_tags LIMIT 10;
+-- Select COUNT(*) from osm_elements LIMIT 10;
+--
+--DROP TABLE osm_elements;
+--DROP TABLE osm_tags;
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--test.sql
+-- SELECT * from  LIMIT 10;
+-- DROP TABLE IF EXISTS test, ;
+-- ALTER TABLE "QUANT" RENAME TO quant;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 --select distinct "LAD11NM" from public.lsoa_table;
-
-
-
 
 --SET search_path TO public;
 

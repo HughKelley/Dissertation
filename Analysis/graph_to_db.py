@@ -89,7 +89,10 @@ if __name__ == "__main__":
 
 	# define list of network types
 	# file_list = ['all', 'bike', 'walk']
-	file_list = ['drive']
+	# file_list = ['drive']
+	# file_list = ['all', 'bike', 'walk', 'drive']
+	file_list = ['all']
+	# custom filters
 
 
 

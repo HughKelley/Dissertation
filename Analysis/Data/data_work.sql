@@ -67,15 +67,20 @@ insert into boundaries(id, b_name, geom) values (2, 'inner_london', (select ST_u
 insert into boundaries(id, b_name, geom) values (3, 'london', (select ST_union(geom) from public.lsoa_table));
 
 -- do boundaries in QGIS, then ST_Dump them into component polygons and select the largest one. 
+create temp table if not exists north_inner_dissolved as select st_dump(geom) from "Dissolved";
 
+-- 'Delete Holes' in QGIS
 
+-- check the output
+--to check proj support is installed
+select postgis_full_version();
+select * from cleaned limit 1;
+select st_srid(geom) from cleaned;
+select find_srid('public', 'cleaned', 'geom');
 
+-- its BNG 27700 so convert to wsg84 4326 in a new table
 
-
-
--- make a second table to hold wsg84 boundary for OSM queries. 
-create table if not exists wsg_boundaries as table boundaries;
-alter table wsg_boundaries alter column geom using st_transform;
+create table if not exists wsg_clean_boundary as select id, st_transform(geom, 4326) from cleaned;
 
 -- delete polygons where the id is not unique and the area is less
 alter table north_inner_subset add column area double precision;

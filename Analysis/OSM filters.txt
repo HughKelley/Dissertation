@@ -86,6 +86,27 @@ trunk_link
 unclassified
 unsurfaced
 
+Highway tags that are actually useful
+
+cycleway
+footway
+highway
+living_street
+path
+pedestrian
+primary
+primary_link
+residential
+road
+secondary
+secondary_link
+service
+tertiary
+tertiary_link
+trunk
+trunk_link
+unclassified
+
 
 OSMnx All private filter
 
@@ -100,3 +121,99 @@ Notes
 area is filtered out basically because they are really weird and not relevant. 
 it's a way, that is "closed" creating a polygon
 
+
+my basic_bike filter
+
+	["highway"="bridleway|cycleway|footway|path|ped|track"]
+
+	["bicycle"!~"no"]
+	["service"!~"private"]
+	["access"!~"private"]
+
+
+output from package for standard bike filter
+
+osm_filter for osm_net_download:  
+
+["area"!~"yes"]
+["highway"!~"footway|steps|corridor|elevator|escalator|motor|proposed|construction|abandoned|platform|raceway"]
+["bicycle"!~"no"]
+["service"!~"private"]
+["access"!~"private"]
+
+consolidate_subdivide_geometry()
+
+query string to Overpass:  
+
+[out:json]
+[timeout:180];
+(way
+	["highway"]
+	["area"!~"yes"]
+	["highway"!~"footway|steps|corridor|elevator|escalator|motor|proposed|construction|abandoned|platform|raceway"]
+	["bicycle"!~"no"]
+	["service"!~"private"]
+	["access"!~"private"]
+	(51.474015,-0.180287,51.539253,-0.053244);
+	>;
+);
+out;
+
+overpass_request()
+
+
+in code:
+
+(
+	'["area"!~"yes"]
+	["highway"!~"footway|steps|corridor|elevator|escalator|motor|proposed|construction|abandoned|platform|raceway"]'
+	'["bicycle"!~"no"]
+	["service"!~"private"]
+	{}'
+	).format(settings.default_access)
+
+
+
+
+############################################################################
+with custom filter
+
+
+osm_filter for osm_net_download:  
+["area"!~"yes"]["highway"="cycleway"]
+consolidate_subdivide_geometry()
+query string to Overpass:  
+[out:json][timeout:180];(way["highway"]["area"!~"yes"]["highway"="cycleway"](51.474015,-0.180287,51.539253,-0.053244);>;);out;
+overpass_request()
+
+
+
+
+
+
+############################################################################
+from Overpass Turbo
+
+/*
+This shows the cycleway and cycleroute network.
+*/
+
+[out:json];
+(
+  // get cycle route relatoins
+  //relation[route=bicycle]({{bbox}});
+  // get cycleways
+  way[highway=cycleway]({{bbox}});
+  way[highway=path]({{bbox}});
+  way[highway=bridleway]({{bbox}});
+  way[highway=track]({{bbox}});
+  way[highway=unsurfaced]({{bbox}});
+  way[highway=footway]({{bbox}});
+  way[highway=living_street]({{bbox}});
+  way[highway=residential]({{bbox}});
+  way[highway=unclassified]({{bbox}});
+);
+
+out body;
+>;
+out skel qt;

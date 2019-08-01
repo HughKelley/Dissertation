@@ -18,20 +18,20 @@ west = west - (west - east) / 4
 
 cycle_filter = '["area"!~"yes"]["highway"="cycleway"]'
 
-cycle_plus_filter = '["area"!~"yes"]["highway"="cycleway"]'
+# cycle_plus_filter = '["area"!~"yes"]["highway"="cycleway"]'
 
 
-test_net = ox.graph_from_bbox(north, south, east, west, network_type = 'all_private', name = 'London_box')
+test_net = ox.graph_from_bbox(north, south, east, west, network_type = 'bike', name = 'London_box', custom_filter=cycle_filter)
 
 
-fig, ax = ox.plot_graph(test_net)
+# fig, ax = ox.plot_graph(test_net)
 
 
 
 # osm_filter for osm_net_download:  
 
 # ["area"!~"yes"]
-["highway"!~"cycleway|footway|path|pedestrian|steps|track|corridor|elevator|escalator|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["access"!~"private"]["service"!~"parking|parking_aisle|driveway|private|emergency_access"]
+# ["highway"!~"cycleway|footway|path|pedestrian|steps|track|corridor|elevator|escalator|proposed|construction|bridleway|abandoned|platform|raceway|service"]["motor_vehicle"!~"no"]["motorcar"!~"no"]["access"!~"private"]["service"!~"parking|parking_aisle|driveway|private|emergency_access"]
 
 
 

@@ -13,15 +13,20 @@ from sqlalchemy import Column, Integer, String, Float, BigInteger
 from geoalchemy2 import Geometry
 from geoalchemy2.shape import to_shape 
 
+
+# only way to save graphs safely
+import pickle
+
+
 # set up sql connection
 engine = sqlalchemy.create_engine('postgresql://postgres:tuesday789@localhost:5432/Dissertation')
 
 Base = declarative_base(engine)
 metadata = sqlalchemy.MetaData()
 
-class wsg_boundaries(Base):
+class wsg_clean_boundary(Base):
 
-	__table__ = sqlalchemy.Table('wsg_boundaries', metadata, autoload=True, autoload_with=engine)
+	__table__ = sqlalchemy.Table('wsg_clean_boundary', metadata, autoload=True, autoload_with=engine)
 
 # Function to generate WKB hex
 def wkb_hexer(line):
@@ -83,7 +88,7 @@ if __name__ == "__main__":
 
 	session = loadSession()
 
-	polygon = get_poly(session, wsg_boundary)
+	polygon = get_poly(session, wsg_clean_boundary)
 
 
 
@@ -130,15 +135,26 @@ if __name__ == "__main__":
 
 		# alter the geometry of the column
 
-		# crs = str(4326)
+		crs = str(4326)
 
-		# with engine.connect() as conn, conn.begin():
-		# 	sql = 'ALTER TABLE ' + name + '_nodes' + ' ALTER COLUMN geom TYPE Geometry(Point, ' + crs + ') USING ST_SetSRID(geom::Geometry, ' + crs + ')'
-		# 	conn.execute(sql)
+		with engine.connect() as conn, conn.begin():
+			sql = 'ALTER TABLE ' + name + '_nodes' + ' ALTER COLUMN geom TYPE Geometry(Point, ' + crs + ') USING ST_SetSRID(geom::Geometry, ' + crs + ')'
+			conn.execute(sql)
 
-		# with engine.connect() as conn, conn.begin():
-		# 	sql = 'ALTER TABLE ' + name + '_edges' + ' ALTER COLUMN geom TYPE Geometry(LineString, ' + crs + ') USING ST_SetSRID(geom::Geometry, ' + crs + ')'
-		# 	conn.execute(sql)
+		with engine.connect() as conn, conn.begin():
+			sql = 'ALTER TABLE ' + name + '_edges' + ' ALTER COLUMN geom TYPE Geometry(LineString, ' + crs + ') USING ST_SetSRID(geom::Geometry, ' + crs + ')'
+			conn.execute(sql)
+
+
+		# now save graph as a pickle
+
+		pickle_name = name + '_pickle.file'
+
+		print('saving pickle as: ', pickle_name)
+
+		with open(pickle_name, 'wb') as output:
+			# overwrites any existing file of that name
+			pickle.dump(graph, output, pickel.HIGHEST_PROTOCOL)
 
 
 

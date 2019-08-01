@@ -80,7 +80,7 @@ select find_srid('public', 'cleaned', 'geom');
 
 -- its BNG 27700 so convert to wsg84 4326 in a new table
 
-create table if not exists wsg_clean_boundary as select id, st_transform(geom, 4326) from cleaned;
+create table if not exists wsg_clean_boundary as select id, st_transform(geom, 4326) as geom from cleaned;
 
 -- delete polygons where the id is not unique and the area is less
 alter table north_inner_subset add column area double precision;
@@ -88,6 +88,8 @@ update north_inner_subset set area=st_area(geom);
 
 -- check the column names
 select * from north_inner_subset limit 1;
+
+select st_exteriorring(geom) from boundaries;
 
 -- then delete small polygons
 delete from north_inner_subset a using north_inner_subset b where a.area < b.area and a."LSOA11CD"= b."LSOA11CD";
@@ -102,6 +104,12 @@ delete from north_inner_subset a using north_inner_subset b where a.area < b.are
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+-- add primary key to wsg_clean_boundary
+
+alter table wsg_clean_boundary add column p_key serial primary key;
+--alter table wsg_clean_boundary rename column "st_transform" to geom;
+select * from wsg_clean_boundary;
+drop table wsg_clean_boundary;
 --describe_data.sql
 
 -- DROP TABLE osm_nodes;

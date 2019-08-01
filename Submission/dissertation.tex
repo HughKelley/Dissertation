@@ -74,7 +74,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Research Goal and Overview}
-What makes a city for cycling? The conditions are clear when one sees them, but defining the characteristics quantitatively is challenging. 
+What makes a city comfortable for cycling? The conditions are clear when one sees them, but defining the characteristics quantitatively is challenging. 
 
 This research is intended to build a cohesive methodology for defining the overall suitability of a city to transport by bicycle. It extends the literature in three ways; extending quantitative research to a holistic approach rather than focusing on individual edges or nodes, extending holistic approaches to quantitative outcomes rather than visual or anecdotal conclusions, and by emphasizing the use of open source tools and data that are available to any member of community. 
 
@@ -119,17 +119,36 @@ This project relies entirely on publicly accessible data.
 
 Open street map provides community generated geospatial data. This data is accessible via the overpass API from several hosts. 
 
+\subsubsection{A Close Look at an Open Street Map Case Study}
+
+Using data from Open street map is difficult. 
+
+Compare Relation\= cycleway to a list of edges and nodes tagged cycleway
+
+Adding living streets and residential streets don't do much. 
+
+Part of the problem is the lack of consistent tagging, it only takes one line segment missing a tag to disconnect two nodes,
+
+but this also reflects the fact that getting somewhere within london nearly always requires leaving cycle infrastructure at some point and using main roads. 
+
+The importance of this consideration will be shown using a percolation style analysis of the network, adding busier and busier roads to the network and considering the largest connected component. 
+
 \subsubsection{2011 Census Journey to work data}
 
 The 2011 census asked questions about where people work and how they get there. 
 
-\subsubsection{LSOA boundaries}
+\subsubsection{LSOA boundaries and data}
+
+where LSOA's were comprised of multiple polygons, the centroid of the largest polygon was used. 
+
+lsoa population from mid 2011 
+https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/lowersuperoutputareamidyearpopulationestimates
 
 LSOA boundaries are available from the London Data store
 
 https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london
 
-On maps created using these boundaries the copyright must be stated. This is: "Contains National Statistics data © Crown copyright and database right [2015]" and "Contains Ordnance Survey data © Crown copyright and database right [2015]"
+On maps created using these boundaries the copyright must be stated. This is: "Contains National Statistics data %© Crown copyright and database right [2015]" and "Contains Ordnance Survey data © Crown copyright and database right [2015]"
 
 \subsubsection{Road KSI data}
 
@@ -141,6 +160,8 @@ https://data.london.gov.uk/dataset/road-casualties-severity-borough
 
 \subsection{Data import, storage, cleaning, and joining}
 
+remove multipolygon lsoa interior rings in favor of polygon lsoa shapes
+
 \subsection{Defining Cycle Networks}
 
 How were the representative networks built? 
@@ -151,12 +172,27 @@ How were the representative networks built?
 
 \subsection{Accessibility}
 
+\subsection{assumptions and concerns}
+
+used centroids instead of actual nodes from Quant Data
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Analysis \& Results}
 
 \subsection{Defining Scope}
 
 \subsection{Network Characteristics}
+
+
+chart of largest connected component of network as edge types are included. 
+
+no cars,
++ living streets
++ residential streets
++ tertiary 
++ secondary
++primary
 
 \subsection{Travel Times}
 
@@ -167,7 +203,7 @@ How were the representative networks built?
 \subsection{Accessibility}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\sections{Conclusions}
+\section{Conclusions}
 
 \subsection{Results}
 
@@ -179,7 +215,7 @@ How were the representative networks built?
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\sections{Appendix}
+\section{Appendix}
 
 
 

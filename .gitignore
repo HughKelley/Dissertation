@@ -11,7 +11,8 @@ Environment/
 env64/
 
 ## ignore raw data files
-
+*.file   
+# pickle files
 *.zip
 *.csv
 *xls

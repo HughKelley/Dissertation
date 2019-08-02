@@ -111,7 +111,8 @@ alter table wsg_clean_boundary rename column "st_transform" to geom;
 select * from wsg_clean_boundary;
 
 
-select * from london_all_projected_edges limit 10;
+select st_extent(geom) from wsg_clean_boundary;
+
 --describe_data.sql
 
 -- DROP TABLE osm_nodes;

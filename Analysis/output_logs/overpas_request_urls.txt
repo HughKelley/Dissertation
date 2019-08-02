@@ -1,0 +1,13 @@
+http://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22highway%22%5D%5B%22area%22%21~%22yes%22%5D%5B%22highway%22%21~%22footway%7Csteps%7Ccorridor%7Celevator%7Cescalator%7Cmotor%7Cproposed%7Cconstruction%7Cabandoned%7Cplatform%7Craceway%22%5D%5B%22bicycle%22%21~%22no%22%5D%5B%22service%22%21~%22private%22%5D%5B%22access%22%21~%22private%22%5D%2851.460250%2C-0.262377%2C51.582368%2C0.016558%29%3B%3E%3B%29%3Bout%3B
+
+
+
+http://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22highway%22%5D%5B%22area%22%21~%22yes%22%5D%5B%22highway%22%21~%22footway%7Csteps%7Ccorridor%7Celevator%7Cescalator%7Cmotor%7Cproposed%7Cconstruction%7Cabandoned%7Cplatform%7Craceway%22%5D%5B%22bicycle%22%21~%22no%22%5D%5B%22service%22%21~%22private%22%5D%5B%22access%22%21~%22private%22%5D%2851.460250%2C-0.262377%2C51.582368%2C0.016558%29%3B%3E%3B%29%3Bout%3B
+
+
+
+http://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22highway%22%5D%5B%22area%22%21~%22yes%22%5D%5B%22highway%22%21~%22footway%7Csteps%7Ccorridor%7Celevator%7Cescalator%7Cmotor%7Cproposed%7Cconstruction%7Cabandoned%7Cplatform%7Craceway%22%5D%5B%22bicycle%22%21~%22no%22%5D%5B%22service%22%21~%22private%22%5D%5B%22access%22%21~%22private%22%5D%2851.460250%2C-0.262377%2C51.582368%2C0.016558%29%3B%3E%3B%29%3Bout%3B
+
+
+
+http://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22highway%22%5D%5B%22area%22%21~%22yes%22%5D%5B%22highway%22%21~%22footway%7Csteps%7Ccorridor%7Celevator%7Cescalator%7Cmotor%7Cproposed%7Cconstruction%7Cabandoned%7Cplatform%7Craceway%22%5D%5B%22bicycle%22%21~%22no%22%5D%5B%22service%22%21~%22private%22%5D%5B%22access%22%21~%22private%22%5D%2851.460250%2C-0.262377%2C51.582368%2C0.016558%29%3B%3E%3B%29%3Bout%3B

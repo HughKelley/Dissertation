@@ -1,5 +1,7 @@
 import osmnx as ox
 
+ox.config(use_cache=True, log_console=True)
+
 # ox.configure(use_cache=True, log_console=True)
 
 
@@ -16,12 +18,31 @@ south = south + (north - south) / 4
 east = east + (west - east) / 4
 west = west - (west - east) / 4
 
-cycle_filter = '["area"!~"yes"]["highway"="cycleway"]'
+
+# extent of north inner london boundary
+
+# east = -0.255164782343012 
+# west = 0.00934658957231362 
+# south = 51.4647441507093
+# north = 51.5778742530578
+
+
+
+# filter_dict = 
+
+
+# cycle_filter = '["area"!~"yes"]["highway"="cycleway"]'
+
+
+
+
 
 # cycle_plus_filter = '["area"!~"yes"]["highway"="cycleway"]'
 
+# basic_bike
+# moderate_bike
 
-test_net = ox.graph_from_bbox(north, south, east, west, network_type = 'bike', name = 'London_box', custom_filter=cycle_filter)
+test_net = ox.graph_from_bbox(north, south, east, west, network_type = 'moderate_bike', retain_all=True, name = 'London_box', )
 
 
 # fig, ax = ox.plot_graph(test_net)

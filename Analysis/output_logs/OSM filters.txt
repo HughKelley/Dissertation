@@ -51,6 +51,10 @@ OSMnx drive filter
 );
 out;
 
+basic bike
+
+
+
 
 
 
@@ -90,7 +94,6 @@ Highway tags that are actually useful
 
 cycleway
 footway
-highway
 living_street
 path
 pedestrian
@@ -106,6 +109,90 @@ tertiary_link
 trunk
 trunk_link
 unclassified
+
+
+basic bike
+
+
+	["bicycle"!~"no"]
+	["service"!~"private"]
+	["access"!~"private"]
+	["highway"="cycleway"]
+	["highway"="footway"]
+	["highway"="path"]
+	["highway"="pedestrian"]
+
+cycleway
+footway
+path
+pedestrian
+
+
+moderate bike
+
+	["bicycle"!~"no"]
+	["service"!~"private"]
+	["access"!~"private"]
+	["highway"="cycleway"]
+	["highway"="footway"]
+	["highway"="path"]
+	["highway"="pedestrian"]
+	["highway"="living_street"]
+	["highway"="residential"]
+
+cycleway
+footway
+path
+pedestrian
+living_street
+residential
+
+
+OSM bike
+
+anywhere that doesn't explicitly rule out bikes
+
+OSM all
+
+every edge in the city. 
+
+
+aggressive bike: but this can just be all
+
+	["bicycle"!~"no"]
+	["service"!~"private"]
+	["access"!~"private"]
+	["highway"="cycleway"]
+	["highway"="footway"]
+	["highway"="path"]
+	["highway"="pedestrian"]
+	["highway"="living_street"]
+	["highway"="residential"]
+	["highway"="primary"]
+	["highway"="primary_link"]
+	["highway"="road"]
+	["highway"="secondary"]
+	["highway"="secondary_link"]
+	["highway"="service"]
+	["highway"="tertiary"]
+	["highway"="tertiary_link"]
+	["highway"="trunk"]
+	["highway"="trunk"]
+	["highway"="unclassified"]
+
+
+primary
+primary_link
+road
+secondary
+secondary_link
+service
+tertiary
+tertiary_link
+trunk
+trunk_link
+unclassified
+
 
 
 OSMnx All private filter

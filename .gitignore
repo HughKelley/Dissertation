@@ -19,6 +19,7 @@ env64/
 *.xlsx
 *.graphml
 *.json
+*.geojson
 
 ## shapefile and mapinfo files
 *.prj

@@ -1,0 +1,77 @@
+graph_frombbox()
+osm_net_download
+get_osm_filter
+
+
+osm_filter for osm_net_download:  ["area"!~"yes"]["highway"!~"proposed|construction|abandoned|platform|raceway"]
+
+
+consolidate_subdivide_geometry()
+
+
+query string to Overpass:
+
+[out:json][timeout:180];
+(
+	way
+	["highway"]
+	["area"!~"yes"]
+	["highway"!~"proposed|construction|abandoned|platform|raceway"]
+	(51.474015,-0.180287,51.539253,-0.053244);
+	>;
+);
+out;
+
+
+overpass_request()
+
+
+url for overpass request http://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22highway%22%5D%5B%22area%22%21~%22yes%22%5D%5B%22highway%22%21~%22proposed%7Cconstruction%7Cabandoned%7Cplatform%7Craceway%22%5D%2851.474015%2C-0.180287%2C51.539253%2C-0.053244%29%3B%3E%3B%29%3Bout%3B
+
+
+get_from_cache()
+get_pause_duration()
+get_http_headers()
+get_http_headers()
+save_to_cache()
+create_graph()
+parse_osm_nodes_paths()
+add_paths()
+add_edge_lengths()
+truncate_graph_bbox()
+truncate_graph_bbox()
+remove_isolated_nodes()
+
+
+
+
+
+From Overpass Turbo
+
+
+/*
+This shows the cycleway and cycleroute network.
+*/
+
+[out:json];
+
+/* filter from OSMnx */
+
+(way["highway"]["area"!~"yes"]["highway"!~"proposed|construction|abandoned|platform|raceway"]({{bbox}});
+ );
+
+
+/* filter from Overpass turbo example */
+/*
+(
+  // get cycle route relatoins
+  relation[route=bicycle]({{bbox}});
+  // get cycleways
+  way[highway=cycleway]({{bbox}});
+  way[highway=path][bicycle=designated]({{bbox}});
+);
+*/
+
+out body;
+>;
+out skel qt;

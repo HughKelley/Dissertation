@@ -107,9 +107,11 @@ delete from north_inner_subset a using north_inner_subset b where a.area < b.are
 -- add primary key to wsg_clean_boundary
 
 alter table wsg_clean_boundary add column p_key serial primary key;
---alter table wsg_clean_boundary rename column "st_transform" to geom;
+alter table wsg_clean_boundary rename column "st_transform" to geom;
 select * from wsg_clean_boundary;
-drop table wsg_clean_boundary;
+
+
+select * from london_all_projected_edges limit 10;
 --describe_data.sql
 
 -- DROP TABLE osm_nodes;

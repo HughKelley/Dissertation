@@ -1,0 +1,36 @@
+get_http_headers()
+Downloaded 142,038.8KB from overpass-api.de in 71.18 seconds
+save_to_cache()
+Saved response to cache file "cache\ea6b9f9f5d10f9f2d2fecd82ff96012a.json"
+Got all network data within polygon from API in 1 request(s) and 79.25 seconds
+create_graph()
+Creating networkx graph from downloaded OSM data...
+parse_osm_nodes_paths()
+add_paths()
+Created graph with 926,750 nodes and 2,035,804 edges in 25.82 seconds
+add_edge_lengths()
+Added edge lengths to graph in 23.47 seconds
+truncate_graph_polygon()
+Identifying all nodes that lie outside the polygon...
+intersect_index_quadrats()
+quadrat_cut_geometry()
+Created r-tree spatial index for 926,750 points in 38.11 seconds
+Identified 917,411 nodes inside polygon in 40.57 seconds
+Removed 9,339 nodes outside polygon in 0.52 seconds
+Begin topologically simplifying the graph...
+Identified 309,337 edge endpoints in 9.38 seconds
+Constructed all paths to simplify in 2.07 seconds
+Simplified graph (from 917,411 to 309,800 nodes and from 2,015,750 to 800,528 edges) in 75.25 seconds
+truncate_graph_polygon()
+Identifying all nodes that lie outside the polygon...
+intersect_index_quadrats()
+quadrat_cut_geometry()
+Created r-tree spatial index for 309,800 points in 12.08 seconds
+Identified 298,050 nodes inside polygon in 17.90 seconds
+Removed 11,750 nodes outside polygon in 0.05 seconds
+remove_isolated_nodes()
+Removed 60 isolated nodes
+Graph was not connected, retained only the largest weakly connected component (288,907 of 297,990 total nodes) in 16.61 seconds
+Got the counts of undirected street segments incident to each node (before removing peripheral edges) in 33.58 seconds
+graph_from_polygon() returning graph with 288,907 nodes and 757,512 edges
+graph_from_place() returning graph with 288,907 nodes and 757,512 edges

@@ -18,6 +18,8 @@ from geoalchemy2.shape import to_shape
 import pickle
 
 
+ox.config(use_cache=True, log_console=True)
+
 # set up sql connection
 engine = sqlalchemy.create_engine('postgresql://postgres:tuesday789@localhost:5432/Dissertation')
 
@@ -110,7 +112,7 @@ if __name__ == "__main__":
 		filter = ''
 
 		name = 'london_' + item + '_projected'
-		geo_graph = ox.graph_from_polygon(polygon, network_type = item, name = name)
+		geo_graph = ox.graph_from_polygon(polygon, network_type = item, retain_all=True, name = name)
 		graph = ox.project_graph(geo_graph)
 
 		# project graph using osmnx function instead of doing it in postgis
@@ -154,7 +156,7 @@ if __name__ == "__main__":
 
 		with open(pickle_name, 'wb') as output:
 			# overwrites any existing file of that name
-			pickle.dump(graph, output, pickel.HIGHEST_PROTOCOL)
+			pickle.dump(graph, output, pickle.HIGHEST_PROTOCOL)
 
 
 

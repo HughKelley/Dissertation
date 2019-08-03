@@ -6,47 +6,47 @@
 
 import json
 
-file = 'Data/sample_overpass_output.json'
+file = 'Data/london_bike_relation.geojson'
 
 with open(file, mode="r", encoding='utf-8') as read_file:
 	data = json.load(read_file)
 
 print(type(data))
 
-# print("top of file", data[1])
+# # print("top of file", data[1])
 
-dict_length = len(data)
+# dict_length = len(data)
 
-print("length is: ", dict_length)
-
-
-if dict_length < 100:
-	for x in data: 
-		print(x)
-		print(type(data[x]))
-		# print("length of entry: ", len(data[x]))
-
-		# for y in x:
-		# 	print(x, ": ", y)
-		# 	print("length: ", len(y))
+# print("length is: ", dict_length)
 
 
-print("osm3s key length: ", len(data['osm3s']))
+# if dict_length < 100:
+# 	for x in data: 
+# 		print(x)
+# 		print(type(data[x]))
+# 		# print("length of entry: ", len(data[x]))
 
-print("elements key length: ", len(data['elements']))
-
-for y in data['osm3s']:
-	print(y)
-	print(type(y))
+# 		# for y in x:
+# 		# 	print(x, ": ", y)
+# 		# 	print("length: ", len(y))
 
 
-# so the actual data is in data['elements']
+# print("osm3s key length: ", len(data['osm3s']))
 
-# loop through list adding each item to a gdf or something
+# print("elements key length: ", len(data['elements']))
 
-actual_data = data['elements']
+# for y in data['osm3s']:
+# 	print(y)
+# 	print(type(y))
 
-print(next(iter(actual_data)))
+
+# # so the actual data is in data['elements']
+
+# # loop through list adding each item to a gdf or something
+
+# actual_data = data['elements']
+
+# print(next(iter(actual_data)))
 
 
 

@@ -98,7 +98,9 @@ if __name__ == "__main__":
 	# file_list = ['all', 'bike', 'walk']
 	# file_list = ['drive']
 	# file_list = ['all', 'bike', 'walk', 'drive']
-	file_list = ['all']
+	# file_list = ['all']
+	# file_list = ['basic_bike','moderate_bike']
+	file_list = ['secondary_bike', 'tertiary_bike']
 	# custom filters
 
 

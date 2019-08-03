@@ -100,7 +100,8 @@ if __name__ == "__main__":
 	# file_list = ['all', 'bike', 'walk', 'drive']
 	# file_list = ['all']
 	# file_list = ['basic_bike','moderate_bike']
-	file_list = ['secondary_bike', 'tertiary_bike']
+	# file_list = ['secondary_bike', 'tertiary_bike']
+	file_list = ['bike_1', 'bike_2', 'bike_3', 'bike_4', 'bike_5']
 	# custom filters
 
 
@@ -111,7 +112,7 @@ if __name__ == "__main__":
 
 		# get the network from osm
 
-		filter = ''
+		# filter = ''
 
 		name = 'london_' + item + '_projected'
 		geo_graph = ox.graph_from_polygon(polygon, network_type = item, retain_all=True, name = name)
@@ -139,7 +140,7 @@ if __name__ == "__main__":
 
 		# alter the geometry of the column
 
-		crs = str(4326)
+		crs = str(32230)
 
 		with engine.connect() as conn, conn.begin():
 			sql = 'ALTER TABLE ' + name + '_nodes' + ' ALTER COLUMN geom TYPE Geometry(Point, ' + crs + ') USING ST_SetSRID(geom::Geometry, ' + crs + ')'

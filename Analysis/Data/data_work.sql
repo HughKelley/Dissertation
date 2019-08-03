@@ -113,6 +113,35 @@ select * from wsg_clean_boundary;
 
 select st_extent(geom) from wsg_clean_boundary;
 
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------
+
+select distinct highway, count(highway) from london_bike_1_projected_edges group by highway;
+
+--drop table relation_edges;
+select count(*) from relation_edges;
+
+select st_srid(geom) from london_bike_1_projected_edges;
+select find_srid('public', 'london_bike_1_projected_edges', 'geom');
+
+select count(*) from clipped_relation_edges;
+-- transform to UTM 30 or BNG...
+
+-- saet correct srid
+
+alter table london_bike_5_projected_edges alter column geom type geometry(LineString, 32230) using st_setsrid(geom::Geometry, 32230);
+alter table london_bike_5_projected_nodes alter column geom type geometry(Point, 32230) using st_setsrid(geom::Geometry, 32230);
+
+
+
+select st_srid(geom) from cleaned;
+select find_srid('public', 'cleaned', 'geom');
+
 --describe_data.sql
 
 -- DROP TABLE osm_nodes;

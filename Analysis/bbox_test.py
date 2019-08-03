@@ -42,10 +42,17 @@ west = west - (west - east) / 4
 # basic_bike
 # moderate_bike
 
-test_net = ox.graph_from_bbox(north, south, east, west, network_type = 'moderate_bike', retain_all=True, name = 'London_box', )
+net_1 = ox.graph_from_bbox(north, south, east, west, network_type = 'bike_1', retain_all=True, name = 'London_box', )
 
+net_2 = ox.graph_from_bbox(north, south, east, west, network_type = 'bike_2', retain_all=True, name = 'London_box', )
 
-# fig, ax = ox.plot_graph(test_net)
+net_3 = ox.graph_from_bbox(north, south, east, west, network_type = 'bike_3', retain_all=True, name = 'London_box', )
+
+net_4 = ox.graph_from_bbox(north, south, east, west, network_type = 'bike_4', retain_all=True, name = 'London_box', )
+
+net_5 = ox.graph_from_bbox(north, south, east, west, network_type = 'bike_5', retain_all=True, name = 'London_box', )
+
+# fig3, ax3 = ox.plot_graph(net_3)
 
 
 

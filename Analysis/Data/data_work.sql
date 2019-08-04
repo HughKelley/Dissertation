@@ -118,7 +118,7 @@ select st_extent(geom) from wsg_clean_boundary;
 
 
 
-
+select version();
 --------------------------------------------------------------------------------------------------------------
 
 select distinct highway, count(highway) from london_bike_1_projected_edges group by highway;

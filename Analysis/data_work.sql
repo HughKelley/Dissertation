@@ -1,3 +1,15 @@
+--Relevant SRID's are 
+
+-- WSG84 
+-- 4326
+
+-- BNG
+-- 27700
+
+-- UTM 30
+--32230
+
+
 -- Raw data tables are:
 
 -- lsoa_table
@@ -101,7 +113,6 @@ delete from north_inner_subset a using north_inner_subset b where a.area < b.are
 
 -- then calcualate descriptive statistics
 
-
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- add primary key to wsg_clean_boundary
@@ -110,13 +121,7 @@ alter table wsg_clean_boundary add column p_key serial primary key;
 alter table wsg_clean_boundary rename column "st_transform" to geom;
 select * from wsg_clean_boundary;
 
-
 select st_extent(geom) from wsg_clean_boundary;
-
-
-
-
-
 
 select version();
 --------------------------------------------------------------------------------------------------------------
@@ -397,6 +402,49 @@ insert into public.nearest_node (lsoa_id, lsoa_centroid) select lsoa11cd, center
 --create index to speed up <->
 create index london_all_nodes_gix on london_all_nodes using GIST (geom);
 create index london_all_edges_gix on london_all_edges using GIST (geom);
+
+create index node_gix on london_bike_5_projected_nodes using GIST(geom);
+
+select st_srid(centroid) from lsoa_table;
+select find_srid('public', 'lsoa_table', 'centroid');
+select updategeometrysrid('lsoa_table', 'centroid', 27700); 
+
+select * from lsoa_table limit 1;
+alter table lsoa_table alter column centroid type geometry(Point, 32230) using ST_Transform(centroid, 32230)
+
+
+create index centroid_gix on lsoa_table using GIST(centroid);
+
+
+
+--------------------------------------------------------------------------------
+-- now create nearest_node table from lsoa_table in UTM 30 
+
+-- update rows to include nearest node column rom bike_5
+
+
+
+
+
+select st_srid(geom) from ;
+select find_srid('public', 'cleaned', 'geom');
+
+create index centroid_gix on lsoa_table using GIST(centroid)
+
+select * from lsoa_table limit 1;
+
+drop table inter_check;
+
+create table inter_check as (select "LAD11NM", centroid, geom, st_intersects(lsoa_table.centroid, lsoa_table.geom) as inter from lsoa_table);
+
+create table prob_lsoa as (select * from inter_check where inter = false);
+
+-- some don't intersect, but I think it's ok. It's still the centroid, and they're evenly spaced. 
+-- https://gis.stackexchange.com/questions/76498/how-is-st-pointonsurface-calculated
+
+select * from inter_check limit 1;
+
+select * from inter_check where inter = false;
 
 --This was the wrong thing to do, should be update, not insert. update adds columns insert adds rows
 --INSERT INTO nearest_node (nearest_drive_node) SELECT osmid FROM london_drive_nodes ORDER BY nearest_node.lsoa_centroid <->  london_drive_nodes.geom LIMIT 1;

@@ -1,6 +1,7 @@
 # read O/D/Mode xlsx file, split sheets to dataframe, melt matrixes, push to DB
 
 import pandas as pd 
+import sqlalchemy
 
 file = 'Data/cleaned_jtw_by_mode_by_borough.xlsx'
 
@@ -48,3 +49,8 @@ for i, item in enumerate(sheets):
 main_df.to_csv('main_df.csv')
 
 
+
+engine = sqlalchemy.create_engine('postgresql://postgres:tuesday789@localhost:5432/Dissertation')
+
+
+main_df.to_sql(name = 'jtw', con = engine)

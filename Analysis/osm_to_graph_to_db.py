@@ -101,7 +101,7 @@ if __name__ == "__main__":
 	# file_list = ['all']
 	# file_list = ['basic_bike','moderate_bike']
 	# file_list = ['secondary_bike', 'tertiary_bike']
-	file_list = ['bike_1', 'bike_2', 'bike_3', 'bike_4', 'bike_5']
+	file_list = ['bike_2', 'bike_3', 'bike_4', 'bike_5']
 	# custom filters
 
 

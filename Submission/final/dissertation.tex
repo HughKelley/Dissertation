@@ -177,6 +177,8 @@ The importance of this consideration will be shown using a percolation style ana
 
 The 2011 census asked questions about where people work and how they get there. 
 
+This data is shared through the Nomis Labor Force website as multi-sheet excel pivot tables. Making the data usable required, stripping the meta data headings from each sheet, importing the book to pandas dataframe by sheet, melting from a picot table to long data with origin, destination, and count columns, adding the sheet name that identified the mode of travel as a column, appending each individual sheet together into a single dataframe, and pushing the dataframe to the sql database. 
+
 \subsubsection{LSOA boundaries and data}
 
 where LSOA's were comprised of multiple polygons, the centroid of the largest polygon was used. 

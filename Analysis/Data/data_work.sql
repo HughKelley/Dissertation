@@ -149,6 +149,12 @@ select find_srid('public', 'cleaned', 'geom');
 -- DROP TABLE osm_way_tags;
 -- Drop TABLE osm_ways;
 
+drop table london_bike_5_projected_edges;
+drop table london_bike_5_projected_nodes;
+
+drop table london_basic_bike_projected_edges;
+drop table london_basic_bike_projected_nodes;
+
 -- SELECT COUNT(DISTINCT "value" ) FROM osm_way_tags;
 
 -- SELECT COUNT(DISTINCT "key") FROM osm_way_tags;
@@ -173,7 +179,42 @@ select find_srid('public', 'cleaned', 'geom');
 --COMMENT ON INDEX public.ind
 --    IS 'just a test';
    
-   
+select count(*) from jtw;
+
+select * from jtw limit 10;
+
+
+-- Journey to work stats
+select origin_name, sum(value) as total from jtw group by origin_name;
+select destination_name, sum(value) as total from jtw group by destination_name;
+select travel_mode, sum(value) as total from jtw group by travel_mode;
+
+select distinct origin_name from jtw;
+select distinct travel_mode from jtw;
+
+
+select origin_name, sum(value) as total from jtw where origin_name in (
+	'Camden', 'Hackney', 'Hammersmith and Fulham', 'Islington', 'Kensington and Chelsea', 'Tower Hamlets', 'Westminster,City of London') group by origin_name;
+
+
+select destination_name, sum(value) as total from jtw where destination_name in 
+	('Camden', 'Hackney', 'Hammersmith and Fulham', 'Islington', 'Kensington and Chelsea', 'Tower Hamlets', 'Westminster,City of London') 
+	and origin_name in 
+	('Camden', 'Hackney', 'Hammersmith and Fulham', 'Islington', 'Kensington and Chelsea', 'Tower Hamlets', 'Westminster,City of London') 
+	and travel_mode in ('Bicycle')
+	group by destination_name;
+
+
+--------------------------------------
+-- clean and clip KSI data
+
+select * from casualties limit 10;
+
+--convert easting and northing column to point geometry
+
+-- crs is bng 27700
+
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --centroid.sql
 
@@ -279,8 +320,6 @@ select * from london_bike_nodes limit 200;
 
 create table if not exists geo_north_inner_bound (like geo_crs_lbound);
 
-
-hugh
 
 insert into geo_north_inner_bound (select id, st_transform(geom, 4326) from public.north_inner_subset);
 

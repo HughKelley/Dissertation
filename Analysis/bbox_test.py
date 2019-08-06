@@ -44,25 +44,25 @@ west = west - (west - east) / 4
 
 net_1 = ox.graph_from_bbox(north, south, east, west, network_type = 'bike_1', retain_all=True, name = 'London_box', )
 
-net_2 = ox.graph_from_bbox(north, south, east, west, network_type = 'bike_2', retain_all=True, name = 'London_box', )
+# net_2 = ox.graph_from_bbox(north, south, east, west, network_type = 'bike_2', retain_all=True, name = 'London_box')
 
-net_3 = ox.graph_from_bbox(north, south, east, west, network_type = 'bike_3', retain_all=True, name = 'London_box', )
+# net_3 = ox.graph_from_bbox(north, south, east, west, network_type = 'bike_3', retain_all=True, name = 'London_box')
 
-net_4 = ox.graph_from_bbox(north, south, east, west, network_type = 'bike_4', retain_all=True, name = 'London_box', )
+# net_4 = ox.graph_from_bbox(north, south, east, west, network_type = 'bike_4', retain_all=True, name = 'London_box')
 
-net_5 = ox.graph_from_bbox(north, south, east, west, network_type = 'bike_5', retain_all=True, name = 'London_box', )
+# net_5 = ox.graph_from_bbox(north, south, east, west, network_type = 'bike_5', retain_all=True, name = 'London_box')
 
-fig2, ax2 = ox.plot_graph(net_2, node_alpha=0)
-fig2.savefig('box_bike_2.png')
+# fig2, ax2 = ox.plot_graph(net_2, node_alpha=0)
+# fig2.savefig('box_bike_2.png')
 
-fig3, ax3 = ox.plot_graph(net_3, node_alpha=0)
-fig3.savefig('box_bike_3.png')
+# fig3, ax3 = ox.plot_graph(net_3, node_alpha=0)
+# fig3.savefig('box_bike_3.png')
 
-fig4, ax4 = ox.plot_graph(net_4, node_alpha=0)
-fig4.savefig('box_bike_4.png')
+# fig4, ax4 = ox.plot_graph(net_4, node_alpha=0)
+# fig4.savefig('box_bike_4.png')
 
-fig5, ax5 = ox.plot_graph(net_5, node_alpha=0)
-fig5.savefig('box_bike_5.png')
+# fig5, ax5 = ox.plot_graph(net_5, node_alpha=0)
+# fig5.savefig('box_bike_5.png')
 
 
 

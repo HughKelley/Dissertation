@@ -34,7 +34,7 @@
 
 # test
 
-import osmnx as osmnx
+import osmnx as ox
 import networkx
 import pickle
 
@@ -50,6 +50,16 @@ destination = 1236955052
 
 
 check = networkx.has_path(net, origin, destination)
+
+test_path = networkx.shortest_path(net, origin, destination, weight='length')
+
+test_path_length = networkx.shortest_path_length(net, origin, destination, weight='length')
+
+fig, ax = ox.plot_graph_route(net, test_path, node_size=0)
+
+# route_map = ox.plot_route_folium(net, test_path)
+
+
 # https://networkx.github.io/documentation/stable/reference/algorithms/generated/networkx.algorithms.shortest_paths.generic.has_path.html#networkx.algorithms.shortest_paths.generic.has_path
 
 # https://networkx.github.io/documentation/networkx-1.10/reference/generated/networkx.algorithms.shortest_paths.weighted.dijkstra_path.html#networkx.algorithms.shortest_paths.weighted.dijkstra_path
@@ -65,3 +75,14 @@ check = networkx.has_path(net, origin, destination)
 # NetworkX algorithms designed for weighted graphs cannot use multigraphs directly because it is not 
 # clear how to handle multiedge weights. Convert to Graph using edge attribute ‘weight’ to enable 
 # weighted graph algorithms.
+
+# code for converting a multigraph into a graph with weights
+# https://stackoverflow.com/questions/15590812/networkx-convert-multigraph-into-simple-graph-with-weighted-edges#15598279
+
+
+
+# osmnx example seems to think nx.shortest_path can handle whatever OSMNX builds from OSM. 
+# classes
+
+# multidigraph 
+# 

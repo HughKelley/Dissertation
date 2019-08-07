@@ -2,17 +2,165 @@
 
 # import
 
+import osmnx as ox
+import networkx
+import pickle
+import sqlalchemy
+from sqlalchemy import Column, Integer, String, Boolean, Float, Sequence
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+from geoalchemy2 import Geometry
+import pandas as pd 
+
+
+
+########################################################################################################
 # connect to database
+
+engine = sqlalchemy.create_engine('postgresql://postgres:tuesday789@localhost:5432/Dissertation')
 
 # initialize ORM object/table relationship class
 
+Base = declarative_base(engine)
+metadata = sqlalchemy.MetaData()
+
+class travel_time(Base):
+
+	__tablename__ = 'travel_times'
+
+	id = Column(Integer, Sequence('id'), primary_key=True)
+	net_filter = Column(Integer)
+	origin = Column(Integer)
+	destination = Column(Integer)
+	has_path = Column(Boolean)
+	distance = Column(Float)
+
+class nearest_nodes(Base):
+
+	__table__ = sqlalchemy.Table('nearest_node', metadata, autoload=True, autoload_with=engine)
+
+
+Base.metadata.create_all(engine)
+
+# test_travel_time = travel_time(net_filter = 'bike_1', origin = 652813798, destination = 1236955052, has_path = True, distance = 101.101)
+
+Session = sessionmaker(bind=engine)
+
+session = Session()
+
+# after this line, the data in test_travel_time is "pending"
+# still separate from the DB
+# session.add(travel_time)
+
+# now commit the outstanding data/session status
+# session.commit()
+
+####################################################################################################
+
+def net_dict():
+	file_dict = {}
+	for i in range(1,6):
+		# print(i)
+		file_dict[i] = 'pickles/london_bike_' + str(i) + '_projected_pickle.file'
+		# print(file_dict[i])
+	return file_dict
+
+
+def trip_calc(net, origin, dest):
+
+	path = networkx.shortest_path(net, origin, destination, weight='length')
+	path_length = networkx.shortest_path_length(net, origin, destination, weight='length')
+	travel_time = travel_time(net_filter = 'bike_1', origin = origin, destination = destination, has_path = check, distance = path_length)
+
+	return travel_time
+
+
+
+# net_dict = net_dict()
+# print(net_dict)
+
+
+# file_dict['1'] = 'pickles/london_bike_1_projected_pickle.file'
+# file_dict['2'] = 'pickles/london_bike_2_projected_pickle.file'
+# file_dict['3'] = 'pickles/london_bike_3_projected_pickle.file'
+# file_dict['4'] = 'pickles/london_bike_4_projected_pickle.file'
+# file_dict['5'] = 'pickles/london_bike_5_projected_pickle.file'
+
+####################################################################################################
+
 # get origin and destination lists
+sql = 'select id, lsoa11cd, nearest_common_node from nearest_node'
+nodes_df = pd.read_sql(sql, con = engine) 
+print(nodes_df.head(2))
 
 # load network from pickle
 
+# file = 'pickles/london_bike_1_projected_pickle.file'
+
+# net = pickle.load(open(file, "rb" ))
+
+node_id_list = list(nodes_df['nearest_common_node'])
+p_id = 0
+debug_limit = 10
+net_dict = net_dict()
+
+for key, value in net_dict.items():
+
+	print('key: ', key)
+	print('type of key: ', type(key))
+	print('value: ', value)
+	debug_limit = p_id + 10
+
+	# net = pickle.load(open(value, "rb" ))
+	# print(type(net))
+
 # for each item in origin list
 
+	for origin in node_id_list:
+		
+		if p_id > debug_limit:
+			break
+
+		for destination in node_id_list:
+
+			if origin == destination:
+				print('matchy matchy')
+				continue
+
+			print('id: ', p_id)
+			print('origin: ', origin)
+			print('destination: ', destination)
+
+			if p_id > debug_limit:
+				break
+
+			###############################################################
+			# calc data for O/D pair
+
+			# check_path = networkx.has_path(net, origin, destination)
+
+			# if check_path:
+
+			# 	path = networkx.shortest_path(net, origin, destination, weight='length')
+
+			# 	path_length = networkx.shortest_path_length(net, origin, destination, weight='length')
+
+			# 	travel_time = travel_time(net_filter = 'bike_1', origin = origin, destination = desination, has_path = check, distance = path_length)
+
+			# 	trip = trip_calc(net, origin, destination)
+
+			# else:
+
+			# 	trip = travel_time(net_filter = key, origin = origin, destination = desination, has_path = check)
+
+
+
+			p_id = p_id + 1
+
+
+
 	# for each item in destination list
+
 
 		# try
 
@@ -34,28 +182,30 @@
 
 # test
 
-import osmnx as ox
-import networkx
-import pickle
+######################################################################################################
 
-file = 'pickles/london_bike_1_projected_pickle.file'
+# file = 'pickles/london_bike_1_projected_pickle.file'
 
-net = pickle.load(open(file, "rb" ))
+# net = pickle.load(open(file, "rb" ))
 
-origin = 652813798
-destination = 1236955052
+# origin = 652813798
+# destination = 1236955052
 
 
-# could use dijkstra or Bellman-ford algo for finding path
+# # could use dijkstra or Bellman-ford algo for finding path
 
 
-check = networkx.has_path(net, origin, destination)
+# check = networkx.has_path(net, origin, destination)
 
-test_path = networkx.shortest_path(net, origin, destination, weight='length')
+# test_path = networkx.shortest_path(net, origin, destination, weight='length')
 
-test_path_length = networkx.shortest_path_length(net, origin, destination, weight='length')
+# test_path_length = networkx.shortest_path_length(net, origin, destination, weight='length')
 
-fig, ax = ox.plot_graph_route(net, test_path, node_size=0)
+# fig, ax = ox.plot_graph_route(net, test_path, node_size=0)
+
+######################################################################################################
+
+
 
 # route_map = ox.plot_route_folium(net, test_path)
 

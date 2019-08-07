@@ -6,7 +6,7 @@ import osmnx as ox
 import networkx
 import pickle
 import sqlalchemy
-from sqlalchemy import Column, Integer, String, Boolean, Float, Sequence
+from sqlalchemy import Column, Integer, String, Boolean, Float, Sequence, BigInteger
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from geoalchemy2 import Geometry
@@ -30,8 +30,8 @@ class travel_time(Base):
 
 	id = Column(Integer, Sequence('id'), primary_key=True)
 	net_filter = Column(Integer)
-	origin = Column(Integer)
-	destination = Column(Integer)
+	origin = Column(BigInteger)
+	destination = Column(BigInteger)
 	has_path = Column(Boolean)
 	distance = Column(Float)
 
@@ -74,11 +74,11 @@ def trip_calc(net, origin, dest):
 
 		path = networkx.shortest_path(net, origin, destination, weight='length')
 		path_length = networkx.shortest_path_length(net, origin, destination, weight='length')
-		calced_data = travel_time(net_filter = 'bike_1', origin = origin, destination = destination, has_path = check_path, distance = path_length)
+		calced_data = travel_time(origin = origin, destination = destination, has_path = check_path, distance = path_length)
 
 	else: 
 	
-		calced_data = travel_time(net_filter = key, origin = origin, destination = destination, has_path = check_path)
+		calced_data = travel_time(origin = origin, destination = destination, has_path = check_path)
 
 
 	return calced_data
@@ -110,15 +110,15 @@ print(nodes_df.head(2))
 
 node_id_list = list(nodes_df['nearest_common_node'])
 p_id = 0
-debug_limit = 10
+# debug_limit = 10
 net_dict = net_dict()
 
 for key, value in net_dict.items():
 
-	print('key: ', key)
-	print('type of key: ', type(key))
-	print('value: ', value)
-	debug_limit = p_id + 10
+	# print('key: ', key)
+	# print('type of key: ', type(key))
+	# print('value: ', value)
+	# debug_limit = p_id + 10
 
 	net = pickle.load(open(value, "rb" ))
 	print(type(net))
@@ -127,30 +127,38 @@ for key, value in net_dict.items():
 
 	for origin in node_id_list:
 		
-		if p_id > debug_limit:
-			break
+		# if p_id > debug_limit:
+			# break
 
 		for destination in node_id_list:
 
 			if origin == destination:
-				print('matchy matchy')
+				# print('matchy matchy')
 				continue
 
-			print('id: ', p_id)
-			print('origin: ', origin)
-			print('destination: ', destination)
+			# print('id: ', p_id)
+			# print('origin: ', origin)
+			# print('destination: ', destination)
 
-			if p_id > debug_limit:
-				break
+			# if p_id > debug_limit:
+				# break
 
 			###############################################################
 			# calc data for O/D pair
 
 			trip = trip_calc(net, origin, destination)
 
-			print('distance: ', trip.distance)
+			trip.net_filter = key
+			# print("trip object filter value: ", trip.net_filter)
+			# print('distance: ', trip.distance)
 
 			p_id = p_id + 1
+
+			#####################
+			# send to sql DB
+
+			session.add(trip)
+			session.commit()
 
 
 

@@ -68,11 +68,20 @@ def net_dict():
 
 def trip_calc(net, origin, dest):
 
-	path = networkx.shortest_path(net, origin, destination, weight='length')
-	path_length = networkx.shortest_path_length(net, origin, destination, weight='length')
-	travel_time = travel_time(net_filter = 'bike_1', origin = origin, destination = destination, has_path = check, distance = path_length)
+	check_path = networkx.has_path(net, origin, destination)
 
-	return travel_time
+	if check_path:
+
+		path = networkx.shortest_path(net, origin, destination, weight='length')
+		path_length = networkx.shortest_path_length(net, origin, destination, weight='length')
+		calced_data = travel_time(net_filter = 'bike_1', origin = origin, destination = destination, has_path = check_path, distance = path_length)
+
+	else: 
+	
+		calced_data = travel_time(net_filter = key, origin = origin, destination = destination, has_path = check_path)
+
+
+	return calced_data
 
 
 
@@ -111,8 +120,8 @@ for key, value in net_dict.items():
 	print('value: ', value)
 	debug_limit = p_id + 10
 
-	# net = pickle.load(open(value, "rb" ))
-	# print(type(net))
+	net = pickle.load(open(value, "rb" ))
+	print(type(net))
 
 # for each item in origin list
 
@@ -137,23 +146,9 @@ for key, value in net_dict.items():
 			###############################################################
 			# calc data for O/D pair
 
-			# check_path = networkx.has_path(net, origin, destination)
+			trip = trip_calc(net, origin, destination)
 
-			# if check_path:
-
-			# 	path = networkx.shortest_path(net, origin, destination, weight='length')
-
-			# 	path_length = networkx.shortest_path_length(net, origin, destination, weight='length')
-
-			# 	travel_time = travel_time(net_filter = 'bike_1', origin = origin, destination = desination, has_path = check, distance = path_length)
-
-			# 	trip = trip_calc(net, origin, destination)
-
-			# else:
-
-			# 	trip = travel_time(net_filter = key, origin = origin, destination = desination, has_path = check)
-
-
+			print('distance: ', trip.distance)
 
 			p_id = p_id + 1
 

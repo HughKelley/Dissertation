@@ -72,7 +72,7 @@
 
 %%% The "real" document content comes below...
 
-\title{\vspace{-3.0cm}Title}
+\title{\vspace{-3.0cm}Cycling in London; \\ Safety and Travel Times}
 \author{Hugh Kelley}
 %\date{} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed 
@@ -89,19 +89,29 @@
 
 \section{Abstract}
 
-\section{List of Tables}
+\tableofcontents
 
-\section{List of Figures}
+%\listoffigures
+\listoftables
+
 
 % TOC
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Research Goal and Overview}
+
 What makes a city comfortable for cycling? The conditions are clear when one sees them, but defining the characteristics quantitatively is challenging. 
 
-This research is intended to build a cohesive methodology for defining the overall suitability of a city to transport by bicycle. It extends the literature in three ways; extending quantitative research to a holistic approach rather than focusing on individual edges or nodes, extending holistic approaches to quantitative outcomes rather than visual or anecdotal conclusions, and by emphasizing the use of open source tools and data that are available to any member of community. 
+This research intends to define the overall suitability of a city to cycling using estimates of the roads cyclist are and are not willing to use and the effect these decision have on travel times. The central research question is: \textit{how does a peference for safety decrease accessibility in central London when traveling by bicycle?} It extends the literature in three ways; extending quantitative research to a holistic approach rather than focusing on individual edges or nodes, extending holistic approaches to quantitative outcomes rather than visual or anecdotal conclusions, and by emphasizing the use of open source tools and data that are available to any member of community. 
 
 The research provides a methodology that allows a community to identify nodes and edges for improvement that will have the largest impact on the overall network, quantify the expected improvement, and thus require from elected officials specific changes to the roads in their communities. 
+
+The subquestions addressed in the methodology are, What is the quality of the Open Street Map metadata for streets in London? How important are the OSM highway types to efficient transit within London? How does transit by bicycle compare to transit by public transport within London? 
+
+The issue implied by these research questions is: to what extent is street level transportatoin space a zero sum game? Can a high level of service for cyclists be built without taking large amounts of important space away from automobile trafic? 
+
+The intended outcomes of this research include(1) an understanding of the roles of location and connectivity for cycling infrastructure and (2) an understanding of the usefulness of Open Street Map data for estimating these sorts of measures. 
+
 
 \subsection{ethical risks}
 
@@ -110,395 +120,53 @@ This project relies entirely on publicly accessible data. For this reason, ethic
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 
-Improving the safety and easy of cycling in cities is of obvious importance in the world today. Cycling offers conitributions to the solution of problems including the global climate, local pollution, public health and obesity, urban transportation congestion, and income disparities.  large body of research addresses the factors influencing the decision to cycle in an urban environment, and which factors make cycling in that environment more or less safe. Modern quantitative methods have only begun to be applied to this problem though. Challenges come through the lack f technical knowledge among interested parties, lack of access to tools for analysis of complex spatial problems like this, and lack of access to the data necessary to define the nature of the problem and estimate the outcomes of possible solutions. 
+Cycling in cities generally
 
-In this context, this work hopes to make a contribution using London as a case study. London is an attractive case because it has a considerable cycling population but does not yet have the level of infrastructure that exists in world leading cities like Copenhagen. Thus London's position at a mid point of cycling infrastructure development allows strengths and weaknesses to a live program of improvement to be identified. 
+Cycling in London
 
-\subsection{Research Structure}
+safety
 
-First, existing work on this research area will be reviewed and the techniques to be built upon will be identified.  Then a methodology for defining the strength of cycling infrastructure in a city will be specified. The data available for analysis will be described in the context of past work, and what is available for other cities and through other channels that were not available to this research. Section 3 will describe the implementation of this methodology for London, identifying the scope of the case study, defining the exact data collected and transformed and the specific tools used. 
+need for open data and methods for people to advocate in places where local government is not supportive
 
-The multiple stages of results will be reported, and interpreted. Finally conclusions will be drawn, areas of further research specified, opportunities to improve the methodology and the quality of the data emphasized and the key recommendations for further improving the London cycling infrastructure network will be made. 
+More than half of the world's population lives in cities. Cycling is of obvious importance to the well being of the world's  urban population in terms of the macro-climate crisis, local pollution problems,  public health, wealth disparaities, and urban traffic congestion. A commonly researched question is ``what factors have the most significant effect on cycling rates?'' The research has only recently begun to address cycling from a network perspective. 
 
-\subsection{Cycling mode share}
+A large body of research addresses the factors influencing the decision to cycle in an urban environment, and which factors make cycling in that environment more or less safe. Modern quantitative methods have only begun to be applied to this problem though. Challenges come through the lack of technical knowledge among interested parties, lack of access to tools for analysis of this type of complex spatial problems, and lack of access to the data necessary to define the nature of the problem and estimate the outcomes of possible solutions. 
 
+ The review of literature that follows will argue that the majority of work on this question approaches the matter from a perspective of discrete policy intervention and the effect of marginal improvements on cycling. This fails to build a comprehensive theory of cycling rates that a network analysis approach can offer. Only network theory can offer a high level look at the level of service in a community. 
 
-
-\subsection{The decision to cycle}
-
-
-
-\subsection{Route Choice}
-
-
-
-\subsection{The role of the researcher}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Literature}
-
-\subsection{The decision to cycle}
-
-\subsection{Cycling Infrastructure}
-
-\subsection{Cycling Danger}
-
-\subsection{Cycling Networks}
-
-\subsection{Network Analysis and Accessibility}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Methods and Data need a good structure because they rely on each other
-\section{Methods}
-
-\subsection{Data Sources}
-
-\subsubsection{Open Street Map}
-
-Open street map provides community generated geospatial data. This data is accessible via the overpass API from several hosts. 
-
-\subsubsection{A Close Look at an Open Street Map Case Study}
-
-Using data from Open street map is difficult. 
-
-Compare Relation = cycleway to a list of edges and nodes tagged cycleway
-
-Adding living streets and residential streets don't do much. 
-
-Part of the problem is the lack of consistent tagging, it only takes one line segment missing a tag to disconnect two nodes,
-
-but this also reflects the fact that getting somewhere within London nearly always requires leaving cycle infrastructure at some point and using main roads. 
-
-The importance of this consideration will be shown using a percolation style analysis of the network, adding busier and busier roads to the network and considering the largest connected component. 
-
-\subsubsection{2011 Census Journey to work data}
-
-The 2011 census asked questions about where people work and how they get there. 
-
-This data is shared through the Nomis Labor Force website as multi-sheet excel pivot tables. Making the data usable required, stripping the meta data headings from each sheet, importing the book to pandas dataframe by sheet, melting from a picot table to long data with origin, destination, and count columns, adding the sheet name that identified the mode of travel as a column, appending each individual sheet together into a single dataframe, and pushing the dataframe to the sql database. 
-
-\subsubsection{LSOA boundaries and data}
-
-where LSOA's were comprised of multiple polygons, the centroid of the largest polygon was used. 
-
-lsoa population from mid 2011 
-
-https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/lowersuperoutputareamidyearpopulationestimates
-
-LSOA boundaries are available from the London Data store
-
-https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london
-
-On maps created using these boundaries the copyright must be stated. This is
-%"Contains National Statistics data © Crown copyright and database right [2015]" and "Contains Ordnance Survey data © Crown copyright and database right [2015]"
-
-\subsubsection{Road KSI data}
-
-https://www.gov.uk/government/collections/road-accidents-and-safety-statistics
-
-https://data.london.gov.uk/dataset/pedal-cyclist-casualties-killed-and-seriously-injured
-
-https://data.london.gov.uk/dataset/road-casualties-severity-borough
-
-\subsection{Data import, storage, cleaning, and joining}
-
-remove multipolygon lsoa interior rings in favor of polygon lsoa shapes
-
-\subsection{Defining Cycle Networks}
-
-How were the representative networks built? 
-
-Open Street Map uses tags to associate street characteristics with the geometries that make up the map. Appendix XXXX contains the definitions from the OSM wiki page for each of the tags used. Most important to note is that this research uses 5 ``levels'' of street stress. The highest level allows all street conditions. The second level allows all but ``primary'' streets, the largest busiest streets. Then ``secondary'' streets are removed in the third filter. ``Tertiary'' type streets are moved to build the fourth filter. The fifth filter moves ``living streets'' and ``residential'' streets which both are specified to be low traffic streets used primarily for local trips. Thus the most conservative layer of the network contains only edges where there is no expectation of interaction with motor vehicles. 
-
-
-
-The networks were simplified so that a node with degree 2 was removed and the two edges were joined, becoming a continuous path way. 
-
-
-
-
-\subsection{Travel Times}
-
-\subsection{Street Type and Street Danger}
-
-\subsection{Accessibility}
-
-\subsection{assumptions and concerns}
-
-used centroids instead of actual nodes from Quant Data
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Analysis \& Results}
-
-\subsection{Defining Scope}
-
-Goal is to capture the largest computationally feasible network with a simple set of rules. 
-
-The first rule was to restrict the network to ``inner london''. This has the advantage of a formal designation by the GLA for each borough, capturing, XXX\% of the population with a population density of XXXXXX compared to XXXXX for london overall, XXXXXX\% of the jobs in the city, and XXXX\% of the journey's to work. Additionally, rates of cycling are higher in inner London than in the periphery. 
-
-Second, the area of interest was restricted to north of the river Thames. This captures XXX\% of the population, with a density of XXXXXXX, XXX\% of London's jobs, and XXX\% of the journey's to work. Further, it has the advantage of excluding the need to cross the river, where journey's are focused on a few number of bridges, with a significant effect on the shortest paths, reducing the effect of other changes on the network. 
-
-
-Each network is created using a filter that excludes Open Street Map features tagged with certain values. All features tagged with ``bicycle=no'' or ``service=private'' were excluded. Additionally, where the edge's ``highway'' tag was ``footway, steps, corridor, elevator, escalator, motor, proposed, construction, abandoned, platform, or raceway the feature was also excluded. 
-
-The most aggressive bike filter used only these conditions.
-
-
-%%%%%%%%%%%
-% This needs more work for justification
-%%%%%%%%%%%%%%%
-
-
-
- 
-
-\subsection{Defining Networks}
-
-Five network definitions were considered. The exact filters used to select this data are available in APPENDIX XXXX 
-
-The first network is the set of edges where a cyclist can expect to travel without interacting with motorized traffic at all. This is separated cycle routes, tow paths, and other segregated ways. 
-
-The second builds on the first by adding ways tagged as living streets and residential streets.
-
-The third adds all public streets where cycling is not forbidden. 
-
-The fourth network is an undirected version of the third network. This is used to consider the effect of one way restrictions on travel times. 
-
-The fifth network is made up of the cycleways designated by TfL on Open Street Map. This is an interesting case because a significant part of this network is made of routes without cycle infrastructure. The network is considered in the sense that, if this was to become a high quality, low stress network, how well would it serve journeys in London? 
-
-\begin{figure}
-\centering
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=1\linewidth]{bbox_bike_1_filter_cropped}
-  \caption{1: most confident cyclists}
-  \label{fig:sub1}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=1\linewidth]{bbox_bike_5_filter_cropped}
-  \caption{5: no interaction with cars }
-  \label{fig:sub2}
-\end{subfigure}
-\caption{Edges included by different filters}
-\label{fig:test}
-\end{figure}
-
-\begin{figure}
-\centering
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=1\linewidth]{bbox_bike_2_filter_cropped}
-  \caption{2: all but primary streets}
-  \label{fig:sub1}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=1\linewidth]{bbox_bike_4_filter_cropped}
-  \caption{4: only residential and living streets}
-  \label{fig:sub2}
-\end{subfigure}
-\caption{Edges included by different filters}
-\label{fig:test}
-\end{figure}
-
-
-%\includegraphics{bbox_bike_1_filter_cropped}
-
-%\includegraphics{bbox_bike_5_filter_cropped}
-Level\_1
-
-no interaction with cars
-
-Level\_2
-
-level\_1 plus living streets and residential streets
-
-Level\_3
-
-all streets 
-
-Undirected
-
-Theoretical Cycle Network
-
-\subsection{Network Characteristics}
-
-
-
-chart of largest connected component of network as edge types are included. 
-
-no cars,
-+ living streets
-+ residential streets
-+ tertiary 
-+ secondary
-+primary
-
-\subsection{Travel Times}
-
-\subsection{test for differences}
-
-\subsection{Cycling Danger}
-
-\subsection{Accessibility}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Conclusions}
-
-\subsection{Results}
-
-\subsection{Limitations}
-
-\subsection{Opportunities for improvement and extension}
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Appendix}
-
-
-
-
-\begin{itemize}
-\item one
-\item two
-  \begin{itemize}
-  \item one point one
-  \item one point two
-  \end{itemize}
-\end{itemize}
-
-\subsection{Subsection 1}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.8\textwidth]{example}
-\caption{Correlation between station/node metrics}
-\end{figure}
-
-
-
-
-
-\begin{tabular}{lrl}
-tag & count & definition \\
-bridleway& 46 & For horse riders\\
-crossing & 2 & A crosswalk \\
-cycleway & 4726 & Designated Cycleway\\
-living street & 153 & Pedestrians have legal priority over cars. Low speeds.\\
-no & 2 & Not an official tag \\
-path & 2432 & Generic, including footpaths, cycle paths, bridleways and tracks. \\
-pedestrian & 1650 & Roads mainly/exclusively for pedestrians.\\
-permissive & 2 & Not an official tag\\
-primary & 6668 & Important roads linking larger towns.\\
-primary link & 97 & link roads associated with primary roads.\\
-residential & 30021 & Roads that serve access to housing, without connecting settlements.\\
- road & 4 & A highway of unknown type. \\
-secondary & 3272 & Less important than primary.\\
-secondary link & 46 & link roads associated with secondary roads.\\
-service & 16474 & Access roads to industrial or business parks, etc. \\
-tertiary & 5602 & Less important than secondary\\
-tertiary link & 26 & Link roads associated with tertiary roads. \\ 
-track & 492 & Roads for mostly agricultural or forestry uses. \\
-trunk & 2683 & Important roads that aren't motorways. \\
-trunk link & 134 & Link roads associated with trunk roads \\
-unclassified & 7637 & less important than tertiary. Artefact of UK road system.\\ 
-\end{tabular}
-
-
-
-
-\begin{tabular}{|l|l|l|l|}\hline
-  \multirow{10}{*}{numeric literals} 				& \multirow{5}{*}{integers} 	& in decimal 					& \verb|8743| \\ \cline{3-4}
-  					    				& 				       	& \multirow{2}{*}{in octal}   		& \verb|0o7464| \\ \cline{4-4}
-  					    				& 					& 						& \verb|0O103| \\ \cline{3-4}
-  					    				& 					& \multirow{2}{*}{in hexadecimal}	& \verb|0x5A0FF| \\ \cline{4-4}
- 				 	    				& 					& 						& \verb|0xE0F2| \\ \cline{2-4}
-  					    				& \multirow{5}{*}{fractionals} 	& \multirow{5}{*}{in decimal} 		& \verb|140.58| \\ \cline{4-4}
- 				 					& 					& 						& \verb|8.04e7| \\ \cline{4-4}
-  									& 					& 						& \verb|0.347E+12| \\ \cline{4-4}
-  									& 					& 						& \verb|5.47E-12| \\ \cline{4-4}
-  									& 					& 						& \verb|47e22| \\ \cline{1-4}
-  \multicolumn{3}{|l|}{\multirow{3}{*}{char literals}} 													& \verb|'H'| \\ \cline{4-4}
-  \multicolumn{3}{|l|}{} 																	& \verb|'\n'| \\ \cline{4-4}          %% here
-  \multicolumn{3}{|l|}{} 																	& \verb|'\x65'| \\ \cline{1-4}        %% here
-  \multicolumn{3}{|l|}{\multirow{2}{*}{string literals}} 												& \verb|"bom dia"| \\ \cline{4-4}
-  \multicolumn{3}{|l|}{} 																	& \verb|"ouro preto\nmg"| \\ \cline{1-4}          %% here
-\end{tabular}
-
-
-
-
-\begin{verbatim}
-use pseudocode
-\end{verbatim}
-
-\textit{italics}
-\textbf{bold}
-
-XXXX words excluding headings, figures, and references. \\
-
-%\nocite{*}
-%
-%\medskip
-%
-%
-%\printbibliography
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-start of lit review
-
-\section{Introduction}
-
-More than half of the world's population lives in cities. Cycling is of obvious importance to the well being of the world's  urban population in terms of the macro-climate crisis, local pollution problems, and public health issues. A commonly researched question is ``what factors have the most significant effect on cycling rates?''
+Thus a comprehensive approach to encouraging cycling in an urban area would consider individual improvements in the context of the existing network, and how the improvements would change the size of the low-stress nework coverage of the city. 
 
 This literature review will show that existing research is limited by two considerations. First is the scope of the analysis, considering individual changes instead of the status of the entire transportation network from the cyclists perspective.  Second is the difficulty of obtaining data used by the studies that do take a comprehensive network approach. 
 
 After critically reviewing this existing research, a methodology for using open source tools and data to estimate the relative strength of a cycle network and a method for prioritizing improvements will be specified. 
 
-\section{Discrete Approach}
+The review that follows takes the structure of an initial look at typical literature considering how to promote cycling, recent attempts to use network analysis to accomplish this same goal, and closes with a look at work in network analysis that can inform applying the field to cycle networks.
 
-\section{Network Approach}
-
-\section{Intended Methodology}
-
-
-
-
-
-
-
-\section{Basic Framework}
-
-The goal of this research is to assess the quality of the London Cycle Network. How well does it serve its users? To do this, first I'll review traditional literature on the impact of infrastructure improvements on the rate of cycling, which will make it clear that only a comprehensive view of cycling infrastructure, analysis of the full network, can allow an accurate understanding. The limited work available that applies network analysis to cycling infrastructure will be reviewed. Before specifying research questions and methodologies, general network analysis literature relevant to this work will be reviewed. 
-
-
-\section{Introduction}
-
-More than half of the world's population lives in cities. Cycling is of obvious importance to the well being of the world's  urban population in terms of the macro-climate crisis, local pollution problems, and public health issues. A commonly researched question is ``what factors have the most significant effect on cycling rates?'' The review of literature that follows will argue that the majority of work on this question approaches the matter from a perspective of discrete policy intervention and the effect of marginal improvements on cycling. This fails to build a comprehensive theory of cycling rates that a network analysis approach can offer. Only network theory can offer a high level look at the level of service in a community. The review that follows takes the structure of an initial look at typical literature considering how to promote cycling, recent attempts to use network analysis to accomplish this same goal, and closes with a look at work in network analysis that can inform applying the field to cycle networks. The overarching theme of the review and the research that is proposed is the idea that no individual intervention is sufficient to change behavior until a comprehensive network of infrastructure that reflects the importance of locations according to centrality is created. The implication of this view is that infrastructure changes are unlikely to have a meaningful effect on behavior in the system until a critical mass or tipping point is reached in the network. 
+ The implication of this view is that infrastructure changes are unlikely to have a meaningful effect on behavior in the system until a critical mass or tipping point is reached in the network. 
 
 Basic attitude is that improvements to infrastructure only matter to the extent that they improve safe connectivity to ``important'' nodes/edges. 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ 
+
+In this context, this work hopes to make a contribution using London as a case study. London is an attractive case because it has a considerable cycling population but does not yet have the level of infrastructure that exists in world leading cities like Copenhagen. Thus London's position at a mid point of cycling infrastructure development allows strengths and weaknesses to a live program of improvement to be identified. 
+
+\subsection{Research Structure}
+
+First, existing work on this research area will be reviewed and the techniques to be built upon will be identified.  Then a methodology for defining the strength of cycling infrastructure in a city will be specified. The data available for analysis will be described in the context of past work, and what is available for other cities and through other channels that were not available to this research. the steps taken for data cleaning, transformation and joining will be specified. Section 3 will describe the implementation of this methodology for London, identifying the scope of the case study, defining the exact data collected and transformed and the specific tools used. 
+
+The multiple stages of results will be reported, and interpreted. Finally conclusions will be drawn, areas of further research specified, opportunities to improve the methodology and the quality of the data emphasized and the key recommendations for further improving the London cycling infrastructure network will be made. 
+
+
+\subsection{The role of the researcher}
+
+Read other versions of this and see if it makes sense for this 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Literature Review}
 
-\subsection{Relevant Literature regarding cycling generally}
+\subsection{Cycling Behavior Research}
 
 The most important conclusions from literature that tries to predict cycling behavior is the focus on multiple types of cyclists, and the factors that influence each type's decision to cycle. Most often, four types of cyclists are used, ``strong and fearless'', ``enthused and confident'', ``interested but concerned'', and ``no way no how'' (\cite{dill2013four}). This categorization is sometimes changed to follow demographics, focusing on young, generally male, adults, older adults, and childern. CITE. The literature separates the decision to cycle into the decision of cycling frequency, how often someone who is willing to cycle generally chooses to do so, and the decision to cycle at all, with different factors influencing each decision (\cite{stinson2005comparison}). 
 
@@ -526,7 +194,11 @@ Several studies looked at the importance of perception in behavior change, assum
 %
 %Vandenbulcke, Predicting cycling accident risk in Brussels: A Spatial case control approach. The things cyclists perceive as dangerous are dangerous. \cite{vandenbulcke2014predicting}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
 
 \subsection{Literature addressing cycling From a network perspective}
 
@@ -560,10 +232,7 @@ Thus while network analysis has been applied to cycle infrastructure, clearly th
 %
 %\end{itemize}
 
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+              
 %
 %
 %Akbarzadeh, Designing Bike networks using the concept of network clusters, Taxi trips to indicate links between nodes. Not a very good method for understanding where to build networks, needlessly complicated. \cite{akbarzadeh2018designing}
@@ -727,6 +396,23 @@ Overall there are a number of considerations from network science that this rese
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Literature}
+
+\subsection{The decision to cycle}
+
+\subsection{Cycling Infrastructure}
+
+\subsection{Cycling Danger}
+
+\subsection{Cycling Networks}
+
+\subsection{Network Analysis and Accessibility}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Methods and Data need a good structure because they rely on each other
+\section{Methods}
+
+
 \section{Most optimistic Project Plan/Methodology}
 
 Goal is to quantify the quality of the London Cycling Network with the working assumption that a better network has a meaningful positive effect on the rate of cycling in a city. 
@@ -744,6 +430,10 @@ The second method is intended to extend the first. Looking at the distribution o
 Finally, the possibility of a ``transition'' in the networks defined will be explored. What changes to the network are required for a dramatic change in connectivity to occur? This is the most uncertain but potentially most valuable part of the research. Past research has analyzed the linear individual effect of cycling infrastructure, but has not considered the possibility of a rapid acceleration in cycling usage as the result of a network wide transition in connectivity. 
 
 Finally, community identification could be applied to the networks to find whether particular neighborhoods in London are especially good for cyclists. 
+
+ 
+
+\subsection{Data Sources}
 
 
 \section{Data considerations}
@@ -769,34 +459,76 @@ Press release about data set \href{https://www.london.gov.uk/press-releases/mayo
 
 But no actual data. Seems like OSM is the delivery mechanism, unclear how integrated the data is into OSM. 
 
+\subsubsection{Open Street Map}
 
-\section{Going Forward}
+Open street map provides community generated geospatial data. This data is accessible via the overpass API from several hosts. 
+
+\subsubsection{A Close Look at an Open Street Map Case Study}
+
+Open Street Map is a mapping project started in 2004 to collect volunteered geographic information. It consists of geometries drawn by users, either in person, as they travel through a city or remotely, looking at donated satelite images of cities. 
+
+Cite OSM wiki page
+https://en.wikipedia.org/wiki/OpenStreetMap
+
+Second to the actual geometry of a "way", streets and paths, node, single point on the map, or relation, collection of ways nodes and other relations are tags. Tags specify what a particular geometry is, what its characteristics are, and rules for use or other characteristics of the geometry. This allows for differentiation on the map between public and private areas, specification of what exactly a node is referencing, an intersection, mailbox, or a business location, or the type of traffic allowed or commonly seen on a street way. 
+
+There are four possible problems with Open Street Map, missing geometries, inaccurate geometries, missing tags and innaccurate tags. The review of literature will provide detail on attempts to measure the accuracy of the data in Open Street Map. 
+
+Using data from Open street map is difficult. 
+
+Compare Relation = cycleway to a list of edges and nodes tagged cycleway
+
+Adding living streets and residential streets don't do much. 
+
+Part of the problem is the lack of consistent tagging, it only takes one line segment missing a tag to disconnect two nodes,
+
+but this also reflects the fact that getting somewhere within London nearly always requires leaving cycle infrastructure at some point and using main roads. 
+
+The importance of this consideration will be shown using a percolation style analysis of the network, adding busier and busier roads to the network and considering the largest connected component. 
+
+\subsubsection{2011 Census Journey to work data}
+
+The 2011 census asked questions about where people work and how they get there. 
+
+This data is shared through the Nomis Labor Force website as multi-sheet excel pivot tables. Making the data usable required, stripping the meta data headings from each sheet, importing the book to pandas dataframe by sheet, melting from a picot table to long data with origin, destination, and count columns, adding the sheet name that identified the mode of travel as a column, appending each individual sheet together into a single dataframe, and pushing the dataframe to the sql database. 
+
+\subsubsection{LSOA boundaries and data}
+
+where LSOA's were comprised of multiple polygons, the centroid of the largest polygon was used. 
+
+lsoa population from mid 2011 
+
+https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/lowersuperoutputareamidyearpopulationestimates
+
+LSOA boundaries are available from the London Data store
+
+https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london
+
+On maps created using these boundaries the copyright must be stated. This is
+%"Contains National Statistics data © Crown copyright and database right [2015]" and "Contains Ordnance Survey data © Crown copyright and database right [2015]"
+
+\subsubsection{Road KSI data}
+
+https://www.gov.uk/government/collections/road-accidents-and-safety-statistics
+
+https://data.london.gov.uk/dataset/pedal-cyclist-casualties-killed-and-seriously-injured
+
+https://data.london.gov.uk/dataset/road-casualties-severity-borough
+
+\subsection{Data import, storage, cleaning, and joining}
+
+remove multipolygon lsoa interior rings in favor of polygon lsoa shapes
+
+\subsection{Defining Cycle Networks}
+
+How were the representative networks built? 
+
+Open Street Map uses tags to associate street characteristics with the geometries that make up the map. Appendix XXXX contains the definitions from the OSM wiki page for each of the tags used. Most important to note is that this research uses 5 ``levels'' of street stress. The highest level allows all street conditions. The second level allows all but ``primary'' streets, the largest busiest streets. Then ``secondary'' streets are removed in the third filter. ``Tertiary'' type streets are moved to build the fourth filter. The fifth filter moves ``living streets'' and ``residential'' streets which both are specified to be low traffic streets used primarily for local trips. Thus the most conservative layer of the network contains only edges where there is no expectation of interaction with motor vehicles. 
 
 
-\subsection{Questions}
 
-Data status, it seems like the basic data required for the work exists but it isn't clear how to access it and how to match different data sets up with each other. 
+The networks were simplified so that a node with degree 2 was removed and the two edges were joined, becoming a continuous path way. 
 
-Methodology status, clearly the methodologies I intend to use are possible, they're used in other papers, but I need to find manuals/text books that actually discuss how to implement the methods. 
-
-\subsection{Tasks}
-
-\subsubsection{Data}
-		\begin{itemize}
-			\item Geoff Boeoing network X OSM tutorial
-			\item read through Talk GB mailing list for OSM info
-		\end{itemize}
-
-\subsubsection{Analysis}
-		\begin{itemize}
-			\item centrality distribution comparison method
-			\item weighted random walk method
-			\item ``transition'' identification method
-			\item ``community detection method
-		\end{itemize}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\section{Intended research Questions and Methodology}
 %
 %Overall Goal is to assess London's cycle network. 
@@ -865,8 +597,241 @@ Methodology status, clearly the methodologies I intend to use are possible, they
 %	compare disributions of centrality scores between road network and bike network. 
 %	
 %	compare network before and after Super Highway constructions
+
+
+\subsection{Travel Times}
+
+\subsection{Street Type and Street Danger}
+
+\subsection{Accessibility}
+
+\subsection{assumptions and concerns}
+
+used centroids instead of actual nodes from Quant Data
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Analysis \& Results}
+
+\subsection{Defining Scope}
+
+Goal is to capture the largest computationally feasible network with a simple set of rules. 
+
+The first rule was to restrict the network to ``inner london''. This has the advantage of a formal designation by the GLA for each borough, capturing, XXX\% of the population with a population density of XXXXXX compared to XXXXX for london overall, XXXXXX\% of the jobs in the city, and XXXX\% of the journey's to work. Additionally, rates of cycling are higher in inner London than in the periphery. 
+
+Second, the area of interest was restricted to north of the river Thames. This captures XXX\% of the population, with a density of XXXXXXX, XXX\% of London's jobs, and XXX\% of the journey's to work. Further, it has the advantage of excluding the need to cross the river, where journey's are focused on a few number of bridges, with a significant effect on the shortest paths, reducing the effect of other changes on the network. 
+
+
+Each network is created using a filter that excludes Open Street Map features tagged with certain values. All features tagged with ``bicycle=no'' or ``service=private'' were excluded. Additionally, where the edge's ``highway'' tag was ``footway, steps, corridor, elevator, escalator, motor, proposed, construction, abandoned, platform, or raceway the feature was also excluded. 
+
+The most aggressive bike filter used only these conditions.
+
+
+%%%%%%%%%%%
+% This needs more work for justification
+%%%%%%%%%%%%%%%
+
+
+
+ 
+
+\subsection{Defining Networks}
+
+Five network definitions were considered. The exact filters used to select this data are available in APPENDIX XXXX 
+
+The first network is the set of edges where a cyclist can expect to travel without interacting with motorized traffic at all. This is separated cycle routes, tow paths, and other segregated ways. 
+
+The second builds on the first by adding ways tagged as living streets and residential streets.
+
+The third adds all public streets where cycling is not forbidden. 
+
+The fourth network is an undirected version of the third network. This is used to consider the effect of one way restrictions on travel times. 
+
+The fifth network is made up of the cycleways designated by TfL on Open Street Map. This is an interesting case because a significant part of this network is made of routes without cycle infrastructure. The network is considered in the sense that, if this was to become a high quality, low stress network, how well would it serve journeys in London? 
+
+\begin{figure}
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{bbox_bike_1_filter_cropped}
+  \caption{1: most confident cyclists}
+  \label{fig:sub1}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{bbox_bike_5_filter_cropped}
+  \caption{5: no interaction with cars }
+  \label{fig:sub2}
+\end{subfigure}
+\caption{Edges included by different filters}
+\label{fig:test}
+\end{figure}
+
+\begin{figure}
+\centering
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{bbox_bike_2_filter_cropped}
+  \caption{2: all but primary streets}
+  \label{fig:sub1}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=1\linewidth]{bbox_bike_4_filter_cropped}
+  \caption{4: only residential and living streets}
+  \label{fig:sub2}
+\end{subfigure}
+\caption{Edges included by different filters}
+\label{fig:test}
+\end{figure}
+
+
+%\includegraphics{bbox_bike_1_filter_cropped}
+
+%\includegraphics{bbox_bike_5_filter_cropped}
+Level\_1
+
+no interaction with cars
+
+Level\_2
+
+level\_1 plus living streets and residential streets
+
+Level\_3
+
+all streets 
+
+Undirected
+
+Theoretical Cycle Network
+
+\subsection{Network Characteristics}
+
+
+
+chart of largest connected component of network as edge types are included. 
+
+no cars,
++ living streets
++ residential streets
++ tertiary 
++ secondary
++primary
+
+\subsection{Travel Times}
+
+\subsection{test for differences}
+
+\subsection{Cycling Danger}
+
+\subsection{Accessibility}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions}
+
+\subsection{Results}
+
+\subsection{Limitations}
+
+\subsection{Opportunities for improvement and extension}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Appendix}
+
+
+
+
+\begin{itemize}
+\item one
+\item two
+  \begin{itemize}
+  \item one point one
+  \item one point two
+  \end{itemize}
+\end{itemize}
+
+\subsection{Subsection 1}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.8\textwidth]{example}
+\caption{Correlation between station/node metrics}
+\end{figure}
+
+
+
+
+\begin{table}
+\begin{tabular}{lrl}
+tag & count & definition \\
+bridleway& 46 & For horse riders\\
+crossing & 2 & A crosswalk \\
+cycleway & 4726 & Designated Cycleway\\
+living street & 153 & Pedestrians have legal priority over cars. Low speeds.\\
+no & 2 & Not an official tag \\
+path & 2432 & Generic, including footpaths, cycle paths, bridleways and tracks. \\
+pedestrian & 1650 & Roads mainly/exclusively for pedestrians.\\
+permissive & 2 & Not an official tag\\
+primary & 6668 & Important roads linking larger towns.\\
+primary link & 97 & link roads associated with primary roads.\\
+residential & 30021 & Roads that serve access to housing, without connecting settlements.\\
+ road & 4 & A highway of unknown type. \\
+secondary & 3272 & Less important than primary.\\
+secondary link & 46 & link roads associated with secondary roads.\\
+service & 16474 & Access roads to industrial or business parks, etc. \\
+tertiary & 5602 & Less important than secondary\\
+tertiary link & 26 & Link roads associated with tertiary roads. \\ 
+track & 492 & Roads for mostly agricultural or forestry uses. \\
+trunk & 2683 & Important roads that aren't motorways. \\
+trunk link & 134 & Link roads associated with trunk roads \\
+unclassified & 7637 & less important than tertiary. Artefact of UK road system.\\ 
+\end{tabular}
+\end{table}
+
+
+
+\begin{tabular}{|l|l|l|l|}\hline
+  \multirow{10}{*}{numeric literals} 				& \multirow{5}{*}{integers} 	& in decimal 					& \verb|8743| \\ \cline{3-4}
+  					    				& 				       	& \multirow{2}{*}{in octal}   		& \verb|0o7464| \\ \cline{4-4}
+  					    				& 					& 						& \verb|0O103| \\ \cline{3-4}
+  					    				& 					& \multirow{2}{*}{in hexadecimal}	& \verb|0x5A0FF| \\ \cline{4-4}
+ 				 	    				& 					& 						& \verb|0xE0F2| \\ \cline{2-4}
+  					    				& \multirow{5}{*}{fractionals} 	& \multirow{5}{*}{in decimal} 		& \verb|140.58| \\ \cline{4-4}
+ 				 					& 					& 						& \verb|8.04e7| \\ \cline{4-4}
+  									& 					& 						& \verb|0.347E+12| \\ \cline{4-4}
+  									& 					& 						& \verb|5.47E-12| \\ \cline{4-4}
+  									& 					& 						& \verb|47e22| \\ \cline{1-4}
+  \multicolumn{3}{|l|}{\multirow{3}{*}{char literals}} 													& \verb|'H'| \\ \cline{4-4}
+  \multicolumn{3}{|l|}{} 																	& \verb|'\n'| \\ \cline{4-4}          %% here
+  \multicolumn{3}{|l|}{} 																	& \verb|'\x65'| \\ \cline{1-4}        %% here
+  \multicolumn{3}{|l|}{\multirow{2}{*}{string literals}} 												& \verb|"bom dia"| \\ \cline{4-4}
+  \multicolumn{3}{|l|}{} 																	& \verb|"ouro preto\nmg"| \\ \cline{1-4}          %% here
+\end{tabular}
+
+
+
+
+\begin{verbatim}
+use pseudocode
+\end{verbatim}
+
+\textit{italics}
+\textbf{bold}
+
+XXXX words excluding headings, figures, and references. \\
+
+%\nocite{*}
 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\medskip
+%
+%
+%\printbibliography
+
+
+
 
 \medskip 
 

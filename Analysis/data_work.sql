@@ -561,7 +561,6 @@ select * from common_nodes limit 2;
 select count(*) from common_nodes;
 -- 20,197
 
-
 alter table common_nodes drop column b_id;
 select * from london_bike_5_projected_nodes limit 1;
 
@@ -573,6 +572,10 @@ select find_srid('public', 'common_nodes', 'geom');
 
 ------ make an index of the geom column for <->
 create index common_nodes_gix on common_nodes using GIST (geom);
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+-- compare to undirected 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -630,6 +633,10 @@ SET nearest_common_node = (
 
 select * from nearest_node limit 2;
 
+alter table nearest_node rename column "LAD11NM" to lad11nm;
+
+--alter table nearest_node add column id serial primary key;
+
 
 
 
@@ -664,3 +671,52 @@ select distinct highway from london;
 
 
 select count(*) from north_inner_subset;
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+--checks for travel time calculations
+
+select count(*) from nearest_node;
+
+select * from travel_times limit 1;
+
+select distinct has_path from travel_times;
+
+select count(*) from travel_times where has_path = false;
+
+delete from travel_times where net_filter = 2;
+
+select count(*) from travel_times;
+
+
+-- total = 799,236
+
+select * from travel_times;
+
+drop table travel_times;
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+--basic network counts
+
+select count(*) from london_bike_1_projected_nodes;
+select count(*) from london_bike_1_projected_edges;
+
+select count(*) from unconnected_london_bike_1_projected_nodes;
+select count(*) from unconnected_london_bike_1_projected_edges;
+
+select count(*) from undirected_all_bike_1_nodes;
+select count(*) from undirected_all_bike_1_edges;
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+drop table undirected_all_bike_1_edges;
+drop table undirected_all_bike_1_nodes;
+
+
+
+
+select count(*) from unconnected_london_bike_1_projected_nodes;
+select count(*) from undirected_unconnected_bike_1_nodes;

@@ -12,6 +12,7 @@ from sqlalchemy.orm import sessionmaker
 from geoalchemy2 import Geometry
 import pandas as pd
 from datetime import datetime 
+import csv
 
 
 
@@ -25,16 +26,16 @@ engine = sqlalchemy.create_engine('postgresql://postgres:tuesday789@localhost:54
 Base = declarative_base(engine)
 metadata = sqlalchemy.MetaData()
 
-class travel_time(Base):
+# class travel_time(Base):
 
-	__tablename__ = 'travel_times'
+# 	__tablename__ = 'travel_times'
 
-	id = Column(Integer, Sequence('id'), primary_key=True)
-	net_filter = Column(Integer)
-	origin = Column(BigInteger)
-	destination = Column(BigInteger)
-	has_path = Column(Boolean)
-	distance = Column(Float)
+# 	id = Column(Integer, Sequence('id'), primary_key=True)
+# 	net_filter = Column(Integer)
+# 	origin = Column(BigInteger)
+# 	destination = Column(BigInteger)
+# 	has_path = Column(Boolean)
+# 	distance = Column(Float)
 
 class nearest_nodes(Base):
 
@@ -60,29 +61,29 @@ session = Session()
 
 def net_dict():
 	file_dict = {}
-	for i in range(1,6):
+	for i in range(1,3):
 		# print(i)
-		file_dict[i] = 'pickles/london_bike_' + str(i) + '_projected_pickle.file'
+		file_dict[i] = 'pickles/unconnected_london_bike_' + str(i) + '_projected_pickle.file'
 		# print(file_dict[i])
 	return file_dict
 
 
-def trip_calc(net, origin, dest):
+# def trip_calc(net, origin, dest):
 
-	check_path = networkx.has_path(net, origin, destination)
+# 	check_path = networkx.has_path(net, origin, destination)
 
-	if check_path:
+# 	if check_path:
 
-		path = networkx.shortest_path(net, origin, destination, weight='length')
-		path_length = networkx.shortest_path_length(net, origin, destination, weight='length')
-		calced_data = travel_time(origin = origin, destination = destination, has_path = check_path, distance = path_length)
+# 		# path = networkx.shortest_path(net, origin, destination, weight='length')
+# 		path_length = networkx.shortest_path_length(net, origin, destination, weight='length')
+# 		calced_data = travel_time(origin = origin, destination = destination, has_path = check_path, distance = path_length)
 
-	else: 
+# 	else: 
 	
-		calced_data = travel_time(origin = origin, destination = destination, has_path = check_path)
+# 		calced_data = travel_time(origin = origin, destination = destination, has_path = check_path)
 
 
-	return calced_data
+# 	return calced_data
 
 
 
@@ -110,7 +111,7 @@ print(nodes_df.head(2))
 # net = pickle.load(open(file, "rb" ))
 
 node_id_list = list(nodes_df['nearest_common_node'])
-p_id = 0
+# p_id = 0
 # debug_limit = 10
 net_dict = net_dict()
 
@@ -119,50 +120,63 @@ start = datetime.now()
 for key, value in net_dict.items():
 
 	print('key: ', key)
-	print('type of key: ', type(key))
+	# print('type of key: ', type(key))
 	print('value: ', value)
 	# debug_limit = p_id + 10
 
 	net = pickle.load(open(value, "rb" ))
 	print(type(net))
 
-# for each item in origin list
+	out_file = 'undirected_haspath' + str(key) + '.csv'
 
-	for origin in node_id_list:
-		
-		# if p_id > debug_limit:
-			# break
+	with open(out_file, 'a') as csv_file:
 
-		for destination in node_id_list:
+		writer  = csv.writer(csv_file)
 
-			if origin == destination:
-				# print('matchy matchy')
-				continue
+		# for each item in origin list
 
-			# print('id: ', p_id)
-			# print('origin: ', origin)
-			# print('destination: ', destination)
-
+		for origin in node_id_list:
+			
 			# if p_id > debug_limit:
 				# break
 
-			###############################################################
-			# calc data for O/D pair
+			for destination in node_id_list:
 
-			trip = trip_calc(net, origin, destination)
+				if origin == destination:
+					# print('matchy matchy')
+					continue
 
-			trip.net_filter = key
-			# print("trip object filter value: ", trip.net_filter)
-			# print('distance: ', trip.distance)
+				# print('id: ', p_id)
+				# print('origin: ', origin)
+				# print('destination: ', destination)
 
-			p_id = p_id + 1
+				# if p_id > debug_limit:
+					# break
 
-			#####################
-			# send to sql DB
+				###############################################################
+				# calc data for O/D pair
 
-			session.add(trip)
-			session.commit()
+				# trip = trip_calc(net, origin, destination)
 
+				check_path = networkx.has_path(net, origin, destination)
+
+				row = [origin, destination, check_path]
+
+				writer.writerow(row)
+
+
+				# trip.net_filter = key
+				# print("trip object filter value: ", trip.net_filter)
+				# print('distance: ', trip.distance)
+
+				# p_id = p_id + 1
+
+				#####################
+				# send to sql DB
+
+				# session.add(trip)
+				# session.commit()
+	csv_file.close()
 
 end = datetime.now()
 

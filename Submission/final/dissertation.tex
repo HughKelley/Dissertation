@@ -387,6 +387,19 @@ The fourth network is an undirected version of the third network. This is used t
 
 The fifth network is made up of the cycleways designated by TfL on Open Street Map. This is an interesting case because a significant part of this network is made of routes without cycle infrastructure. The network is considered in the sense that, if this was to become a high quality, low stress network, how well would it serve journeys in London? 
 
+Building networks using Overpass API queries proved to be a tremendous challenge. There are two possible approaches to building an Overpass query filter, positive and negative filters. OSMnx relies on negative filters, including everthing but what is specifically excluded. This was the type of filter used for the 5 levels of networks studied, with more conditions added to take out additional highway types. The trouble that arises with a negative filter though is that an edge that is tagged, highway = primary, and tagged separately with a cycle related tag will be excluded. This was a problem for instance where cycle infrastructure was tagged, not as a separate edge, but as metadata using for instance "cycleway:left=lane" key value pair. the negative filter removes the edge because it has the "highway=primary" tag and a method for including based on the cycle tag was not found. Likewise, the "bicycle" key could have several values including no, designated, and permissive
+
+Further, OSMnx retrieves ways with a highway tag as in way[highway=cycleway]
+
+This ruled out using the filter relation[route=bicycle]  which would collected all nodes and ways included in any relation tagged with route-bicycle. 
+
+Thus the networks built using a  full combination of conditions were not possible. 
+
+good example of the difficulty of building a good network representation is castle baynard st. It connects the central london part of cycle superhighway 3 with the east london section that continues out to limehouse. this is a tunnel that serves as a bike path and as a driveway of sorts to an underground car park. 
+
+insert picture of castle baynard street. A network built from the relation[route=bicycle] set of ways and nodes would include this but the negative filters do not. 
+
+
 \begin{figure}
 \centering
 \begin{subfigure}{.5\textwidth}
@@ -429,19 +442,47 @@ The fifth network is made up of the cycleways designated by TfL on Open Street M
 %\includegraphics{bbox_bike_5_filter_cropped}
 Level\_1
 
-no interaction with cars
+all streets using the OSMnx bike filter
 
 Level\_2
 
-level\_1 plus living streets and residential streets
+level\_3
 
-Level\_3
+Removes trunk, primary, and secondary streets. 
+the size of the network here is pretty substantial but connectivity is still bad. 
 
-all streets 
+Level\_4
 
-Undirected
+excludes all streets except for living streets and residential streets
 
-Theoretical Cycle Network
+there are XXXXXXX separate networks here with an average of XXXXXX edges each
+
+level\_5
+
+excludes any edge where a cyclist might interact with motorized traffic. this is barely a network, it's just a collection of infrastructure features. 
+
+
+Undirected 1
+
+This is level\_1 but with the street directionalities removed
+
+Undirected 2
+
+This is level\_2 but with the street directionalities removed
+
+
+
+
+
+Level\_5
+
+
+no interaction with cars
+
+because this was a negative filter many nodes were excluded needlessly. 
+
+check this, why isn't the regents bike path fully included?
+
 
 \subsection{Network Characteristics}
 
@@ -468,6 +509,8 @@ Travel times by bicycle for aggressive cyclists are XXXXX compared to the QUANT 
 
 \subsection{test for differences}
 
+There's got to be a significant difference between the distances for the different networks right?
+
 \subsection{changes in routes}
 
 Seen in figure XXXX  compare longest path for directed network 2 to the path between those nodes in directed network 1. 
@@ -478,7 +521,7 @@ compare o/d pair with largest increase in distance between directed 1 and direct
 
 Is allowing travel in any direction on side roads a good replacement for primary and trunk routes?
 
-\subsection{Accessibility}
+\subsection{Accessibility} 
 
 in qgis, color lsoa's by travel time to central lsoa. 
 
@@ -516,27 +559,7 @@ Something here about spanning trees not bein very resiient?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Appendix}
 
-
-
-
-\begin{itemize}
-\item one
-\item two
-  \begin{itemize}
-  \item one point one
-  \item one point two
-  \end{itemize}
-\end{itemize}
-
-\subsection{Subsection 1}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.8\textwidth]{example}
-\caption{Correlation between station/node metrics}
-\end{figure}
-
-
+OSM filters used/tried
 
 
 \begin{table}
@@ -568,23 +591,23 @@ unclassified & 7637 & less important than tertiary. Artefact of UK road system.\
 
 
 
-\begin{tabular}{|l|l|l|l|}\hline
-  \multirow{10}{*}{numeric literals} 				& \multirow{5}{*}{integers} 	& in decimal 					& \verb|8743| \\ \cline{3-4}
-  					    				& 				       	& \multirow{2}{*}{in octal}   		& \verb|0o7464| \\ \cline{4-4}
-  					    				& 					& 						& \verb|0O103| \\ \cline{3-4}
-  					    				& 					& \multirow{2}{*}{in hexadecimal}	& \verb|0x5A0FF| \\ \cline{4-4}
- 				 	    				& 					& 						& \verb|0xE0F2| \\ \cline{2-4}
-  					    				& \multirow{5}{*}{fractionals} 	& \multirow{5}{*}{in decimal} 		& \verb|140.58| \\ \cline{4-4}
- 				 					& 					& 						& \verb|8.04e7| \\ \cline{4-4}
-  									& 					& 						& \verb|0.347E+12| \\ \cline{4-4}
-  									& 					& 						& \verb|5.47E-12| \\ \cline{4-4}
-  									& 					& 						& \verb|47e22| \\ \cline{1-4}
-  \multicolumn{3}{|l|}{\multirow{3}{*}{char literals}} 													& \verb|'H'| \\ \cline{4-4}
-  \multicolumn{3}{|l|}{} 																	& \verb|'\n'| \\ \cline{4-4}          %% here
-  \multicolumn{3}{|l|}{} 																	& \verb|'\x65'| \\ \cline{1-4}        %% here
-  \multicolumn{3}{|l|}{\multirow{2}{*}{string literals}} 												& \verb|"bom dia"| \\ \cline{4-4}
-  \multicolumn{3}{|l|}{} 																	& \verb|"ouro preto\nmg"| \\ \cline{1-4}          %% here
-\end{tabular}
+%\begin{tabular}{|l|l|l|l|}\hline
+%  \multirow{10}{*}{numeric literals} 				& \multirow{5}{*}{integers} 	& in decimal 					& \verb|8743| \\ \cline{3-4}
+%  					    				& 				       	& \multirow{2}{*}{in octal}   		& \verb|0o7464| \\ \cline{4-4}
+%  					    				& 					& 						& \verb|0O103| \\ \cline{3-4}
+%  					    				& 					& \multirow{2}{*}{in hexadecimal}	& \verb|0x5A0FF| \\ \cline{4-4}
+% 				 	    				& 					& 						& \verb|0xE0F2| \\ \cline{2-4}
+%  					    				& \multirow{5}{*}{fractionals} 	& \multirow{5}{*}{in decimal} 		& \verb|140.58| \\ \cline{4-4}
+% 				 					& 					& 						& \verb|8.04e7| \\ \cline{4-4}
+%  									& 					& 						& \verb|0.347E+12| \\ \cline{4-4}
+%  									& 					& 						& \verb|5.47E-12| \\ \cline{4-4}
+%  									& 					& 						& \verb|47e22| \\ \cline{1-4}
+%  \multicolumn{3}{|l|}{\multirow{3}{*}{char literals}} 													& \verb|'H'| \\ \cline{4-4}
+%  \multicolumn{3}{|l|}{} 																	& \verb|'\n'| \\ \cline{4-4}          %% here
+%  \multicolumn{3}{|l|}{} 																	& \verb|'\x65'| \\ \cline{1-4}        %% here
+%  \multicolumn{3}{|l|}{\multirow{2}{*}{string literals}} 												& \verb|"bom dia"| \\ \cline{4-4}
+%  \multicolumn{3}{|l|}{} 																	& \verb|"ouro preto\nmg"| \\ \cline{1-4}          %% here
+%\end{tabular}
 
 
 

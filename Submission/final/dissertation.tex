@@ -69,26 +69,6 @@
 \listoftables
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Research Goal and Overview}
-
-What makes a city comfortable for cycling? The conditions are clear when one sees them, but defining the characteristics quantitatively is challenging. 
-
-This research intends to define the overall suitability of a city to cycling using estimates of the roads cyclist are and are not willing to use and the effect these decision have on travel times. The central research question is: \textit{how does a peference for safety decrease accessibility in central London when traveling by bicycle?} It extends the literature in three ways; extending quantitative research to a holistic approach rather than focusing on individual edges or nodes, extending holistic approaches to quantitative outcomes rather than visual or anecdotal conclusions, and by emphasizing the use of open source tools and data that are available to any member of community. 
-
-The research provides a methodology that allows a community to identify nodes and edges for improvement that will have the largest impact on the overall network, quantify the expected improvement, and thus require from elected officials specific changes to the roads in their communities. 
-
-The subquestions addressed in the methodology are, What is the quality of the Open Street Map metadata for streets in London? How important are the OSM highway types to efficient transit within London? How does transit by bicycle compare to transit by public transport within London? 
-
-The issue implied by these research questions is: to what extent is street level transportatoin space a zero sum game? Can a high level of service for cyclists be built without taking large amounts of important space away from automobile trafic? 
-
-The intended outcomes of this research include(1) an understanding of the roles of location and connectivity for cycling infrastructure and (2) an understanding of the usefulness of Open Street Map data for estimating these sorts of measures. 
-
-
-\subsection{ethical risks}
-
-This project relies entirely on publicly accessible data. For this reason, ethical risks are not present in the research methodology.  
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 
@@ -119,6 +99,28 @@ The review that follows takes the structure of an initial look at typical litera
 Basic attitude is that improvements to infrastructure only matter to the extent that they improve safe connectivity to ``important'' nodes/edges. 
 
 In this context, this work hopes to make a contribution using London as a case study. London is an attractive case because it has a considerable cycling population but does not yet have the level of infrastructure that exists in world leading cities like Copenhagen. Thus London's position at a mid point of cycling infrastructure development allows strengths and weaknesses to a live program of improvement to be identified. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Research Goal and Overview}
+
+What makes a city comfortable for cycling? The conditions are clear when one sees them, but defining the characteristics quantitatively is challenging. 
+
+This research intends to define the overall suitability of a city to cycling using estimates of the roads cyclist are and are not willing to use and the effect these decision have on travel times. The central research question is: \textit{how does a preference for safety decrease accessibility in central London when traveling by bicycle?} It extends the literature in three ways; extending quantitative research to a holistic approach rather than focusing on individual edges or nodes, extending holistic approaches to quantitative outcomes rather than visual or anecdotal conclusions, and by emphasizing the use of open source tools and data that are available to any member of community. 
+
+The research provides a methodology that allows a community to identify nodes and edges for improvement that will have the largest impact on the overall network, quantify the expected improvement, and thus require from elected officials specific changes to the roads in their communities. 
+
+The subquestions addressed in the methodology are, What is the quality of the Open Street Map metadata for streets in London? How important are the OSM highway types to efficient transit within London? How does transit by bicycle compare to transit by public transport within London? 
+
+The issue implied by these research questions is: to what extent is street level transportatoin space a zero sum game? Can a high level of service for cyclists be built without taking large amounts of important space away from automobile trafic? 
+
+The intended outcomes of this research include(1) an understanding of the roles of location and connectivity for cycling infrastructure and (2) an understanding of the usefulness of Open Street Map data for estimating these sorts of measures. 
+
+
+\subsection{ethical risks}
+
+This project relies entirely on publicly accessible data. For this reason, ethical risks are not present in the research methodology.  
+
+
 
 \subsection{Research Structure}
 
@@ -202,6 +204,7 @@ Overall there are a number of considerations from network science that this rese
 -compare \% of trips possible across Quant, bike 1, bike 2, and undirected versions. 
 - compare change in directness between bike 1 and bike 2.  
 -- compare bicycle accessibility to Quant
+-UTM-30 projection used as standard across all data. 
 %%%%%%%%%%%%%%%%%%%5
 
 
@@ -353,7 +356,23 @@ used centroids instead of actual nodes from Quant Data
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Analysis \& Results}
 
+\subsection{Key Questions}
+what was the scope and how was it defined
+what filters were used
+what were the walking and cycling speeds used
+what were the travel times calculated
+what was the directness of travel on different networks
+what is the distribution of travel times in the different networks
+what lsoas changed the most and least across networks
+how did removing road types affect the number of lsoa centers connected?
+how long did the calculations take?
+Did removing directionality from the networks have a significant effect?
+Did removing directionality mediate the effect of removing primary and trunk streets?
+
+
 \subsection{Defining Scope}
+
+
 
 Goal is to capture the largest computationally feasible network with a simple set of rules. 
 
@@ -541,6 +560,16 @@ Runtimes increased with the number of connected origin destination pairs, since 
 
 Tale XXXX contains calculation times by network type. 
 
+\begin{table}[]
+\begin{tabular}{ll}
+\multicolumn{2}{l}{Calculation Time} \\ \hline
+network             & time           \\
+1                   & 24:00          \\
+1 undirected        & 72:00 ??       \\
+2                   & 9:03           \\
+2 undirected        & 36:00         
+\end{tabular}
+\end{table}
 
 
 
@@ -551,7 +580,22 @@ Tale XXXX contains calculation times by network type.
 
 Something here about spanning trees not bein very resiient? 
 
+Most generally, it was found that a decent representation of the London cycling network could be constructed from Open Street Map data using OSMnx and Networkx. With some specific improvements to the software and data a good job could be done of estimating accessibility in London by bicycle. Access to comuting resources is a key consideration. 
+
+One key way that planners could mediate the effects of competition for space on primary roads is by removing direction restrictions on side roads. 
+
+the variability of cycling travel times was lower than public transport, but public transport allowed efficient access to the highest number of employment opportunities. 
+
+Public transport accessibility was more strongly linked with income reflecting cyclings potential to mediate income inequality by leveling the transportation playing field
+
+while removing edges from the network did have a significant effect on connectivity, reducing the connected origin and destination pairs by XXXXXX\% the study showed that less cconfident cyclists have route options available to them if they are willing to go out of their way along less direct paths. 
+
+This raises the topic of "rat-running" in London, where traffic filters off of main routes onto side roads to avoid traffic. This behavior is a key reason that Open Street Map highway types may not have a real relationship with traffic stress or danger. A "quiet" street may get relatively more traffic than it is built to handle relative to primary routes. this is consistent with anecdotal observations of the author that on some quiet ways trafffic behavior is more dangerous and less predictable than on primary routes . it is not clear that dense slow moving traffic is more dangerous than sparse high speed traffic on back roads. 
+
+This would argue for making quiet ways through streets for only cyclists using "gates" . 
+
 \subsection{Limitations}
+
 
 
 \subsection{Opportunities for improvement and extension}
@@ -588,6 +632,48 @@ track & 492 & Roads for mostly agricultural or forestry uses. \\
 trunk & 2683 & Important roads that aren't motorways. \\
 trunk link & 134 & Link roads associated with trunk roads \\
 unclassified & 7637 & less important than tertiary. Artefact of UK road system.\\ 
+\end{tabular}
+\end{table}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+\begin{tabular}{@{}llll@{}}
+\multicolumn{4}{l}{Open Street Map Highway Tags in London}                                                                                              \\ \midrule
+tag       & London Count & Count within Scope & Definition                                                                                              \\ \midrule
+bridleway & 13,056       & 6,987              & \begin{tabular}[c]{@{}l@{}}This is the definition of the first tag. \\ \\ It uses 2 lines.\end{tabular} \\
+crossing  &              &                    &                                                                                                         \\
+cycleway  &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                        
 \end{tabular}
 \end{table}
 

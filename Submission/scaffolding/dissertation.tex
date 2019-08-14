@@ -7,7 +7,7 @@
 % This is a simple template for a LaTeX document using the "article" class.
 % See "book", "report", "letter" for other types of document.
 
-\documentclass[11pt]{article} % use larger type; default would be 10pt
+\documentclass[hidelinks,11pt]{article} % use larger type; default would be 10pt
 
 
 \usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
@@ -46,8 +46,8 @@
 %\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
 \usepackage{graphicx}
 \graphicspath{{../images/}}
-\usepackage{caption}
-\usepackage{subcaption}
+%\usepackage{caption}
+%\usepackage{subcaption}
 \usepackage{multirow} % allows multiple rows per cell
 % These packages are all incorporated in the memoir class to one degree or another...
 
@@ -65,7 +65,7 @@
 
 %%% ToC (table of contents) APPEARANCE
 \usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
-\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\usepackage[titles]{tocloft} % Alter the style of the Table of Contents
 \renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
 \renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
 
@@ -82,95 +82,63 @@
 \begin{document}
 \maketitle
 
+\pagebreak
+
+
+Name: Hugh Kelley
+
+Programme: MSc. Smart Cities and Urban Analytics
+
+Institution: University College London
+
+Date:
+
+Word Count:
+
+This dissertation is submitted in partial fulfilment of the requirements for the degree of Master of Research in Advanced Spatial Analysis \& Visualisation from University College London.
+
+I, Hugh Kelley, confirm that the work presented in this thesis is my own. Where information has been derived from other sources, I confirm that this has been indicated in the thesis
+\pagebreak
+
 \section{Abstract}
+\input{abstract}
+
+\pagebreak
 
 \tableofcontents
+\pagebreak
+
 \listoffigures
+\pagebreak
+
 \listoftables
+\pagebreak
 
 \section{Introduction}
 
-\subsection{Overview and Research Impact}
+	\input{introduction}
 
-\subsection{research question}
+\section{Literature}
 
-\subsection{ethical risks}
-
-\subsection{Research Structure}
-
-\subsection{The role of the researcher}
-
-\section{Literature Review}
-
-\subsection{Cycling Behavior Research}
-
-\subsection{Literature addressing cycling From a network perspective}
-
-\subsection{Network analysis Literature relevant to the research methodology proposed}
-
-\subsection{Literature Addressing the Quality of Open Street Map Data}
+	\input{literature}
 
 \section{Methods}
 
-\subsection{Scope}
+	\input{methods}
 
-\subsection{defining networks}
-
-\subsection{assessing networks}
-
-\subsection{travel times}
-
-\subsection{Accessibility}
 
 \section{Data}
 
-\subsection{Open Street Map}
-
-\subsection{A Close Look at an Open Street Map Case Study}
-
-\subsection{Transport for London Cycling Infrastructure Database}
-
-\subsection{2011 Census Journey to work data}
-
-\subsection{LSOA boundaries and data}
-
-\subsection{Road KSI data}
-
-\subsection{Data import, storage, cleaning, and joining}
-
-\subsection{Defining Cycle Networks}
-
-\subsection{Travel Times}
-
-\subsection{Street Type and Street Danger}
-
-\subsection{Accessibility}
-
-\subsection{assumptions and concerns}
+	\input{data}
 
 \section{Analysis \& Results}
 
-\subsection{Defining Scope}
+	\input{analysis}
 
-\subsection{Defining Networks}
-
-\subsection{Network Characteristics}
-
-\subsection{Travel Times}
-
-\subsection{test for differences}
-
-\subsection{Cycling Danger}
-
-\subsection{Accessibility}
 
 \section{Conclusions}
 
-\subsection{Results}
-
-\subsection{Limitations}
-
-\subsection{Opportunities for improvement and extension}
+	\input{conclusion}
 
 \section{Appendix}
 

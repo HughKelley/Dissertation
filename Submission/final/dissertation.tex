@@ -4,27 +4,13 @@
 % for a word count:
 %https://app.uio.no/ifi/texcount/online.php
 
-% This is a simple template for a LaTeX document using the "article" class.
-% See "book", "report", "letter" for other types of document.
-
 \documentclass[11pt]{article} % use larger type; default would be 10pt
-
-
 \usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
 \usepackage[backend=biber, style=authoryear]{biblatex}
-
-% basic bib file
-%\addbibresource{bibliography.bib}
-% by lit type
 \addbibresource{../bib/software.bib}
 \addbibresource{../Literature_Review/Literature/Past_Similar_Work/related_work.bib}
 \addbibresource{../Literature_Review/Literature/Network_Analysis/network_lit.bib}
 \addbibresource{../Literature_Review/Literature/Bicycling/general_cycling.bib}
-
-
-%%% Examples of Article customizations
-% These packages are optional, depending whether you want the features they provide.
-% See the LaTeX Companion or other references for full information.
 
 %%% PAGE DIMENSIONS
 \usepackage{geometry} % to change the page dimensions
@@ -32,11 +18,8 @@
 % \geometry{margin=2in} % for example, change the margins to 2 inches all round
 % \geometry{landscape} % set up the page for landscape
 %   read geometry.pdf for detailed page layout information
-
 %\usepackage{graphicx} % support the \includegraphics command and options
-
 \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
-
 %%% PACKAGES
 \usepackage{hyperref}
 \usepackage{booktabs} % for much better looking tables
@@ -60,7 +43,9 @@
 
 %%% SECTION TITLE APPEARANCE
 \usepackage{sectsty}
-\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+\allsections
+
+{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
 % (This matches ConTeXt defaults)
 
 %%% ToC (table of contents) APPEARANCE
@@ -71,54 +56,26 @@
 
 %%% END Article customizations
 
+
 %%% The "real" document content comes below...
 
 
 \title{The Suitability of Open Street Map Data for Defining and Assessing Urban Bicycle Networks}
+
 \author{Hugh Kelley}
 %\date{} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed 
 
 \begin{document}
 \maketitle
-
-
-
-
-
-
-
-
 \section{Abstract}
 
-%\tableofcontents
+\tableofcontents
 
 %\listoffigures
 \listoftables
 
-
-% TOC
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Research Goal and Overview}
-
-What makes a city comfortable for cycling? The conditions are clear when one sees them, but defining the characteristics quantitatively is challenging. 
-
-This research intends to define the overall suitability of a city to cycling using estimates of the roads cyclist are and are not willing to use and the effect these decision have on travel times. The central research question is: \textit{how does a peference for safety decrease accessibility in central London when traveling by bicycle?} It extends the literature in three ways; extending quantitative research to a holistic approach rather than focusing on individual edges or nodes, extending holistic approaches to quantitative outcomes rather than visual or anecdotal conclusions, and by emphasizing the use of open source tools and data that are available to any member of community. 
-
-The research provides a methodology that allows a community to identify nodes and edges for improvement that will have the largest impact on the overall network, quantify the expected improvement, and thus require from elected officials specific changes to the roads in their communities. 
-
-The subquestions addressed in the methodology are, What is the quality of the Open Street Map metadata for streets in London? How important are the OSM highway types to efficient transit within London? How does transit by bicycle compare to transit by public transport within London? 
-
-The issue implied by these research questions is: to what extent is street level transportatoin space a zero sum game? Can a high level of service for cyclists be built without taking large amounts of important space away from automobile trafic? 
-
-The intended outcomes of this research include(1) an understanding of the roles of location and connectivity for cycling infrastructure and (2) an understanding of the usefulness of Open Street Map data for estimating these sorts of measures. 
-
-
-\subsection{ethical risks}
-
-This project relies entirely on publicly accessible data. For this reason, ethical risks are not present in the research methodology.  
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 
@@ -148,10 +105,29 @@ The review that follows takes the structure of an initial look at typical litera
 
 Basic attitude is that improvements to infrastructure only matter to the extent that they improve safe connectivity to ``important'' nodes/edges. 
 
-
- 
-
 In this context, this work hopes to make a contribution using London as a case study. London is an attractive case because it has a considerable cycling population but does not yet have the level of infrastructure that exists in world leading cities like Copenhagen. Thus London's position at a mid point of cycling infrastructure development allows strengths and weaknesses to a live program of improvement to be identified. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Research Goal and Overview}
+
+What makes a city comfortable for cycling? The conditions are clear when one sees them, but defining the characteristics quantitatively is challenging. 
+
+This research intends to define the overall suitability of a city to cycling using estimates of the roads cyclist are and are not willing to use and the effect these decision have on travel times. The central research question is: \textit{how does a preference for safety decrease accessibility in central London when traveling by bicycle?} It extends the literature in three ways; extending quantitative research to a holistic approach rather than focusing on individual edges or nodes, extending holistic approaches to quantitative outcomes rather than visual or anecdotal conclusions, and by emphasizing the use of open source tools and data that are available to any member of community. 
+
+The research provides a methodology that allows a community to identify nodes and edges for improvement that will have the largest impact on the overall network, quantify the expected improvement, and thus require from elected officials specific changes to the roads in their communities. 
+
+The subquestions addressed in the methodology are, What is the quality of the Open Street Map metadata for streets in London? How important are the OSM highway types to efficient transit within London? How does transit by bicycle compare to transit by public transport within London? 
+
+The issue implied by these research questions is: to what extent is street level transportatoin space a zero sum game? Can a high level of service for cyclists be built without taking large amounts of important space away from automobile trafic? 
+
+The intended outcomes of this research include(1) an understanding of the roles of location and connectivity for cycling infrastructure and (2) an understanding of the usefulness of Open Street Map data for estimating these sorts of measures. 
+
+
+\subsection{ethical risks}
+
+This project relies entirely on publicly accessible data. For this reason, ethical risks are not present in the research methodology.  
+
+
 
 \subsection{Research Structure}
 
@@ -200,8 +176,29 @@ Lastly, \cite{osama2017models} uses a number of predictors including network sta
 Thus while network analysis has been applied to cycle infrastructure, clearly there is not a consensus on the methodology. In particular, a definition of ``quality'' or ``safety'' has not been established. Additionally, a method for exploring the network of infrastructure defined is still lacking. Lastly,  
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Research on the quality of Open Street Map Data}
+
+Citations
+
+considerations
+much harder to find errors of omission than inaccuracies and typos
+
+most studies use anothe rhigh quality data set like the ordnance survey to judge quality
+
+most studies also look at the accuracy of feature locations, rather than the accuracy of the metadata
+
+meta data tends to be analyzed for data source and history, rather than to look at the characteristics of a given feature. 
+
+One particularly useful study looked at OSM data in the context of routing for the disabled. "Are Crowdsourced Datasets Suitable for Specialized Routing Services? Case Study of OpenStreetMap for Routing of People with Limited Mobility "
+
+the conclusion was: "Based on empirical results, it is concluded that OSM data of relatively large spatial extents inside all studied cities could be an acceptable region of interest to test and evaluate wheelchair routing and navigation services, as long as other data quality parameters such as positional accuracy and logical consistency are checked and proved to be acceptable."  
+
+which is a good indication for this work 
+
+can also cite Zielstra 2013 on the effect of large data imports on OSM comleteness in the context of the TfL CID thing that was just released. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 
 \subsection{Network analysis Literature relevant to the research methodology proposed}
@@ -219,6 +216,14 @@ While, the multiplex offers an interesting approach to studying the interaction 
 The potential for a ``transition'' in the cycle network per \cite{barthelemy2018transitions} is an exciting possibility. Finding edges that need to be added to a network in order for a transition in network connectivity to occur is a valuable exercise. In addition, specifying network characteristics according to those specified by \cite{barthelemy2011spatial} is also very valuable. 
 
 Overall there are a number of considerations from network science that this research intends to add to the analysis of cycle networks. The exact implementation of these considerations will be specified in the methodology section. 
+
+
+
+\subsection{Literature on the Quality of Open Street Map Data}
+
+A large body of work has considered the challenge of quantifying the quality of Open Street Map Data. A large part of this work focuses on the spatial accuracy of the data, how closely are features mapped to their real locations. As the quality and coverage of OSM expands, the challenge in data quality shifts from quality in the spatial part of the data set to quality in the metadata, that indicates the source of the feature and characteristics of that feature. 
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -242,6 +247,7 @@ Networks will be defined as a subset of edges in the Open Street Map network.
 Download the connectivity data from OSM via the Overpass APIas json . A graph is built with the nodes and ways from the Overpass data with edges coming from the Overpass data's ``way'' elements, and the nodes coming from the intersection of the edges as defined in OSM as well as the end of an edge. Getting to the point requires simplification because the Open Street Map data includes many more nodes than just the endpoints and intersections. The network is simplified by removing nodes with degree 2, where the node simply connects one street to one other, unless there is a difference in directionality between them. That is, when a street changes from 2 way to one way, a node is placed at the intersection to denote that change. 
 
 Cite OSMnx \cite{osmnx} and Networkx \cite{networkx}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -273,6 +279,22 @@ Add job counts and population counts to the travel times stuff to measure whethe
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{placeholder}
 
+%%%%%%%%%%%%%%%%%%%%%%
+- define scope, minimize area while capturing the largest number of trips by bicycle, trips in total, road casualties, and households and jobs. This will be some part of central London. 
+-- build boundary based on scope using postgis and qgis
+- define filters for OSM data
+-- this includes trying to understand the relationship between relations and individually tagged edges and nodes. 
+-- pictures of network, specific edges, and photos of real life infrastructure. 
+-build networks from data
+-- removing streets
+-- undirected
+- identify network nodes closest to lsoa centroids
+-compare \% of trips possible across Quant, bike 1, bike 2, and undirected versions. 
+- compare change in directness between bike 1 and bike 2.  
+-- compare bicycle accessibility to Quant
+-UTM-30 projection used as standard across all data. 
+%%%%%%%%%%%%%%%%%%%5
+
 
 
 Goal is to quantify the quality of the London Cycling Network with the working assumption that a better network has a meaningful positive effect on the rate of cycling in a city. 
@@ -297,31 +319,23 @@ Finally, community identification could be applied to the networks to find wheth
 \section{Data}
 
 I still need to spend a lot of time with OSM, networkx, and the London data store. 
-
 OSM has street network data, bike network data and some road characteristics. 
-
 Networkx should be able to turn this data into a usable file. 
-
 The London data store has traffic incident data but I haven't found data with exact locations yet
-
 There is traffic volume data but it's at a few thousand observation points, so a continuous data set needs to be estimated. 
-
 I think OSM is my only source for street characteristics, not clear that it's accurate or up to date.
-
-
 Official data for cycle infrastructure is from 2014: \href{https://data.gov.uk/dataset/47f0a282-3356-4530-8e7b-f67aaf4bec63/cycle-routes}{link}
-
 This says it's updated and maybe integrated into OSM? \href{https://www.cyclestreets.net/blog/category/open-data/}{link}
-
 Press release about data set \href{https://www.london.gov.uk/press-releases/mayoral/action-plan-to-get-more-londoners-cycling}{link}
-
 But no actual data. Seems like OSM is the delivery mechanism, unclear how integrated the data is into OSM. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Open Street Map}
 
+
 Open street map provides community generated geospatial data. This data is accessible via the overpass API from several hosts. 
+Geoff Boeing deshttps://www.nomisweb.co.uk/datasets/ks015cribes using th OSM API query language as "notoriously difficult". CITE
 
 Accessing Open Street Map via the Overpass API is ``notoriously difficult'' Cite G Boeing. 
 
@@ -353,6 +367,27 @@ but this also reflects the fact that getting somewhere within London nearly alwa
 
 The importance of this consideration will be shown using a percolation style analysis of the network, adding busier and busier roads to the network and considering the largest connected component. 
 
+
+%%%%%%%%
+% image of OSM London cycle network by relation
+% image of OSM London cycle network by tag
+% image of OSM missing tag situation from Overpass turbo
+% image of same location street view
+% image of OSM implied cycle infrastructure
+% image of real street without cycle infrastructure. 
+%%%%%%%%%%%%%
+
+Two basic problems for using OSM data to define cycling networks were found. The first is that defining the network by relation exagerates the network, the second is that relying on the metadata tags of individual features understates the cycle network. Looking at OSM it is clear that the relations identifying bike routes are not reflecting sets of ways and nodes with a given tag, or reflecting streets and intersections where cycling is meaningfully safer than other streets and intersection. At the same time, it is clear that there are many ways and nodes that are more accomodating to cyclists than their OSM metadata indicates. 
+
+In the case of the relation, Quietway XXX was examined in person. figure XXX shows an image of Brandon rd, a part of the quiet way. this way is tagged
+Brandon rd is part of OSM relation XXX the Hackney Camden cycle route.  this road though, as can been seen in the image, has no actual cycle inrastructure. This in Open street map, it is tagged as an unclassified highway. There is a tag noting the max speed is 20 mph. Data collected for 20 mph streets found that as many as 80\% of drivers exceeded these limits. 
+https://www.thesun.co.uk/news/7253694/20-mph-zones-cause-more-deaths/
+
+In other cases, osm underestimates the quality of cycling infrastructure. for instance the intersection of Mile end Road and Cambridge Health Road in the borough of tower hamlets is a high traffic intersection both for automobiles and for cyclists. It is an integral part of the Stratford to Aldgate cycle super highway. This intersection has been reworked to be safer for cyclists. In open street map though, it i labeled a "trunk" highway, due to its high traffic nature. It is way 7058092014. There is also a tag cycleway:left=lane indicating that there is a cyclelane on the left side of the street. 
+
+
+\subsubsection{2011 Census Journey to work data}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Transport for London Cycling Infrastructure Database}
@@ -381,13 +416,19 @@ addition to OSM
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{2011 Census Journey to work data}
 
+
 The 2011 census asked questions about where people work and how they get there. 
 
 This data is shared through the Nomis Labor Force website as multi-sheet excel pivot tables. Making the data usable required, stripping the meta data headings from each sheet, importing the book to pandas dataframe by sheet, melting from a picot table to long data with origin, destination, and count columns, adding the sheet name that identified the mode of travel as a column, appending each individual sheet together into a single dataframe, and pushing the dataframe to the sql database. 
 
+
+Exact specifications for pulling data out of Nomis service
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{LSOA boundaries and data}
+
 
 where LSOA's were comprised of multiple polygons, the centroid of the largest polygon was used. 
 
@@ -396,6 +437,8 @@ lsoa population from mid 2011
 https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/lowersuperoutputareamidyearpopulationestimates
 
 LSOA boundaries are available from the London Data store
+
+
 
 https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london
 
@@ -412,9 +455,20 @@ https://data.london.gov.uk/dataset/pedal-cyclist-casualties-killed-and-seriously
 
 https://data.london.gov.uk/dataset/road-casualties-severity-borough
 
+
+Factors preventing a closer understanding of road stress/danger. 
+	Lack of traffic flow data
+	lack of road network quality over time
+	difficulty of defining actor behavior around time of crash
+	difficulty of associating incident with edge.  
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{Data import, storage, cleaning, and joining}
+
+data import was done in python using the csv, pandas, geopandas, json, and osmnx packages. Once the data was cleaned, it was passed to a postgres database with the postgis extension using the sqlalchemy package. Postgis was used for calculating distances, associating nodes with centroids
 
 remove multipolygon lsoa interior rings in favor of polygon lsoa shapes
 
@@ -426,14 +480,11 @@ How were the representative networks built?
 
 Open Street Map uses tags to associate street characteristics with the geometries that make up the map. Appendix XXXX contains the definitions from the OSM wiki page for each of the tags used. Most important to note is that this research uses 5 ``levels'' of street stress. The highest level allows all street conditions. The second level allows all but ``primary'' streets, the largest busiest streets. Then ``secondary'' streets are removed in the third filter. ``Tertiary'' type streets are moved to build the fourth filter. The fifth filter moves ``living streets'' and ``residential'' streets which both are specified to be low traffic streets used primarily for local trips. Thus the most conservative layer of the network contains only edges where there is no expectation of interaction with motor vehicles. 
 
-
-
 The networks were simplified so that a node with degree 2 was removed and the two edges were joined, becoming a continuous path way. 
-
 
 \subsection{Travel Times}
 
-\subsection{Street Type and Street Danger}
+Travel times can be calculated using the networkx package CITE. 
 
 \subsection{Accessibility}
 
@@ -447,9 +498,28 @@ used centroids instead of actual nodes from Quant Data
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Analysis \& Results}
 
+
+\subsection{Key Questions}
+what was the scope and how was it defined
+what filters were used
+what were the walking and cycling speeds used
+what were the travel times calculated
+what was the directness of travel on different networks
+what is the distribution of travel times in the different networks
+what lsoas changed the most and least across networks
+how did removing road types affect the number of lsoa centers connected?
+how long did the calculations take?
+Did removing directionality from the networks have a significant effect?
+Did removing directionality mediate the effect of removing primary and trunk streets?
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{Defining Scope}
+
+
 
 Goal is to capture the largest computationally feasible network with a simple set of rules. 
 
@@ -496,9 +566,24 @@ The fourth network is an undirected version of the third network. This is used t
 The fifth network is made up of the cycleways designated by TfL on Open Street Map. This is an interesting case because a significant part of this network is made of routes without cycle infrastructure. The network is considered in the sense that, if this was to become a high quality, low stress network, how well would it serve journeys in London? 
 
 
+Building networks using Overpass API queries proved to be a tremendous challenge. There are two possible approaches to building an Overpass query filter, positive and negative filters. OSMnx relies on negative filters, including everthing but what is specifically excluded. This was the type of filter used for the 5 levels of networks studied, with more conditions added to take out additional highway types. The trouble that arises with a negative filter though is that an edge that is tagged, highway = primary, and tagged separately with a cycle related tag will be excluded. This was a problem for instance where cycle infrastructure was tagged, not as a separate edge, but as metadata using for instance "cycleway:left=lane" key value pair. the negative filter removes the edge because it has the "highway=primary" tag and a method for including based on the cycle tag was not found. Likewise, the "bicycle" key could have several values including no, designated, and permissive
+
+Further, OSMnx retrieves ways with a highway tag as in way[highway=cycleway]
+
+This ruled out using the filter relation[route=bicycle]  which would collected all nodes and ways included in any relation tagged with route-bicycle. 
+
+Thus the networks built using a  full combination of conditions were not possible. 
+
+good example of the difficulty of building a good network representation is castle baynard st. It connects the central london part of cycle superhighway 3 with the east london section that continues out to limehouse. this is a tunnel that serves as a bike path and as a driveway of sorts to an underground car park. 
+
+insert picture of castle baynard street. A network built from the relation[route=bicycle] set of ways and nodes would include this but the negative filters do not. 
+
+
+
 Each network is created using a filter that excludes Open Street Map features tagged with certain values. All features tagged with ``bicycle=no'' or ``service=private'' were excluded. Additionally, where the edge's ``highway'' tag was ``footway, steps, corridor, elevator, escalator, motor, proposed, construction, abandoned, platform, or raceway the feature was also excluded. 
 
 The most aggressive bike filter used only these conditions.
+
 
 \begin{figure}
 \centering
@@ -542,23 +627,49 @@ The most aggressive bike filter used only these conditions.
 %\includegraphics{bbox_bike_5_filter_cropped}
 Level\_1
 
-no interaction with cars
+all streets using the OSMnx bike filter
 
 Level\_2
 
-level\_1 plus living streets and residential streets
+level\_3
 
-Level\_3
+Removes trunk, primary, and secondary streets. 
+the size of the network here is pretty substantial but connectivity is still bad. 
 
-all streets 
+Level\_4
 
-Undirected
+excludes all streets except for living streets and residential streets
 
-Theoretical Cycle Network
+there are XXXXXXX separate networks here with an average of XXXXXX edges each
+
+level\_5
+
+excludes any edge where a cyclist might interact with motorized traffic. this is barely a network, it's just a collection of infrastructure features. 
+
+
+Undirected 1
+
+This is level\_1 but with the street directionalities removed
+
+Undirected 2
+
+This is level\_2 but with the street directionalities removed
+
+
+
+
+
+Level\_5
+
+
+no interaction with cars
+
+because this was a negative filter many nodes were excluded needlessly. 
+
+check this, why isn't the regents bike path fully included?
+
 
 \subsection{Network Characteristics}
-
-
 
 chart of largest connected component of network as edge types are included. 
 
@@ -571,11 +682,60 @@ no cars,
 
 \subsection{Travel Times}
 
+As seen table XXXXX travel times for bike network 2, without trunk or primary highways, are substantially longer than travel times for bike network 1. This indicates that the effect of removing these edges is not just to disconnect the network but also requires a network user to take a less direct route, straying further from the straight line between origin and destination. 
+
+The difference between directed and undirected distances is also notable. 
+
+the standard deviation 
+
+the min is unchanged, while the max 
+
+Travel times by bicycle for aggressive cyclists are XXXXX compared to the QUANT travel times by public transport. 
+
 \subsection{test for differences}
 
-\subsection{Cycling Danger}
+There's got to be a significant difference between the distances for the different networks right?
 
-\subsection{Accessibility}
+\subsection{changes in routes}
+
+Seen in figure XXXX  compare longest path for directed network 2 to the path between those nodes in directed network 1. 
+
+Compare longest path for directed network 1 to undirected network 1. 
+
+compare o/d pair with largest increase in distance between directed 1 and directed 2 to the distance in undirected 2. 
+
+Is allowing travel in any direction on side roads a good replacement for primary and trunk routes?
+
+\subsection{Accessibility} 
+
+in qgis, color lsoa's by travel time to central lsoa. 
+
+in QGIS color lsoa's by travel time from lsoa with highest average distance. 
+
+in QGIS color lsoa's by  average directness, distance divided by straightline distance. 
+
+Plot a few paths in osmnx to look at low directness. 
+
+\subsection{Notes about computation}
+
+runtimes for the distances between nodes were long. computations were done on an intel i74700HQ processor with the database contained on the internal Solid State Drive. 
+
+Runtimes increased with the number of connected origin destination pairs, since unconnected pairs  did not require the calculation of a shortest path. Thus bike 1 travel times took longer than bike level 2. Additionally, the undirected network calculations took substantially longer than the directed networks because there were sugnificantly more route possibilities with more edges available at each node. 
+
+Tale XXXX contains calculation times by network type. 
+
+\begin{table}[]
+\begin{tabular}{ll}
+\multicolumn{2}{l}{Calculation Time} \\ \hline
+network             & time           \\
+1                   & 24:00          \\
+1 undirected        & 72:00 ??       \\
+2                   & 9:03           \\
+2 undirected        & 36:00         
+\end{tabular}
+\end{table}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -587,6 +747,11 @@ no cars,
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Results}
 
+
+Something here about spanning trees not bein very resiient? 
+
+Most generally, it was found that a decent representation of the London cycling network could be constructed from Open Street Map data using OSMnx and Networkx. With some specific improvements to the software and data a good job could be done of estimating accessibility in London by bicycle. Access to comuting resources is a key consideration. 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Limitations}
@@ -596,6 +761,14 @@ no cars,
 \subsection{Opportunities for improvement and extension}
 
 
+One key way that planners could mediate the effects of competition for space on primary roads is by removing direction restrictions on side roads. 
+
+the variability of cycling travel times was lower than public transport, but public transport allowed efficient access to the highest number of employment opportunities. 
+
+
+Public transport accessibility was more strongly linked with income reflecting cyclings potential to mediate income inequality by leveling the transportation playing field
+
+while removing edges from the network did have a significant effect on connectivity, reducing the connected origin and destination pairs by XXXXXX\% the study showed that less cconfident cyclists have route options available to them if they are willing to go out of their way along less direct paths. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -603,26 +776,22 @@ no cars,
 \section{Appendix}
 
 
+This raises the topic of "rat-running" in London, where traffic filters off of main routes onto side roads to avoid traffic. This behavior is a key reason that Open Street Map highway types may not have a real relationship with traffic stress or danger. A "quiet" street may get relatively more traffic than it is built to handle relative to primary routes. this is consistent with anecdotal observations of the author that on some quiet ways trafffic behavior is more dangerous and less predictable than on primary routes . it is not clear that dense slow moving traffic is more dangerous than sparse high speed traffic on back roads. 
+
+This would argue for making quiet ways through streets for only cyclists using "gates" . 
+
+\subsection{Limitations}
 
 
-\begin{itemize}
-\item one
-\item two
-  \begin{itemize}
-  \item one point one
-  \item one point two
-  \end{itemize}
-\end{itemize}
 
-\subsection{Subsection 1}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.8\textwidth]{example}
-\caption{Correlation between station/node metrics}
-\end{figure}
+\subsection{Opportunities for improvement and extension}
 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Appendix}
+
+OSM filters used/tried
 
 
 \begin{table}
@@ -652,25 +821,67 @@ unclassified & 7637 & less important than tertiary. Artefact of UK road system.\
 \end{tabular}
 \end{table}
 
-
-
-\begin{tabular}{|l|l|l|l|}\hline
-  \multirow{10}{*}{numeric literals} 				& \multirow{5}{*}{integers} 	& in decimal 					& \verb|8743| \\ \cline{3-4}
-  					    				& 				       	& \multirow{2}{*}{in octal}   		& \verb|0o7464| \\ \cline{4-4}
-  					    				& 					& 						& \verb|0O103| \\ \cline{3-4}
-  					    				& 					& \multirow{2}{*}{in hexadecimal}	& \verb|0x5A0FF| \\ \cline{4-4}
- 				 	    				& 					& 						& \verb|0xE0F2| \\ \cline{2-4}
-  					    				& \multirow{5}{*}{fractionals} 	& \multirow{5}{*}{in decimal} 		& \verb|140.58| \\ \cline{4-4}
- 				 					& 					& 						& \verb|8.04e7| \\ \cline{4-4}
-  									& 					& 						& \verb|0.347E+12| \\ \cline{4-4}
-  									& 					& 						& \verb|5.47E-12| \\ \cline{4-4}
-  									& 					& 						& \verb|47e22| \\ \cline{1-4}
-  \multicolumn{3}{|l|}{\multirow{3}{*}{char literals}} 													& \verb|'H'| \\ \cline{4-4}
-  \multicolumn{3}{|l|}{} 																	& \verb|'\n'| \\ \cline{4-4}          %% here
-  \multicolumn{3}{|l|}{} 																	& \verb|'\x65'| \\ \cline{1-4}        %% here
-  \multicolumn{3}{|l|}{\multirow{2}{*}{string literals}} 												& \verb|"bom dia"| \\ \cline{4-4}
-  \multicolumn{3}{|l|}{} 																	& \verb|"ouro preto\nmg"| \\ \cline{1-4}          %% here
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+\begin{tabular}{@{}llll@{}}
+\multicolumn{4}{l}{Open Street Map Highway Tags in London}                                                                                              \\ \midrule
+tag       & London Count & Count within Scope & Definition                                                                                              \\ \midrule
+bridleway & 13,056       & 6,987              & \begin{tabular}[c]{@{}l@{}}This is the definition of the first tag. \\ \\ It uses 2 lines.\end{tabular} \\
+crossing  &              &                    &                                                                                                         \\
+cycleway  &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                        
 \end{tabular}
+\end{table}
+
+
+
+%\begin{tabular}{|l|l|l|l|}\hline
+%  \multirow{10}{*}{numeric literals} 				& \multirow{5}{*}{integers} 	& in decimal 					& \verb|8743| \\ \cline{3-4}
+%  					    				& 				       	& \multirow{2}{*}{in octal}   		& \verb|0o7464| \\ \cline{4-4}
+%  					    				& 					& 						& \verb|0O103| \\ \cline{3-4}
+%  					    				& 					& \multirow{2}{*}{in hexadecimal}	& \verb|0x5A0FF| \\ \cline{4-4}
+% 				 	    				& 					& 						& \verb|0xE0F2| \\ \cline{2-4}
+%  					    				& \multirow{5}{*}{fractionals} 	& \multirow{5}{*}{in decimal} 		& \verb|140.58| \\ \cline{4-4}
+% 				 					& 					& 						& \verb|8.04e7| \\ \cline{4-4}
+%  									& 					& 						& \verb|0.347E+12| \\ \cline{4-4}
+%  									& 					& 						& \verb|5.47E-12| \\ \cline{4-4}
+%  									& 					& 						& \verb|47e22| \\ \cline{1-4}
+%  \multicolumn{3}{|l|}{\multirow{3}{*}{char literals}} 													& \verb|'H'| \\ \cline{4-4}
+%  \multicolumn{3}{|l|}{} 																	& \verb|'\n'| \\ \cline{4-4}          %% here
+%  \multicolumn{3}{|l|}{} 																	& \verb|'\x65'| \\ \cline{1-4}        %% here
+%  \multicolumn{3}{|l|}{\multirow{2}{*}{string literals}} 												& \verb|"bom dia"| \\ \cline{4-4}
+%  \multicolumn{3}{|l|}{} 																	& \verb|"ouro preto\nmg"| \\ \cline{1-4}          %% here
+%\end{tabular}
 
 
 

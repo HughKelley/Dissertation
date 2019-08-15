@@ -112,6 +112,73 @@ create table if not exists o_d_points_aggregate as (
 
 select * from o_d_points_aggregate limit 10;
 
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- add missing calcs to undirected_travel_times_1
+
+select * from missing_calcs limit 1;
+--index, origin, dest, distance
+
+select * from undirected_travel_times_1 limit 1;
+--pidd, net_filter, origin, destination, has_path, distance
+
+select distinct has_path from undirected_travel_times_1;
+
+
+select count(*) from missing_calcs;
+--114,176
+
+select count(*) from undirected_travel_times_1;
+--684,166
+
+--sum = 798,342
+
+select count(*) from undirected_travel_times_2;
+-- 797,450
+
+-- full matrix size
+-- 894 * 894 = 799,236
+
+-- unidrected_travel_times_2
+-- 799,236 - 797,450 = 1786
+select 799236 - 797450;
+
+select 1786 /2;
+-- 893
+--one lsoa got missed?
+
+-- 
+-- 799,236 - 798,342 = 894
+select 799236 - 798342;
+
+-- check duplicate values
+select 
+a.origin
+from undirected_travel_times_1 a 
+inner join missing_calcs b on a.origin = b.origin and a.destination = b.dest;
+--returns 0 rows, no overlap. 
+
+create temp table if not exists first_u_travel_1_all as ( select origin, destination dest, distance from undirected_travel_times_1 union select origin, dest, distance from missing_calcs);
+
+
+create temp table if not exists second_u_travel_1_all as (select *, true as has_path from first_u_travel_1_all);
+
+select count(*) from second_u_travel_1_all;
+select * from second_u_travel_1_all limit 1;
+
+create temp table if not exists third_u_travel_1_all as (select *, 1 as net_filter from second_u_travel_1_all);
+
+select * from third_u_travel_1_all limit 1;
+select count(*) from third_u_travel_1_all;
+
+-- make it permanent
+
+create table if not exists all_undirected_travel_times_1 as (select * from third_u_travel_1_all);
+
+
+
+
 
 
 

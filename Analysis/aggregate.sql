@@ -195,6 +195,8 @@ create table if not exists path_dist_agg as (select quant_origin_code, quant_des
 ------------------------------------
 ------------------------------------
 
+-- join distances into path_dist_agg. 
+
 
 
 

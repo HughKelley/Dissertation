@@ -31,6 +31,23 @@ Lastly, \cite{osama2017models} uses a number of predictors including network sta
 Thus while network analysis has been applied to cycle infrastructure, clearly there is not a consensus on the methodology. In particular, a definition of ``quality'' or ``safety'' has not been established. Additionally, a method for exploring the network of infrastructure defined is still lacking. Lastly,  
 
 
+\subsection{Network analysis Literature relevant to the research methodology proposed}
+
+\textit{note: this section should probably be worked into the review of cycle network analysis above instead of separated out. Combine criticisms of existing work and solutions from network science. Or it might just have to come out.}
+
+This work intends to improve upon the work detailed above through the inclusion of more ideas from network science that can improve and extend and simplify the models already specified. 
+
+There are a number of considerations from network analysis literature that can complement the work already applying the field to cycling networks. Perhaps the most important is the idea that the transportation network and the location of activities in a city reinforce each other. The most productive activities that occur in a city tend to be the most easily accessed according to central place theory. This has been shown empirically for instance by \cite{porta2012street} and by \cite{wang2011street}. In the literature discussed above authors address the key change in networks of defining a computationally feasible set of trips between nodes in a few different ways. This is misguided though as network theory offers a number of tools for exploring a graph efficiently. A random walk weighted by a centrality measure will tend toward trips between more important nodes because these tend to be more central. For instance \cite{Jiang2009characterizing} or  \cite{volchenkov2007random} both show that weighted random walks can do a accurate job of representing human activity on a street network. 
+
+A number of network statistics are used in the literature reviewed above. \cite{crucitti2006centrality} complements these as the centrality and connectedness measures used should be more formally justified according to network theory. 
+
+While, the multiplex offers an interesting approach to studying the interaction between bicycle usage and train and bus, this is beyond the scope of this work and perhaps beyond the scope of London , where bicycles are not generally allowed on public transport, unlike some other cities. 
+
+The potential for a ``transition'' in the cycle network per \cite{barthelemy2018transitions} is an exciting possibility. Finding edges that need to be added to a network in order for a transition in network connectivity to occur is a valuable exercise. In addition, specifying network characteristics according to those specified by \cite{barthelemy2011spatial} is also very valuable. 
+
+Overall there are a number of considerations from network science that this research intends to add to the analysis of cycle networks. The exact implementation of these considerations will be specified in the methodology section.
+
+
 \subsection{Open Street Map Data Quality}
 
 Citations
@@ -53,3 +70,6 @@ the conclusion was: "Based on empirical results, it is concluded that OSM data o
 which is a good indication for this work 
 
 can also cite Zielstra 2013 on the effect of large data imports on OSM comleteness in the context of the TfL CID thing that was just released. 
+
+
+A large body of work has considered the challenge of quantifying the quality of Open Street Map Data. A large part of this work focuses on the spatial accuracy of the data, how closely are features mapped to their real locations. As the quality and coverage of OSM expands, the challenge in data quality shifts from quality in the spatial part of the data set to quality in the metadata, that indicates the source of the feature and characteristics of that feature. 

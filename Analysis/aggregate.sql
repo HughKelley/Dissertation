@@ -176,6 +176,24 @@ select count(*) from third_u_travel_1_all;
 
 create table if not exists all_undirected_travel_times_1 as (select * from third_u_travel_1_all);
 
+------------------------------------------------------------------------------------------------------------------------------
+
+select * from o_d_points_aggregate limit 1;
+select count(*) from o_d_points_aggregate;
+-- 799,236
+
+create table if not exists path_dist_agg as (select quant_origin_code, quant_dest_code, origin_node_id, dest_node_id from o_d_points_aggregate);
+
+
+------------------------------------
+------------------------------------
+-- o_d_points_aggregate
+-- aggs the geometries of the origin and destination centroids and nodes
+------------------------------------
+-- path_dist_agg 
+-- aggs the calculated distances for each pair for each network. 
+------------------------------------
+------------------------------------
 
 
 

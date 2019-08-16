@@ -364,11 +364,168 @@ select count(*) from travel_times_2 where has_path is false;
 --FROM
 --    basket_a a
 --LEFT JOIN basket_b b ON a.fruit = b.fruit;
+-----------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+-- directed network 1
+
+-- get missing values from agg table into individual tables
+
+select * from distances_1 limit 1;
+select count(*) from distances_1;
+-- 799,236
+select count(*) from distances_1 where origin_node_id = dest_node_id;
+-- 894
 
 
 
+create temp table if not exists first_missing_d_1 as (  
+select * from distances_1 where quant_origin_code != quant_dest_code and directed_1_distance is null
+);	
 
 
+
+create temp table if not exists no_path_d_1 as (
+select * from travel_times_1 where has_path = false 
+);
+
+select * from no_path_d_1;
+-- origin 5,816,785,884
+select count(*) from no_path_d_1;
+select count(*) from first_missing_d_1;
+select * from no_path_d_1 limit 1;
+select * from first_missing_d_1 limit 1;
+
+create temp table if not exists second_missing_d_1 as ( 
+select
+a.origin_node_id origin_node_id,
+a.dest_node_id dest_node_id,
+b.pid pid
+from 
+	first_missing_d_1 a
+left join 
+	no_path_d_1 b
+on a.origin_node_id = b.origin and a.dest_node_id = b.destination
+where b.pid is null
+);
+-- 892
+select * from second_missing_d_1;
+	
+create table if not exists missing_d_1 as ( select * from second_missing_d_1)
+
+select * from missing_d_1;
+
+-- run python script
+
+select * from missing_calc_d_1;
+
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+-- directed network 2 
+
+select * from distances_1 limit 1;
+select count(*) from distances_1;
+-- 799,236
+select count(*) from distances_1 where origin_node_id = dest_node_id;
+-- 894
+
+
+
+create temp table if not exists first_missing_d_2 as (  
+select * from distances_1 where quant_origin_code != quant_dest_code and directed_2_distance is null
+);
+-- 333,983
+
+
+create temp table if not exists no_path_d_2 as (
+select * from travel_times_2 where has_path = false 
+);
+-- 333,091
+
+select * from no_path_d_2 limit 1;
+
+create temp table if not exists second_missing_d_2 as ( 
+select
+a.origin_node_id origin_node_id,
+a.dest_node_id dest_node_id,
+b.pidd pidd
+from 
+	first_missing_d_2 a
+left join 
+	no_path_d_2 b
+on a.origin_node_id = b.origin and a.dest_node_id = b.destination
+where b.pidd is null
+);
+-- 892
+
+select * from second_missing_d_2;
+select count(distinct dest_node_id) from second_missing_d_2;
+-- it's like their randomly missing. 
+-- Something about commiting to the database??
+
+create table if not exists missing_d_2 as ( select * from second_missing_d_2);
+
+select * from missing_calc_d_2;
+
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+-- undirected network 2 
+
+select * from distances_1 limit 1;
+
+create temp table if not exists first_missing_u_2 as (  
+select * from distances_1 where quant_origin_code != quant_dest_code and undirected_2_distance is null
+);
+-- 295,596
+
+create temp table if not exists no_path_u_2 as (
+select * from undirected_travel_times_2 where has_path = false 
+);
+-- 294,704
+
+select * from no_path_u_2 limit 1;
+
+create temp table if not exists second_missing_u_2 as ( 
+select
+a.origin_node_id origin_node_id,
+a.dest_node_id dest_node_id,
+b.pidddd pidddd
+from 
+	first_missing_u_2 a
+left join 
+	no_path_u_2 b
+on a.origin_node_id = b.origin and a.dest_node_id = b.destination
+where b.pidddd is null
+);
+-- 892
+
+select count(distinct origin_node_id) from second_missing_u_2;
+
+create table if not exists missing_u_2 as ( select * from second_missing_u_2);
+-- 892
+
+
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+
+--union missing values into old tables
+
+select * from travel_times_1 limit 1;
+-- pid, net_filter, origin, destination, has_path, distance
+
+select * from missing_calc_d_1 limit 1;
+-- index, origin, dest, distance
+
+-- change column names where necessary
+
+-- add columns where necessary
+
+create temp table if not exists third_u_travel_1_all as (select *, 1 as net_filter from second_u_travel_1_all);
+
+create temp table if not exists second_u_travel_1_all as (select *, true as has_path from first_u_travel_1_all);
+
+-- union
+
+create temp table if not exists first_u_travel_1_all as ( select origin, destination dest, distance from undirected_travel_times_1 union select origin, dest, distance from missing_calcs);
 
 
 

@@ -34,7 +34,7 @@ select * from quant_subset limit 1;
 select count(*) from quant_subset;
 select count(*) from quant_subset where origin = destination;
 
-create temp table if not exists temp_clean_quant as (select origin, destination, crow_flies_dist, nullif(travel_time_mins, 0) from quant_subset where crow_flies_dist != 0);
+create temp table if not exists temp_clean_quant as (select origin, destination, crow_flies_dist, nullif(travel_time_mins, 0) as travel_time_mins from quant_subset where crow_flies_dist != 0);
 -- 798,342
 
 create table if not exists clean_quant_subset as (select * from temp_clean_quant);

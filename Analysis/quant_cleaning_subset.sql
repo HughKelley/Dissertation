@@ -71,5 +71,36 @@ select count(*) from quant_subset where crow_flies_dist != 0 and travel_time_min
 --drop table quant_subset_missing_links;
 create table if not exists quant_subset_missing_links as (select * from quant_subset where crow_flies_dist != 0 and travel_time_mins = 0);
 
+----------------------------------------------------------------------------------------------------
+-- convert crow flies distance to travel time
+
+-- 
+select count(*) from quant_subset limit 1;
+select count(*) from clean_quant_subset limit 1;
+select * from clean_quant_subset limit 1;
+
+alter table clean_quant_subset rename column "nullif" to travel_time_mins;
+
+drop table clean_quant_subset_times;
+
+create table if not exists clean_quant_subset_times as (
+select origin, destination, travel_time_mins, (crow_flies_dist / 4.83 * 60) as walking_time_mins from clean_quant_subset
+) ;
+
+select * from clean_quant_subset_times limit 1;
+
+
+
+
+---------------------------------------------------------------------------------------------
+
+select count(*) from clean_quant_subset limit 1;
+-- 798,342
+select * from clean_quant_subset limit 1;
+
+select count(travel_time_mins) from clean_quant_subset;
+-- 598,301
+
+
 
 

@@ -52,3 +52,5 @@ pickle_name = 'pickles/quant.file'
 with open(pickle_name, 'wb') as output:
 	# overwrites any existing file of that name
 	pickle.dump(graph, output, pickle.HIGHEST_PROTOCOL)
+
+	with open(pickle_name, 'wb') as output: pickle.dump(graph, output, pickle.HIGHEST_PROTOCOL)

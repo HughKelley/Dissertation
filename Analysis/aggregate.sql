@@ -197,6 +197,173 @@ create table if not exists path_dist_agg as (select quant_origin_code, quant_des
 
 -- join distances into path_dist_agg. 
 
+select * from path_dist_agg limit 1;
+
+select * from all_undirected_travel_times_1 limit 1;
+
+select * from undirected_travel_times_2 limit 1;
+
+select * from travel_times_1 limit 1;
+
+select * from travel_times_2 limit 1;
+
+select count(*) from travel_times_1;
+-- 797,450
+select count(*) from travel_times_2;
+--797,450
+select count(*) from undirected_travel_times_2;
+-- 797,450
+select count(*) from all_undirected_travel_times_1;
+-- 798,342
+select count(*) from path_dist_agg;
+--799,236
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+create temp table if not exists agg_dist_1 as (
+select 
+	a.quant_origin_code quant_origin_code,
+	a.quant_dest_code quant_dest_code,
+	a.origin_node_id origin_node_id,
+	a.dest_node_id dest_node_id,
+	b.distance undirected_1_distance
+from 
+	path_dist_agg a
+left join 
+	all_undirected_travel_times_1 b
+on a.origin_node_id = b.origin and a.dest_node_id = b.dest
+);
+-- 799,236
+select count(undirected_1_distance) from agg_dist_1;
+-- 798,342
+select * from agg_dist_1 limit 10;
+
+--alter table agg_dist_1 rename column directed_1_distance to undirected_1_distance;
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+create temp table if not exists agg_dist_2 as ( 
+select 
+	a.quant_origin_code quant_origin_code,
+	a.quant_dest_code quant_dest_code,
+	a.origin_node_id origin_node_id,
+	a.dest_node_id dest_node_id,
+	a.undirected_1_distance undirected_1_distance,
+	b.distance directed_1_distance
+from 
+	agg_dist_1 a 
+left join 
+	travel_times_1 b 
+on a.origin_node_id = b.origin and a.dest_node_id = b.destination
+);
+-- 799,236
+select count(directed_1_distance) from agg_dist_2;
+-- 796, 558
+
+select * from agg_dist_2 limit 10;
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+select * from travel_times_2 limit 1;
+select count(*) from travel_times_2 where has_path = true;
+-- 464,359
+
+create temp table if not exists agg_dist_3 as( 
+select
+	a.quant_origin_code quant_origin_code,
+	a.quant_dest_code quant_dest_code,
+	a.origin_node_id origin_node_id,
+	a.dest_node_id dest_node_id,
+	a.undirected_1_distance undirected_1_distance,
+	a.directed_1_distance directed_1_distance,
+	b.distance directed_2_distance
+from 
+	agg_dist_2 a
+left join 
+	travel_times_2 b
+on 
+	a.origin_node_id = b.origin and a.dest_node_id = b.destination
+);
+-- 799,236
+
+select count(directed_2_distance) from agg_dist_3;
+-- 464,359
+
+select * from agg_dist_3 limit 10;
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+select * from undirected_travel_times_2 limit 1;
+select count(*) from undirected_travel_times_2 where has_path = true;
+--502,746
+
+create temp table if not exists agg_dist_4 as ( 
+select 
+	a.quant_origin_code quant_origin_code,
+	a.quant_dest_code quant_dest_code,
+	a.origin_node_id origin_node_id,
+	a.dest_node_id dest_node_id,
+	a.undirected_1_distance undirected_1_distance,
+	a.directed_1_distance directed_1_distance,
+	a.directed_2_distance directed_2_distance,
+	b.distance undirected_2_distance
+from 
+	agg_dist_3 a
+left join 
+	undirected_travel_times_2 b
+on 
+	a.origin_node_id = b.origin and a.dest_node_id = b.destination
+);
+-- 799,236
+
+select count(undirected_2_distance) from agg_dist_4;
+-- 502,746
+
+select * from agg_dist_4 limit 10;
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- persist
+
+create table if not exists distances_1 as (select * from agg_dist_4);
+
+select * from distances_1 limit 100;
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- check completeness of data
+
+select count(*) from distances_1 where quant_origin_code = quant_dest_code
+-- 894
+
+select distinct directed_1_distance from distances_1 where quant_origin_code = quant_dest_code;
+
+select count(*) from distances_1 where quant_origin_code != quant_dest_code and directed_2_distance is null;
+-- 1: 1,784
+-- 2: 333,983
+-- u_2: 295,596
+-- u_1: 0
+
+select count(*) from travel_times_2 where has_path is false;
+-- 1: 892
+-- 2: 333,091
+-- u_2: 294,704
+-- u_1: 0
+
+--differences
+-- 1: 892
+-- 2:892
+-- u_2: 892
+-- u_1: 0
+
+
+--SELECT
+--    a.id id_a,
+--    a.fruit fruit_a,
+--    b.id id_b,
+--    b.fruit fruit_b
+--FROM
+--    basket_a a
+--LEFT JOIN basket_b b ON a.fruit = b.fruit;
 
 
 

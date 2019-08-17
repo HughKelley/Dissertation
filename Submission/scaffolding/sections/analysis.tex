@@ -133,6 +133,10 @@ The most aggressive bike filter used only these conditions.
 
 Quant has 23,377,225 pairs. The subset has 799,236. The subset has 200,041 missing distances. 
 
+To complete the missing distances, the quant travel times were built into a networkx multidigraph. There was an edge for each node pair that represented the walking time between the nodes, calculated as the straightline distance between the nodes divided by the google walking speed 3 mph converted to 4.83 kph and converted to  0.0805 kilometers per minute giving a number of minutes walking time between the nodes that was in the same units as the number of minutes public transit time between the nodes. 
+
+Then for each pair of nodes missing a transit time, the shortest path on the graph was calculated. Thus each travel time can be a combination of walking and riding public transit between nodes. 
+
 
 \subsection{Network Characteristics}
 

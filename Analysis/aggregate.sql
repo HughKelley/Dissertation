@@ -642,7 +642,159 @@ select count(*) from all_directed_travel_times_2 where distance is null;
 -- 333,091
 
 
+create temp table if not exists
+	join_u_1 
+as (
+	select 
+		a.dest_node_id dest_node,
+		a.origin_node_id origin_node,
+		a.quant_origin_code quant_origin,
+		a.quant_dest_code quant_dest,
+		b.distance u_1_distance		
+	from 
+		path_dist_agg a
+	left join	
+		all_undirected_travel_times_1 b
+	on 
+		a.origin_node_id = b.origin 
+		and 
+		a.dest_node_id = b.dest
+);
+-- 799,236
 
+select * from join_u_1 limit 10;
+
+select count(u_1_distance) from join_u_1;
+-- 798,342
+
+
+------------------------------------------------------------------------------------------------------
+
+select * from join_u_1 limit 1;
+
+select * from all_directed_travel_times_1 limit 1;
+
+create temp table if not exists 
+	join_d_1
+as(
+	select 
+		a.dest_node dest_node,
+		a.origin_node origin_node,
+		a.quant_origin quant_origin,
+		a.quant_dest quant_dest,
+		a.u_1_distance	u_1_distance,
+		b.distance d_1_distance
+	from 
+		join_u_1 a
+	left join 
+		all_directed_travel_times_1 b
+	on 
+		a.origin_node = b.origin 
+		and 
+		a.dest_node = b.dest
+);
+
+-- 799,236
+
+select * from join_d_1 limit 10;
+
+select * from all_undirected_travel_times_2 limit 1;
+
+
+create temp table if not exists 
+	join_u_2 
+as (
+	select 
+		a.dest_node dest_node,
+		a.origin_node origin_node,
+		a.quant_origin quant_origin,
+		a.quant_dest quant_dest,
+		a.u_1_distance	u_1_distance,
+		a.d_1_distance d_1_distance,
+		b.distance u_2_distance
+	from 
+		join_d_1 a
+	left join
+		all_undirected_travel_times_2 b
+	on 
+		a.origin_node = b.origin 
+		and 
+		a.dest_node = b.destination
+);
+
+
+select * from join_u_2 limit 10;
+select * from all_directed_travel_times_2 limit 1
+
+create temp table if not exists 
+	join_d_2
+as( 
+	select 
+		a.dest_node dest_node,
+		a.origin_node origin_node,
+		a.quant_origin quant_origin,
+		a.quant_dest quant_dest,
+		a.u_1_distance	u_1_distance,
+		a.d_1_distance d_1_distance,
+		a.u_2_distance u_2_distance,
+		b.distance d_2_distance
+	from 
+		join_u_2 a
+	left join
+		all_directed_travel_times_2 b
+	on 
+		a.origin_node = b.origin 
+		and 
+		a.dest_node = b.destination		
+);
+	
+select * from join_d_2 limit 10;
+
+
+-----------------------------------------------------------------------------------------------
+
+-- add origin to destination straightline distances
+
+select * from o_d_points_aggregate limit 1;
+
+create temp table if not exists
+	join_straight_dist
+as (
+	select 
+		a.dest_node dest_node,
+		a.origin_node origin_node,
+		a.quant_origin quant_origin,
+		a.quant_dest quant_dest,
+		a.u_1_distance	u_1_distance,
+		a.d_1_distance d_1_distance,
+		a.u_2_distance u_2_distance,
+		a.d_2_distance d_2_distance,
+		b.node_dist node_straight_dist
+	from 
+		join_d_2 a
+	left join
+		o_d_points_aggregate b
+	on 
+		a.dest_node = b.dest_node_id
+		and
+		a.origin_node = b.origin_node_id
+);
+
+select * from join_straight_dist limit 10;
+
+create table if not exists all_agg_distances as (select * from join_straight_dist);
+
+select * from all_agg_distances limit 10;
+
+select count(*) from all_agg_distances where dest_node != origin_node;
+
+-- 894 + 798,342 = 799,236
+select 894 + 798342;
+
+
+drop table all_agg_distances;
+
+create table if not exists all_agg_distances as (select * from join_straight_dist where dest_node != origin_node);
 
 
 

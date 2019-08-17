@@ -161,8 +161,15 @@ no cars,
 
 Node 5816785884, closest to the centroid of LSOA XXXXXX is found at the entrance to a garage at the end of a one way street. Thus every other node in the network is inaccessible on the directed versions of the network. The edge leading to this node is tagged ``service'' so perhaps service streets should have been excluded as they are frequently dead ends. 
 
+\begin{figure}
+\centering
+\caption{histogram of distances between centroid and nearest common node. }
+\label{fig:centroid_node_dist_hist}
+\end{figure}
 
-histogram of distances between centroid and nearest common node. 
+Because urban density increases as one approached the center of a city, there may be a slight bias towards node distances being lower than centroid distances. This is because there is a higher probability that the closest node will be on the central side of the centroid than the outside. 
+
+
 
 \begin{figure}
 \centering
@@ -174,6 +181,11 @@ histogram of distances between centroid and nearest common node.
 
 Travel times were converted from distances using a walking speed of 3 mph and a cycling speed of 8 mph based on data taken from google maps estimates for journeys as seen in that table. 
 
+\begin{table}
+\centering
+\caption{Google Maps travel speeds}
+\label{table:travel_speeds}
+\end{table}
 
 As seen table XXXXX travel times for bike network 2, without trunk or primary highways, are substantially longer than travel times for bike network 1. This indicates that the effect of removing these edges is not just to disconnect the network but also requires a network user to take a less direct route, straying further from the straight line between origin and destination. 
 

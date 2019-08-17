@@ -510,22 +510,141 @@ create table if not exists missing_u_2 as ( select * from second_missing_u_2);
 --union missing values into old tables
 
 select * from travel_times_1 limit 1;
+select count(*) from travel_times_1;
 -- pid, net_filter, origin, destination, has_path, distance
 
 select * from missing_calc_d_1 limit 1;
+select count(*) from missing_calc_d_1;
+--891??
+-- because I didn't add a has_path column. The missing pair has not path 
 -- index, origin, dest, distance
 
 -- change column names where necessary
 
 -- add columns where necessary
 
-create temp table if not exists third_u_travel_1_all as (select *, 1 as net_filter from second_u_travel_1_all);
+create temp table if not exists first_d_travel_1_all as (select  origin , dest destination, distance, 1 as net_filter, true as has_path from missing_calc_d_1);
 
-create temp table if not exists second_u_travel_1_all as (select *, true as has_path from first_u_travel_1_all);
+select * from first_d_travel_1_all limit 1;
+
+
 
 -- union
+create temp table if not exists second_d_travel_1_all as (
+	select 
+		origin, 
+		destination dest, 
+		distance, 
+		has_path 
+	from 
+		travel_times_1 
+	union 
+	select 
+		origin, 
+		destination dest, 
+		distance, 
+		has_path 
+	from 
+		first_d_travel_1_all
+	);
+-- 798341
 
-create temp table if not exists first_u_travel_1_all as ( select origin, destination dest, distance from undirected_travel_times_1 union select origin, dest, distance from missing_calcs);
+create table if not exists all_directed_travel_times_1 as (select * from second_d_travel_1_all);
+
+------------------------------------------------------------------------------------------------------
+--directed_2
+
+select * from travel_times_2 limit 1;
+select count(*) from travel_times_2;
+
+select * from missing_calc_d_2 limit 1;
+select count(*) from missing_calc_d_2;
+--629
+
+create temp table if not exists first_d_travel_2_all as (select origin, dest destination, distance, 2 as net_filter, true as has_path from missing_calc_d_2);
+-- 629
+select * from first_d_travel_2_all limit 1;
+
+create temp table if not exists second_d_travel_2_all as (
+	select 
+		origin, 
+		destination, 
+		distance, 
+		has_path 
+	from travel_times_2 
+	union 
+	select 
+		origin, 
+		destination, 
+		distance, 
+		has_path 
+	from 
+		first_d_travel_2_all
+);
+
+-- 798,079
+
+select * from second_d_travel_2_all limit 1;
+
+create table if not exists all_directed_travel_times_2 as (select * from second_d_travel_2_all);
+
+------------------------------------------------------------------------------------------------------
+
+undirected_2
+
+select * from undirected_travel_times_2 limit 1;
+select count(*) from undirected_travel_times_2;
+-- 797,450
+
+select * from missing_calc_u_2 limit 1;
+select count(*) from missing_calc_u_2;
+--672
+
+create temp table if not exists first_u_travel_2_all as (select origin, dest destination, distance, 2 as net_filter, true as has_path from missing_calc_u_2);
+
+select * from first_u_travel_2_all limit 1;
+
+create temp table if not exists second_u_travel_2_all as (
+	select 
+		origin, 
+		destination, 
+		distance,
+		has_path
+	from 
+		undirected_travel_times_2
+	union 
+	select 
+		origin, 
+		destination, 
+		distance,
+		has_path
+	from
+		first_u_travel_2_all
+);
+-- 798,122
+
+select * from second_u_travel_2_all limit 1;
+
+create table if not exists all_undirected_travel_times_2 as (select * from second_u_travel_2_all);
+
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+
+-- re=aggregate
+
+select * from path_dist_agg limit 1;
+select * from o_d_points_aggregate limit 1;
+
+select count(*) from all_directed_travel_times_2 where has_path is false;
+-- 333,091
+
+select count(*) from all_directed_travel_times_2 where distance is null;
+-- 333,091
+
+
+
+
+
 
 
 

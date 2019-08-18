@@ -45,8 +45,8 @@ for index, row in pairs.iterrows():
 		data_row.to_sql('missing_quant_times_1', con=engine, if_exists='append')
 		# data_row.to_sql('missing_quant_times_2', con=engine, if_exists='append')
 
-	if index > 100:
-		break
+	# if index > 100:
+	# 	break
 
 end = datetime.now()
 

@@ -7,7 +7,7 @@
 % This is a simple template for a LaTeX document using the "article" class.
 % See "book", "report", "letter" for other types of document.
 
-\documentclass[11pt]{article} % use larger type; default would be 10pt
+\documentclass[hidelinks,11pt]{article} % use larger type; default would be 10pt
 
 
 \usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
@@ -17,6 +17,8 @@
 %\addbibresource{bibliography.bib}
 % by lit type
 \addbibresource{../bib/software.bib}
+\addbibresource{../bib/data.bib}
+\addbibresource{../Literature_Review/Literature/OSM_Quality/osm_quality.bib}
 \addbibresource{../Literature_Review/Literature/Past_Similar_Work/related_work.bib}
 \addbibresource{../Literature_Review/Literature/Network_Analysis/network_lit.bib}
 \addbibresource{../Literature_Review/Literature/Bicycling/general_cycling.bib}
@@ -46,8 +48,8 @@
 %\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
 \usepackage{graphicx}
 \graphicspath{{../images/}}
-\usepackage{caption}
-\usepackage{subcaption}
+%\usepackage{caption}
+%\usepackage{subcaption}
 \usepackage{multirow} % allows multiple rows per cell
 % These packages are all incorporated in the memoir class to one degree or another...
 
@@ -65,7 +67,7 @@
 
 %%% ToC (table of contents) APPEARANCE
 \usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
-\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\usepackage[titles]{tocloft} % Alter the style of the Table of Contents
 \renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
 \renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
 
@@ -82,100 +84,77 @@
 \begin{document}
 \maketitle
 
+\pagebreak
+
+
+Name: Hugh Kelley
+
+Programme: MSc. Smart Cities and Urban Analytics
+
+Institution: University College London
+
+Date:
+
+Word Count:
+
+This dissertation is submitted in partial fulfillment of the requirements for the degree of Master of Science in Smart Cities \& Urban Analytics from University College London.
+
+I, Hugh Kelley, confirm that the work presented herein is my own. Where information has been derived from other sources, I confirm that this has been indicated.
+\pagebreak
+
+acknowledgements.\\
+
+Thank you to all the people who helped me write this dissertation! 
+
+\pagebreak
+
 \section{Abstract}
+\input{sections/abstract}
+
+\pagebreak
 
 \tableofcontents
+\pagebreak
+
 \listoffigures
+\pagebreak
+
 \listoftables
+\pagebreak
 
 \section{Introduction}
 
-\subsection{Overview and Research Impact}
+	\input{sections/introduction}
 
-\subsection{research question}
+\section{Literature}
 
-\subsection{ethical risks}
-
-\subsection{Research Structure}
-
-\subsection{The role of the researcher}
-
-\section{Literature Review}
-
-\subsection{Cycling Behavior Research}
-
-\subsection{Literature addressing cycling From a network perspective}
-
-\subsection{Network analysis Literature relevant to the research methodology proposed}
-
-\subsection{Literature Addressing the Quality of Open Street Map Data}
+	\input{sections/literature}
 
 \section{Methods}
 
-\subsection{Scope}
+	\input{sections/methods}
 
-\subsection{defining networks}
-
-\subsection{assessing networks}
-
-\subsection{travel times}
-
-\subsection{Accessibility}
 
 \section{Data}
 
-\subsection{Open Street Map}
-
-\subsection{A Close Look at an Open Street Map Case Study}
-
-\subsection{Transport for London Cycling Infrastructure Database}
-
-\subsection{2011 Census Journey to work data}
-
-\subsection{LSOA boundaries and data}
-
-\subsection{Road KSI data}
-
-\subsection{Data import, storage, cleaning, and joining}
-
-\subsection{Defining Cycle Networks}
-
-\subsection{Travel Times}
-
-\subsection{Street Type and Street Danger}
-
-\subsection{Accessibility}
-
-\subsection{assumptions and concerns}
+	\input{sections/data}
 
 \section{Analysis \& Results}
 
-\subsection{Defining Scope}
+	\input{sections/analysis}
 
-\subsection{Defining Networks}
-
-\subsection{Network Characteristics}
-
-\subsection{Travel Times}
-
-\subsection{test for differences}
-
-\subsection{Cycling Danger}
-
-\subsection{Accessibility}
 
 \section{Conclusions}
 
-\subsection{Results}
+	\input{sections/conclusion}
 
-\subsection{Limitations}
-
-\subsection{Opportunities for improvement and extension}
-
-\section{Appendix}
 
 \pagebreak
-\printbibliography
+\section{Appendix}
 
+
+\pagebreak
+
+\printbibliography
 
 \end{document}

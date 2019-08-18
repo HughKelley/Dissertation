@@ -1,0 +1,93 @@
+% 1254 words
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+- define scope, minimize area while capturing the largest number of trips by bicycle, trips in total, road casualties, and households and jobs. This will be some part of central London. 
+-- build boundary based on scope using postgis and qgis
+- define filters for OSM data
+-- this includes trying to understand the relationship between relations and individually tagged edges and nodes. 
+-- pictures of network, specific edges, and photos of real life infrastructure. 
+-build networks from data
+-- removing streets
+-- undirected
+- identify network nodes closest to lsoa centroids
+-compare \% of trips possible across Quant, bike 1, bike 2, and undirected versions. 
+- compare change in directness between bike 1 and bike 2.  
+-- compare bicycle accessibility to Quant
+-UTM-30 projection used as standard across all data. 
+%%%%%%%%%%%%%%%%%%%5
+
+
+\subsection{Scope}
+
+
+The scope of the study will be defined so as to maximize the study's representation of London's cycling commutes, capturing as many trips by origin and destination as possible as well as considering the location of road casualties in London. This will be done in the context of the computing resources available, where travel time calculations for the origin destination matrix must be reasonable. 
+
+\subsection{Defining Networks}
+
+Networks will be defined as a subset of edges in the Open Street Map network. 
+
+Download the connectivity data from OSM via the Overpass APIas json . A graph is built with the nodes and ways from the Overpass data with edges coming from the Overpass data's ``way'' elements, and the nodes coming from the intersection of the edges as defined in OSM as well as the end of an edge. Getting to the point requires simplification because the Open Street Map data includes many more nodes than just the endpoints and intersections. The network is simplified by removing nodes with degree 2, where the node simply connects one street to one other, unless there is a difference in directionality between them. That is, when a street changes from 2 way to one way, a node is placed at the intersection to denote that change. 
+
+Cite OSMnx \cite{osmnx} and Networkx \cite{networkx}
+
+
+How were the representative networks built? 
+
+Open Street Map uses tags to associate street characteristics with the geometries that make up the map. Appendix XXXX contains the definitions from the OSM wiki page for each of the tags used. Most important to note is that this research uses 5 ``levels'' of street stress. The highest level allows all street conditions. The second level allows all but ``primary'' streets, the largest busiest streets. Then ``secondary'' streets are removed in the third filter. ``Tertiary'' type streets are moved to build the fourth filter. The fifth filter moves ``living streets'' and ``residential'' streets which both are specified to be low traffic streets used primarily for local trips. Thus the most conservative layer of the network contains only edges where there is no expectation of interaction with motor vehicles. 
+
+The networks were simplified so that a node with degree 2 was removed and the two edges were joined, becoming a continuous path way.
+
+
+\subsection{Defining Origins and Destinations}
+
+QUANT uses the node of highest degree in a given LSOA. 
+
+For calculating a sample of routes on the networks, this analysis used the node closest to the centroid of each lsoa. 
+
+
+
+\subsection{Assessing Networks}
+
+Test citation for \cite{osmnx}. Did it work
+Test citation for \cite{networkx}. Did it work
+Test citation for \cite{qgis}. Did it work
+Test citation for \cite{python}. Did it work
+\subsection{travel times}
+
+Travel times will be calculated for each network with a significant portion of the area of investigation connected by a single component.
+
+In addition to calculating themulti-directed graphs for different OSM filters, travel times are calculated for undirected versions of the graph. This will be used to investigate how building infrastructure for cyclists to travel safely against traffic could further raise accessibility or replace the need to build infrastructure that allows a cyclist to safely travel on main roads. 
+
+ This is for comparison between filters, how do travel times change with the inclusion or exclusion of street types. This is also for comparison with public transport times within the area of investigation. 
+
+\subsection{assessing networks}
+
+A key point of interest is the networks that result from different filters. For different filters, the count of nodes and edges, and therefore the overall density of the network will be considered. The number of independent components will be consdiered. 
+
+While this work is unable to construct a continuous measure of traffic stress for each edge, the OSM tags for a given edge will be used to conduct a percolation type construction of the graph, adding edge types. The change in largest connected component will demonstrate the importance of the different types of edges to the network. 
+
+
+\subsection{Accessibility}
+
+text
+
+
+\subsection{Misc}
+
+
+Goal is to quantify the quality of the London Cycling Network with the working assumption that a better network has a meaningful positive effect on the rate of cycling in a city. 
+
+The first step in this investigation is to build a data set that represents the London cycling network as accurately as possible. This representation needs to reflect the fact that different cyclists are willing to use different streets as a function of the perceived safety of the street and the level of confidence of that cyclist. Thus the data set will be multiple representations of the city cycling network that each represent a level of confidence, only including streets with a certain level of safety. 
+
+A key question then is, how to quantify ``safety''. In a perfect world, this would be done empirically. This would involve a combination of cycle traffic volume collection, cycle traffic behavior observation, and interviews with a representative set of cyclists and non-cyclists about their decision making. All of this data could be compared to the cycling environment in different locations to find cyclist sensitivity to different factors.  
+
+The literature provides a number of methods, which will be explored to the fullest extent possible. Factors that will be considered include, the presence of dedicated bike infrastructure, traffic volumes, traffic speeds, road characteristics, historical traffic incidents, and intersection characteristics. 
+
+Once the network has been quantified in this way, two basic methods will be applied to evaluate it. The first is to compare the distribution of edges by centrality for each of the networks. Are cars and high confidence cyclists at a significant advantage in terms of the edges available to them compared to lower confidence cyclists? Does does the centrality of edges allowed under the most conservative standards explain many Londoner's choice not to cycle at all? 
+
+The second method is intended to extend the first. Looking at the distribution of centrality is unable to reveal the network's actual service for common trips between important nodes on the network, because a high number of very central but disconnected edges is not as useful as a high number of high centrality edges with high connectivity. To investigate this, a random walk between nodes, weighted by node importance will be used. This will build a sample of trips and statistics about the random walk can be used to compare the experience of representative users of different networks. 
+
+Finally, the possibility of a ``transition'' in the networks defined will be explored. What changes to the network are required for a dramatic change in connectivity to occur? This is the most uncertain but potentially most valuable part of the research. Past research has analyzed the linear individual effect of cycling infrastructure, but has not considered the possibility of a rapid acceleration in cycling usage as the result of a network wide transition in connectivity. 
+
+Finally, community identification could be applied to the networks to find whether particular neighborhoods in London are especially good for cyclists. 

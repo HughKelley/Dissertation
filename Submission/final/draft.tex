@@ -1,0 +1,274 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% for a word count:
+%https://app.uio.no/ifi/texcount/online.php
+
+\documentclass[11pt]{article} % use larger type; default would be 10pt
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+\usepackage[backend=biber, style=authoryear]{biblatex}
+\addbibresource{../bib/software.bib}
+\addbibresource{../Literature_Review/Literature/Past_Similar_Work/related_work.bib}
+\addbibresource{../Literature_Review/Literature/Network_Analysis/network_lit.bib}
+\addbibresource{../Literature_Review/Literature/Bicycling/general_cycling.bib}
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+%\usepackage{graphicx} % support the \includegraphics command and options
+\usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+%%% PACKAGES
+\usepackage{hyperref}
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+%\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+\usepackage{graphicx}
+\graphicspath{{../images/}}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{multirow} % allows multiple rows per cell
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsections
+
+{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+%%% END Article customizations
+
+
+%%% The "real" document content comes below...
+
+
+\title{The Suitability of Open Street Map Data for Defining and Assessing Urban Bicycle Networks}
+
+\author{Hugh Kelley}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\begin{document}
+\maketitle
+\section{Abstract}
+
+\tableofcontents
+
+%\listoffigures
+\listoftables
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Literature Review}
+
+\subsection{Cycling Behavior Research}
+
+The most important conclusions from literature that tries to predict cycling behavior is the focus on multiple types of cyclists, and the factors that influence each type's decision to cycle. Most often, four types of cyclists are used, ``strong and fearless'', ``enthused and confident'', ``interested but concerned'', and ``no way no how'' (\cite{dill2013four}). This categorization is sometimes changed to follow demographics, focusing on young, generally male, adults, older adults, and childern. CITE. The literature separates the decision to cycle into the decision of cycling frequency, how often someone who is willing to cycle generally chooses to do so, and the decision to cycle at all, with different factors influencing each decision (\cite{stinson2005comparison}). 
+
+Despite behavioral differences between these categories, research has shown that all cyclists are willing to sacrifice time and energy for increased safety on their route. CITE. Indeed, psychological research showed that fear is a significant factor during an urban cycling trip (\cite{ellett2018state}). This is important given the sensitivity cyclists show to efficiency. CITE. The impact of a route change can be very significant, for instance a higher frequency of stop signs on a route can double the energy required for a journey (\cite{fajans2001bicyclists}). Given the common trade off between efficiency and safety, it was found that the effect of infrastructure improvements is very dependent on context, effect is a function of the change in safety, and the importance of the location to trips (\cite{kondo2018bike}), improvements that meaningfully increase safety at important locations have the largest effect. 
+
+Several studies looked at the importance of perception in behavior change, assuming that a real change in safety is irrelevant if it is not perceived by potential cyclists as a change(\cite{li2012physical} and \cite{parkin2007models}). This gives rise to literature that focuses on a behavior and attitude change approach from psychology the prioritizes change in habits and perception over infrastructure, with changes to the built environment only used where required to change perception (\cite{savan2017integrated}). This should be considered in the context of research showing that cyclist perceptions of danger are generally accurate (\cite{vandenbulcke2014predicting}). Thus it seems reasonable to conclude that despite the decision to cycle being a fairly complex mix of factors, the decision for almost any urban commuter, comes down to safety, and efficiency. An efficient network of safe edges, connecting important nodes, would be expected to have a meaningful effect on the rate of cycling in an urban area.  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Literature addressing cycling From a network perspective}
+
+\cite{buehler2016bikeway} is a very useful introduction to the literature on cycling networks. Unfortunately it concludes that very little true network analysis has been developed for cycle networks. The majority of papers they found could be categorized into those that focus exclusively on nodes, and those that focus on edges of the dual graph, where intersections are nodes and streets are edges. At the time of writing there were 115 papers citing Buehler's review, however all but 5 of them fail to take Buehler's central recommendation that \textit{If individual characteristics of a network's links and nodes contribute to cycling levels, it logically follows that a network of such features would as well...}. The ``Toward Studying the Whole Bicycling Network'' section of Buehler's review is a good overview of attempts up to 2016. The key findings were that continuity and connectivity of infrastructure is valued by cyclists. Of particular interest is the \cite{schoner2014missing} study of the relationship between network characteristics and cycling mode share in 74 US cities. That study found density of the network had the highest elasticity for effect on cycling rate. 
+
+Several of the works reviewed contribute new ways of measuring ``quality'' of the infrastructure, these quality measures include a Bicycle Compatibility Index (BCI) (\cite{klobucar2007network}),  Bicycle Level of Service (BLOS) (\cite{lowry2012assessment}), and Level of Traffic Stress (LTS) (\cite{mekuria2012low}). Each of these can reasonably be viewed as an attempt to measure the ``safety'' of a network link. These studies generally lacked a rigorous method for prioritizing nodes by importance or defining a sample set of trips between nodes. Improvements to this will be addressed in the section reviewing network analysis literature. 
+
+Buehler notes that a key challenge to using the network methods reviewed is data availability, this research hopes that network analysis can be a method for reducing rather than extending the amount of data necessary to understand a cycle network, as network statistics could be used to replace some empirical measurements as discussed below.  They further criticize the approaches as lacking empirical validation. Gathering accurate cycle traffic data and safety data is an immense challenge as demonstrated by the flow estimation techniques of \cite{gosse2014estimating} and the safety estimate techniques of \cite{puchades2018role}, which focuses on near misses as a proxy for predicting actual safety incidents, but acknowledges the difficulty of collecting near miss data without human observation. CITE. 
+
+Since the publication of Buehler's review, the papers extending the full network analysis method have had moderate success. \cite{akbarzadeh2018designing} uses taxi trip data to weight the links between destinations in order to build communities of nodes that tend to be origin and destination pairs. While this is a novel approach to prioritizing edges, taxi usage tends to be for less frequent travel between nodes and the general literature as well as this work focuses on daily commuting, which is rarely accomplished by taxi. \cite{boisjoly2019bicycle} focuses on the directness of routes on cycle paths between nodes. 
+
+\cite{doorley2019designing} focus on building cycle infrastructure to maximize a function of travel costs, infrastructure costs, health, traffic accidents, and pollution. While this is an interesting approach, it addresses a more political question in the sense that the key result of the algorithm is to recommend a specific amount of investment in cycle infrastructure to maximize the costs and benefits to all road users, The author's fail to recognize the prioritizing the goals of public policy is a highly normative and subjective exercise and that a model designed to give an ``objective'' answer to this question inherently reflects the author's preferences and when calibrated to ``the real world'' reflects the biases and preferences of the status quo, rather than the true ideal outcomes preferred by a population. Instead, modeling, especially for urban planning purposes, should accept an exogenous goal and implement it as efficiently as possible. For instance, cycle infrastructure, is explicitly intended to reduce motor vehicle use, it would make no sense to then use a model that determines the efficient level of motor vehicle use, the political process has already determined the answer and merely asks for implementation recommendations from the modeler. 
+
+\cite{mauttone2017bicycle} similarly focuses on an optimization framework for cycling networks, choosing a subset of streets that are ``suitable to building cycle infrastructure''. This is odd in the sense that the goal of building cycle infrastructure is to \textit{create} streets that are suitable for cycling, not merely identify them. Similar to \cite{doorley2019designing}, they identify a cost to building cycle paths which they seek to balance against the benefits. 
+
+Overall, it is not clear that a model for building cycle paths should be particularly cost sensitive. \cite{gu2017cost} found a very high return on investment to the budget for cycling infrastructure in New York City. The very idea of using network analysis for the development of cycle networks emphasizes the potential non linearity of the effect of building more infrastructure, with usage accelerating as the network approaches ``completeness'' in some for. In addition, cities tend to combine cycle infrastructure improvement with other required improvement and maintenance activities, mitigating the costs by being opportunistic in implementation. 
+
+Lastly, \cite{osama2017models} uses a number of predictors including network statistics to predict bike travel within zones of Vancouver similar to \cite{schoner2014missing}. They found a positive coefficient for the density of the bike network in the zone. 
+
+Thus while network analysis has been applied to cycle infrastructure, clearly there is not a consensus on the methodology. In particular, a definition of ``quality'' or ``safety'' has not been established. Additionally, a method for exploring the network of infrastructure defined is still lacking. Lastly,  
+
+
+
+
+%%%%%%%%%%%%%
+%%%%%%%%%
+%%%%%%%%%%
+
+
+
+
+\subsection{Travel Times}
+
+\subsection{changes in routes}
+
+
+\subsection{Accessibility} 
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Results}
+
+
+ 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Limitations}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Opportunities for improvement and extension}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Appendix}
+
+ 
+
+\subsection{Limitations}
+
+
+
+\subsection{Opportunities for improvement and extension}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Appendix}
+
+OSM filters used/tried
+
+
+
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+\begin{tabular}{@{}llll@{}}
+\multicolumn{4}{l}{Open Street Map Highway Tags in London}                                                                                              \\ \midrule
+tag       & London Count & Count within Scope & Definition                                                                                              \\ \midrule
+bridleway & 13,056       & 6,987              & \begin{tabular}[c]{@{}l@{}}This is the definition of the first tag. \\ \\ It uses 2 lines.\end{tabular} \\
+crossing  &              &                    &                                                                                                         \\
+cycleway  &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                         \\
+          &              &                    &                                                                                                        
+\end{tabular}
+\end{table}
+
+
+
+%\begin{tabular}{|l|l|l|l|}\hline
+%  \multirow{10}{*}{numeric literals} 				& \multirow{5}{*}{integers} 	& in decimal 					& \verb|8743| \\ \cline{3-4}
+%  					    				& 				       	& \multirow{2}{*}{in octal}   		& \verb|0o7464| \\ \cline{4-4}
+%  					    				& 					& 						& \verb|0O103| \\ \cline{3-4}
+%  					    				& 					& \multirow{2}{*}{in hexadecimal}	& \verb|0x5A0FF| \\ \cline{4-4}
+% 				 	    				& 					& 						& \verb|0xE0F2| \\ \cline{2-4}
+%  					    				& \multirow{5}{*}{fractionals} 	& \multirow{5}{*}{in decimal} 		& \verb|140.58| \\ \cline{4-4}
+% 				 					& 					& 						& \verb|8.04e7| \\ \cline{4-4}
+%  									& 					& 						& \verb|0.347E+12| \\ \cline{4-4}
+%  									& 					& 						& \verb|5.47E-12| \\ \cline{4-4}
+%  									& 					& 						& \verb|47e22| \\ \cline{1-4}
+%  \multicolumn{3}{|l|}{\multirow{3}{*}{char literals}} 													& \verb|'H'| \\ \cline{4-4}
+%  \multicolumn{3}{|l|}{} 																	& \verb|'\n'| \\ \cline{4-4}          %% here
+%  \multicolumn{3}{|l|}{} 																	& \verb|'\x65'| \\ \cline{1-4}        %% here
+%  \multicolumn{3}{|l|}{\multirow{2}{*}{string literals}} 												& \verb|"bom dia"| \\ \cline{4-4}
+%  \multicolumn{3}{|l|}{} 																	& \verb|"ouro preto\nmg"| \\ \cline{1-4}          %% here
+%\end{tabular}
+
+
+
+
+\begin{verbatim}
+use pseudocode
+\end{verbatim}
+
+\textit{italics}
+\textbf{bold}
+
+XXXX words excluding headings, figures, and references. \\
+
+%\nocite{*}
+%
+%\medskip
+%
+%
+%\printbibliography
+
+
+
+
+\medskip 
+
+XXXX words excluding headings, figures, and references. \\
+\pagebreak
+\printbibliography
+
+
+\end{document}

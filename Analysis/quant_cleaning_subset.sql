@@ -101,6 +101,47 @@ select * from clean_quant_subset limit 1;
 select count(travel_time_mins) from clean_quant_subset;
 -- 598,301
 
+-------------------------------------------------------------------------------------------
+
+select * from quant_subset_missing_links limit 1;
+
+select origin, destination dest from quant_subset_missing_links limit 1;
+select count(*) from quant_subset_missing_links;
+
+
+select * from missing_quant_times;
+drop table missing_quant_times;
+
+select count(*) from quant_subset_missing_links;
+-- 200,041
+
+
+-- split table
+drop table quant_missing_1;
+
+create table if not exists quant_missing_1 as (select origin, destination, true as test from quant_subset_missing_links limit 100000);
+
+select * from quant_missing_1 limit 1;
+
+drop table quant_missing_2;
+
+create table if not exists 
+	quant_missing_2 
+as (
+	select 
+		a.origin origin,
+		a.destination destination,
+		b.destination b_destination
+	from 
+		quant_subset_missing_links a
+	left join	
+		quant_missing_1 b
+	on 
+		a.origin = b.origin
+	and 
+		a.destination = b.destination	
+	where b.test is null
+	);
 
 
 

@@ -796,11 +796,12 @@ drop table all_agg_distances;
 
 create table if not exists all_agg_distances as (select * from join_straight_dist where dest_node != origin_node);
 
+select * from missing_quant_times;
 
+--drop table missing_quant_times;
+--drop table missing_quant_times_1;
+--drop table missing_quant_times_2;
 
-
-
-
-
-
+select count(*) from missing_quant_times_1;
+select count(*) from missing_quant_times_2;
 

@@ -21,6 +21,9 @@ env/
 *.json
 *.geojson
 
+# weird latex table file type
+*.TGN
+
 ## shapefile and mapinfo files
 *.prj
 *.shp

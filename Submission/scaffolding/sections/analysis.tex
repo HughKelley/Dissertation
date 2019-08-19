@@ -1,4 +1,4 @@
-% 1274 words
+% 1588 words
 
 \subsection{Key Questions}
 what was the scope and how was it defined
@@ -205,13 +205,41 @@ the min is unchanged, while the max
 
 Travel times by bicycle for aggressive cyclists are XXXXX compared to the QUANT travel times by public transport. 
 
+
+Transit times are consistently lower than cycling times. However, transit times are from hub to hub, so there is in most cases, an additional walking time to get from the transit hub to the actual destination that would be less of a factor for a journey by bicycle. 
+
+
+The connectedness estimated may understate the true connectedness. This is seen in that unconnected node pairs in almost every case have one node that is unconnected from all other nodes. Thus there are not local islands of connectivity, there are nodes being disconnected from the network due to the removal of a single edge. 
+
+
 \subsubsection{test for differences}
+
+
+\begin{table}
+\centering
+\caption{changes between networks, \% connected and $\Delta$ directedness}
+\label{table:change between nets}
+\end{table}
 
 There's got to be a significant difference between the distances for the different networks right?
 
 
-
-
+\begin{table}[]
+%\centering
+\begin{tabular}{lrrrrrrrrr}
+network                      & u\_1 & d\_1 & u\_2  & d\_2  & quant & quant+ & d\_3 & d\_4 & d\_5 \\ \hline
+                             &      &      &       &       &       &        &      &      &      \\
+largest component edges      &      &      &       &       &       & -      &      &      &      \\
+connected pairs              &      &      &       &       &       &        &      &      &      \\
+average directness *         &      &      &       &       & -     & -      & -    & -    & -    \\
+min travel time*      & 0.4  & 0.4  & 0.4   & 0.4   & 0.1   &        & -    & -    & -    \\
+mean travel time*     & 33.0 & 33.8 & 41.1  & 47.4  & 22.6  &        & -    & -    & -    \\
+max travel time*      & 88.8 & 91.2 & 114.0 & 124.0 & 51.9  &        & -    & -    & -    \\
+travel time std. dev* & 16.8 & 17.1 & 20.4  & 23.6  & 8.6   &        & -    & -    & -   
+\end{tabular}
+\caption[caption]{network routing statistics \\ $*$ includes only pairs connected by all networks.}
+\label{table:travel_time_stats}
+\end{table}
 
 \begin{table}
 \centering

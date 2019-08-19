@@ -1,4 +1,4 @@
-% 1280 words
+% 1335 words
 
 I still need to spend a lot of time with OSM, networkx, and the London data store. 
 OSM has street network data, bike network data and some road characteristics. 
@@ -159,16 +159,31 @@ works but the cictation isn't formatted correctly
 	
 \subsection{Data import, storage, cleaning, and joining}
 
-data import was done in python using the csv, pandas, geopandas, json, and osmnx packages. Once the data was cleaned, it was passed to a postgres database with the postgis extension using the sqlalchemy package. Postgis was used for calculating distances, associating nodes with centroids
+data import was done in python using the csv, pandas, geopandas, json, and osmnx packages. 
+Data from OSM was converted from json to a dataframe, tags simplified, edges truncated, geometry simplified. 
+Geometry was converted to well known text and multi-lines were broken into several single line geometries for compatibility with the postgis databse. 
+
+Once the data was cleaned, it was passed to a postgres database with the postgis extension using the sqlalchemy package. Postgis was used for calculating distances, associating nodes with centroids. 
 
 remove multipolygon lsoa interior rings in favor of polygon lsoa shapes
 
+QGIS was used to melt polygons into outer boundary and for the construction of visualizations
+
 cite postgres
+\cite{postgres}
 cite postgis
-cited beaver
+\cite{postgis}
+cited dbeaver
+\cite{dbeaver}
 cite python
+\cite{python}
 cite pandas
+\cite{pandas}
 cite json
+
 cite sqlachemy
+\cite{bayer2010sqlalchemy}
+cite qgis
+\cite{qgis}
 
 text

@@ -796,12 +796,213 @@ drop table all_agg_distances;
 
 create table if not exists all_agg_distances as (select * from join_straight_dist where dest_node != origin_node);
 
-select * from missing_quant_times;
 
---drop table missing_quant_times;
---drop table missing_quant_times_1;
---drop table missing_quant_times_2;
+
+--------------------------------------------------------------------------------------------------
+
+select * from all_agg_distances limit 1;
+
+-- create directness table
+
+create table if not exists 
+	all_agg_directness
+as (
+	select 
+		dest_node, 
+		origin_node, 
+		quant_dest, 	
+		quant_origin, 
+		u_1_distance / node_straight_dist as u_1_direct, 
+		d_1_distance / node_straight_dist as d_1_direct,
+		u_2_distance / node_straight_dist as u_2_direct,
+		d_2_distance / node_straight_dist as d_2_direct
+	from 
+		all_agg_distances
+);
+-- create time table
+
+-- google : 8 mph
+
+-- 12.875 kph
+
+-- 12875 meters per hour
+
+--214.58 meters per minutes
+
+-- 
+
+select * from all_agg_distances limit 100;
+
+drop table cycle_agg_times;
+
+create table if not exists 
+	cycle_agg_times 
+as (
+	select 
+		dest_node, 
+		origin_node, 
+		quant_dest, 	
+		quant_origin,
+		u_1_distance / 214.58 as u_1_time,
+		d_1_distance / 214.58 as d_1_time,
+		u_2_distance / 214.58 as u_2_time,
+		d_2_distance / 214.58 as d_2_time
+	from 
+		all_agg_distances
+);
+
+select * from all_agg_distances limit 100;
+
+select count(*) from all_agg_distances;
+
+
+--------------------------------------------------------------------
+--combine missing quant times tables
+
+select * from missing_quant_times_1 limit 1;
+select * from missing_quant_times_2 limit 1;
 
 select count(*) from missing_quant_times_1;
 select count(*) from missing_quant_times_2;
+
+create temp table if not exists missing_quant_times as (
+	select origin, dest, distance as travel_time from missing_quant_times_1 union select * from missing_quant_times_2
+);
+-- 200, 041
+
+
+--combine missing quant times and old quant times
+
+select * from missing_quant_times limit 1;
+select * from clean_quant_subset limit 100;
+select * from clean_quant_subset_times limit 100;
+
+COMMENT ON TABLE public.clean_quant_subset_times IS 'qaunt subset with self loops removed. straight line distance transformed to walking time. ';
+
+select count(*) from missing_quant_times;
+select * from missing_quant_times limit 1;
+alter table missing_quant_times rename column distance to travel_time;
+select * from missing_quant_times limit 1;
+
+
+create temp table if not exists 
+	quant_existing 
+as (
+	select
+		origin, 
+		destination dest,
+		travel_time_mins travel_time
+	from 
+		clean_quant_subset 
+	where 
+		travel_time_mins is not null
+);
+-- 598,301
+
+select * from quant_existing limit 1;
+select * from missing_quant_times limit 1;
+
+select count(*) from missing_quant_times;
+-- 200,041
+
+create temp table if not exists	
+	all_quant_times_temp
+as( 
+	select origin, dest, travel_time from quant_existing 
+	union 
+	select origin, dest, travel_time from missing_quant_times
+);
+-- 798,342
+
+select * from all_quant_times limit 1;
+
+select count(*) from all_quant_times where travel_time is null;
+
+alter table all_quant_times rename to all_quant_times_temp;
+
+select count(*) from all_quant_times_temp;
+
+create table if not exists all_quant_times as (select * from all_quant_times_temp); 
+-- 798,342
+
+-------------------------------------------------------------------------------------------------------------------------------
+-- combine cycle travel times with quant public transit travel times. 
+
+--alter table all_agg_times rename to cycle_agg_times;
+
+select * from cycle_agg_times limit 1;
+--dest_node, origin_node, quant_dest, quant_origin, u_1_time, d_1_time, u_2_time, d_2_time
+
+select * from all_quant_times limit 1;
+
+create temp table if not exists 
+	quant_plus_agg_times
+as ( 
+	select 
+		a.origin_node,
+		a.dest_node,
+		a.quant_origin,
+		a.quant_dest,
+		a.u_1_time,
+		a.d_1_time,
+		a.u_2_time,
+		a.d_2_time,
+		b.travel_time quant_travel_time_plus
+	from 
+		cycle_agg_times a
+	left join
+		all_quant_times b 
+	on 
+		a.quant_origin = b.origin
+		and 
+		a.quant_dest = b.dest
+);
+
+select * from quant_plus_agg_times limit 1;
+select count(*) from quant_plus_agg_times;
+
+select * from clean_quant_subset limit 1;
+
+create temp table if not exists 
+	quant_agg_times 
+as (
+	select 
+		a.origin_node,
+		a.dest_node,
+		a.quant_origin,
+		a.quant_dest,
+		a.u_1_time,
+		a.d_1_time,
+		a.u_2_time,
+		a.d_2_time,
+		a.quant_travel_time_plus quant_time_plus,
+		b.travel_time_mins quant_time
+	from 
+		quant_plus_agg_times a 
+	left join 
+		clean_quant_subset b 
+	on 
+		a.quant_origin = b.origin
+		and 
+		a.quant_dest = b.destination
+);
+-- 798,342
+
+select * from quant_agg_times limit 100;
+
+
+create table if not exists all_agg_times as (select * from quant_agg_times);
+
+select * from all_agg_times limit 100;
+
+
+
+
+
+
+
+
+
+
+
 

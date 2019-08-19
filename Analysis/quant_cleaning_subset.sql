@@ -144,4 +144,12 @@ as (
 	);
 
 
+select * from missing_quant_times;
+
+--drop table missing_quant_times;
+--drop table missing_quant_times_1;
+--drop table missing_quant_times_2;
+
+select count(*) from missing_quant_times_1;
+select count(*) from missing_quant_times_2;
 

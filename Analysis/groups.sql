@@ -110,7 +110,9 @@ select net, min, avg as mean, max, stdev as st_dev from net_stats;
 --calc difference in avg directeness between pair
 
 	
+select * from quant limit 1;
 
+select count(*) from quant where origin != destination and travel_time_mins = 0;
 
 
 

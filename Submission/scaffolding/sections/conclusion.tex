@@ -6,6 +6,12 @@ Most generally, it was found that a decent representation of the London cycling 
 
 \subsection{Limitations}
 
+Selection of origin and destination locations is important. For one thing, Quant uses the transit station of highest degree as the origin and destination points, meaning that there is no walking time included in the calculation. Additionally, QUANT travel times are probabilistic in the sense that the precise start time affects the travel time because there may be a wait time for a bus or train. This is a key advantage that cycling has over public transport, a more linear relationship between distance and travel time. 
+
+The networks could be improved. OSMNX makes working with the Overpass API easier by abstracting away a lot of the process. Unfortunately this ease comes with a cost, a diminished ability to build an accurate network using all of the possible attributes of OSM geometries. 
+
+As mentioned in previous works, computation times are a factor in determining the scope and the resolution of the analysis. 
+
 text
 
 \subsection{Opportunities for improvement and extension}

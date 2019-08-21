@@ -36,6 +36,8 @@ create table if not exists quant_node_dist_diff as (select quant_dist - node_dis
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
+-- data for map of d1 - quant
+
 select * from all_agg_times limit 10;
 
 create temp table if not exists first_quant_d_1_time_diff as (
@@ -153,6 +155,78 @@ create table if not exists
 as (
 	select * from fourth_d_1_d_2_direct_diff
 );
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
+-- time difference with quant plus
+select * from all_agg_times limit 100;
+
+create temp table if not exists first_quant_plus_d1_time_diff as (select quant_origin, quant_dest, d_1_time, quant_time_plus from all_agg_times where d_1_time is not null and quant_time_plus is not null);
+-- 797,49
+
+create temp table if not exists second_quant_plus_d1_time_diff as (select quant_origin, ((d_1_time - quant_time_plus) / quant_time_plus) as perc_diff from first_quant_plus_d1_time_diff);
+
+--drop table third_quant_plus_d1_time_diff;
+
+create temp table if not exists third_quant_plus_d1_time_diff as (select quant_origin, avg(perc_diff) as avg_perc_diff from second_quant_plus_d1_time_diff group by quant_origin);
+
+select * from third_quant_plus_d1_time_diff limit 100;
+
+-- then join geometries in
+
+create temp table if not exists 
+	fourth_quant_plus_d1_time_diff 
+as (
+	select 
+		a.quant_origin,
+		a.avg_perc_diff,
+		b.geom
+	from	
+		third_quant_plus_d1_time_diff a
+	left join
+		north_inner_subset b
+	on 
+		a.quant_origin = b."LSOA11CD"
+);
+
+
+select * from fourth_quant_plus_d1_time_diff limit 100;
+
+select max(avg_perc_diff) from fourth_quant_plus_d1_time_diff ;
+
+create table if not exists quant_plus_d1_time_diff as (select * from fourth_quant_plus_d1_time_diff );
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+-- difference in directness across directed and undirected
+
+select * from all_agg_distances limit 10;
+
+drop table d1_d2_dist_diff;
+
+create table if not exists d1_d2_dist_diff as (
+select dest_node, origin_node, ((d_2_distance - d_1_distance) / d_1_distance) as perc_diff_dist, d_1_distance from all_agg_distances
+);
+
+select count(dest_node) from d1_d2_dist_diff where perc_diff_dist < 0 group by dest_node;
+
+select * from d1_d2_dist_diff limit 100;
+
+select origin_node, dest_node, perc_diff_dist, d_1_distance from d1_d2_dist_diff where perc_diff_dist is not null and d_1_distance > 10000 and perc_diff_dist < 0.1 order by perc_diff_dist desc limit 500;
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+-- find dramatic changes in directness for plotting of routes
+
+
 
 
 

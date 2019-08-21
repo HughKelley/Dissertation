@@ -1,4 +1,4 @@
-% 1588 words
+% 1907 words
 
 \subsection{Key Questions}
 what was the scope and how was it defined
@@ -65,24 +65,7 @@ insert picture of castle baynard street. A network built from the relation[route
 
 "to measure miles of designated bike facilities can be misleading. Some designated bicycling facilities involve LTS values that most people will not tolerate. "\cite{furth}
 
-This is the challenge to using the London designated cycle routes. the routes do not necessarily reflect safe cycling. 
-
-\subsection{Origins and Destinations}
-
-One origin/destination node was selected for each LSOA. The node was selected as the node from the set of nodes across all network definitions that was closest to the centroid of the LSOA polygon. This is essentially a sampling technique. While individual nodes may give strange results due to the specifics of their locations, it is expected that the average results for 894 nodes that yield 798,342 origin destination pairs will be a sufficiently large sample that individual idiosyncracies balance out. 
-
-As seen in figure XXXX the distribution of the differences between the distance between centroids and the distance between actual nodes is well balanced. 
-
-\begin{figure}
-\centering
-\includegraphics[width=0.5\linewidth]{node_centroid_dist_diff}
-\caption{distribution of differences between distances between nodes and distances between centroids}
-\label{table:dist_diffs}
-\end{figure}
-
-\subsubsection{London's OSM data}
-
-\subsubsection{Filters used}
+This is the challenge to using the London designated cycle routes. the routes do not necessarily reflect safe cycling.
 
 \begin{figure}
   \centering
@@ -115,6 +98,22 @@ As seen in figure XXXX the distribution of the differences between the distance 
   \caption{4: only residential and living streets}
   \label{fig:sub2}
 \end{figure}
+ 
+
+\subsection{Origins and Destinations}
+
+One origin/destination node was selected for each LSOA. The node was selected as the node from the set of nodes across all network definitions that was closest to the centroid of the LSOA polygon. This is essentially a sampling technique. While individual nodes may give strange results due to the specifics of their locations, it is expected that the average results for 894 nodes that yield 798,342 origin destination pairs will be a sufficiently large sample that individual idiosyncracies balance out. 
+
+As seen in figure XXXX the distribution of the differences between the distance between centroids and the distance between actual nodes is well balanced. 
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth]{node_centroid_dist_diff}
+\caption{distribution of differences between distances between nodes and distances between centroids}
+\label{table:dist_diffs}
+\end{figure}
+
+
 
 
 \subsubsection{Quant Network}

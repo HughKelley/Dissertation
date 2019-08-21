@@ -74,13 +74,85 @@ as (
 );
 
 select * from fourth_quant_d_1_time_diff;
-
 create table if not exists quant_d_1_time_diff as (select * from fourth_quant_d_1_time_diff);
 
+---------------------------------------------------------------------------------------------------------------
+-- d_1_d_2_directness_diff
+
+select * from all_agg_directness limit 10;
+
+create temp table if not exists	
+	first_d_1_d_2_direct_diff 
+as ( 
+	select 
+		quant_origin,
+		quant_dest,
+		d_1_direct,
+		d_2_direct
+	from 
+		all_agg_directness
+	where
+		d_1_direct is not null 
+		and 
+		d_2_direct is not null	
+);
+
+-- 464,988
+
+select * from first_d_1_d_2_direct_diff limit 100;
+
+--select d_1_direct - d_2_direct as difference from first_d_1_d_2_direct_diff limit 100;
+drop table second_d_1_d_2_direct_diff;
+
+create temp table if not exists 
+	second_d_1_d_2_direct_diff 
+as ( 
+	select 
+		quant_origin,
+		quant_dest,
+		d_2_direct - d_1_direct as difference
+	from first_d_1_d_2_direct_diff
+);
+
+select count(distinct difference) from second_d_1_d_2_direct_diff;
+select * from second_d_1_d_2_direct_diff limit 100;
 
 
+create temp table if not exists  third_d_1_d_2_direct_diff as (
+	select 
+		quant_origin,
+		avg(difference) as avg_diff_direct
+	from
+		second_d_1_d_2_direct_diff
+	group by quant_origin
+);
+
+select * from north_inner_subset limit 10;
+
+create temp table if not exists 
+	fourth_d_1_d_2_direct_diff 
+as (
+	select 
+		a.quant_origin,
+		a.avg_diff_direct,
+		b.geom
+	from
+		third_d_1_d_2_direct_diff a 
+	left join
+		north_inner_subset b 
+	on 
+		a.quant_origin = b."LSOA11CD"
+);
 
 
+-- 780
+select * from fourth_d_1_d_2_direct_diff limit 100;
+
+create table if not exists 
+	d_1_d_2_direct_diff 
+as (
+	select * from fourth_d_1_d_2_direct_diff
+);
 
 
 

@@ -98,34 +98,8 @@ This is the challenge to using the London designated cycle routes. the routes do
   \caption{4: only residential and living streets}
   \label{fig:sub2}
 \end{figure}
- 
 
-\subsection{Origins and Destinations}
-
-One origin/destination node was selected for each LSOA. The node was selected as the node from the set of nodes across all network definitions that was closest to the centroid of the LSOA polygon. This is essentially a sampling technique. While individual nodes may give strange results due to the specifics of their locations, it is expected that the average results for 894 nodes that yield 798,342 origin destination pairs will be a sufficiently large sample that individual idiosyncracies balance out. 
-
-As seen in figure XXXX the distribution of the differences between the distance between centroids and the distance between actual nodes is well balanced. 
-
-\begin{figure}
-\centering
-\includegraphics[width=0.5\linewidth]{node_centroid_dist_diff}
-\caption{distribution of differences between distances between nodes and distances between centroids}
-\label{table:dist_diffs}
-\end{figure}
-
-
-
-
-\subsubsection{Quant Network}
-
-Quant has 23,377,225 pairs. The subset has 799,236. The subset has 200,041 missing distances. 
-
-To complete the missing distances, the quant travel times were built into a networkx multidigraph. There was an edge for each node pair that represented the walking time between the nodes, calculated as the straightline distance between the nodes divided by the google walking speed 3 mph converted to 4.83 kph and converted to  0.0805 kilometers per minute giving a number of minutes walking time between the nodes that was in the same units as the number of minutes public transit time between the nodes. 
-
-Then for each pair of nodes missing a transit time, the shortest path on the graph was calculated. Thus each travel time can be a combination of walking and riding public transit between nodes. 
-
-
-\subsection{Network Characteristics}
+\subsubsection{Network Characteristics}
 
 chart of largest connected component of network as edge types are included. 
 
@@ -147,8 +121,27 @@ no cars,
 \caption{table of network statistics}
 \label{table:network_stats}
 \end{table}
+ 
+\subsubsection{Quant Network}
 
-\subsection{Defining Origins and Destinations}
+Quant has 23,377,225 pairs. The subset has 799,236. The subset has 200,041 missing distances. 
+
+To complete the missing distances, the quant travel times were built into a networkx multidigraph. There was an edge for each node pair that represented the walking time between the nodes, calculated as the straightline distance between the nodes divided by the google walking speed 3 mph converted to 4.83 kph and converted to  0.0805 kilometers per minute giving a number of minutes walking time between the nodes that was in the same units as the number of minutes public transit time between the nodes. 
+
+Then for each pair of nodes missing a transit time, the shortest path on the graph was calculated. Thus each travel time can be a combination of walking and riding public transit between nodes. 
+
+\subsection{Origins and Destinations}
+
+One origin/destination node was selected for each LSOA. The node was selected as the node from the set of nodes across all network definitions that was closest to the centroid of the LSOA polygon. This is essentially a sampling technique. While individual nodes may give strange results due to the specifics of their locations, it is expected that the average results for 894 nodes that yield 798,342 origin destination pairs will be a sufficiently large sample that individual idiosyncracies balance out. 
+
+As seen in figure XXXX the distribution of the differences between the distance between centroids and the distance between actual nodes is well balanced. 
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth]{node_centroid_dist_diff}
+\caption{distribution of differences between distances between nodes and distances between centroids}
+\label{table:dist_diffs}
+\end{figure}
 
 Node 5816785884, closest to the centroid of LSOA XXXXXX is found at the entrance to a garage at the end of a one way street. Thus every other node in the network is inaccessible on the directed versions of the network. The edge leading to this node is tagged ``service'' so perhaps service streets should have been excluded as they are frequently dead ends. 
 
@@ -164,6 +157,12 @@ Because urban density increases as one approached the center of a city, there ma
 \centering
 \caption{distribution of differences between Quant distances and Cycle Origins and Destinations}
 \label{fig:diff_dist}
+\end{figure}
+
+\begin{figure}
+\centering
+\caption{\% of connected pairs by network}
+\label{fig:connected_pairs}
 \end{figure}
 
 \subsection{Travel Times}
@@ -191,6 +190,8 @@ Transit times are consistently lower than cycling times. However, transit times 
 
 
 The connectedness estimated may understate the true connectedness. This is seen in that unconnected node pairs in almost every case have one node that is unconnected from all other nodes. Thus there are not local islands of connectivity, there are nodes being disconnected from the network due to the removal of a single edge. 
+
+
 
 
 \subsubsection{test for differences}
@@ -228,23 +229,20 @@ travel time std. dev* & 16.8 & 17.1 & 20.4  & 23.6  & 8.6   &        & -    & - 
 \label{table:travel_time_stats}
 \end{table}
 
+
+\subsubsection{Maps}
+
+lsoa's colored by travel times difference between cycling and quant. 
+
+
+lsoa's colored by change in directness 
+
+
+\subsubsection{distributions of travel times}
+
+insert histograms of directness and travel times
+
 \subsection{Changes in Routing}
-
-
-\subsubsection{compare route across directedness}
-\begin{figure}
-\centering
-\caption{example of routing on directed network 1}
-\label{fig:routing_1}
-\end{figure}
-
-\begin{figure}
-\centering
-\caption{example of routing on undirected network 1}
-\label{fig:routing_1}
-\end{figure}
-
-\subsubsection{compare route across level 1 and 2}
 
 Seen in figure XXXX  compare longest path for directed network 2 to the path between those nodes in directed network 1. 
 
@@ -267,22 +265,14 @@ Is allowing travel in any direction on side roads a good replacement for primary
 \label{fig:routing_1}
 \end{figure}
 
-\subsubsection{compare across level 2 directedness}
-
-\begin{figure}
-\centering
-\caption{example of routing on directed network 2}
-\label{fig:routing_1}
-\end{figure}
-
-\begin{figure}
-\centering
-\caption{example of routing on undirected network 2}
-\label{fig:routing_1}
-\end{figure}
-
 
 \subsection{Accessibility}
+
+connectivity ratio. 
+
+simple \% of trips possible
+
+\% of trips possible with time restriction. 
 
 in qgis, color lsoa's by travel time to central lsoa. 
 

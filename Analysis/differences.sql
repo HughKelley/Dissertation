@@ -215,7 +215,22 @@ select origin_node, dest_node, perc_diff_dist, d_1_distance from d1_d2_dist_diff
 
 
 
+----------------------------------------------------------------------------------------------------------------------------------------------
 
+select count(*) from agg_times_no_nulls;
+select * from agg_times_no_nulls limit 10;
+select * from all_agg_directness;
+select avg(u_1_time) avg_u1, avg(d_1_time) avg_d1, avg(u_2_time) avg_u2, avg(d_2_time) avg_d2  from agg_times_no_nulls;
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+select * from all_agg_times limit 1;
+
+select count(*) from all_agg_times;
+-- 798,342
+
+select count(u_1_time) u1, count(d_1_time) d1, count(u_2_time) u2, count(d_2_time) d2 from all_agg_times;
 
 
 
@@ -223,6 +238,19 @@ select origin_node, dest_node, perc_diff_dist, d_1_distance from d1_d2_dist_diff
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
+
+select * from all_quant_times limit 1;
+
+select min(travel_time) min_, avg(travel_time) mean, max(travel_time) from all_quant_times;
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+select * from all_agg_directness limit 10;
+
+create temp table if not exists agg_direct_no_nulls as (select * from all_agg_directness where u_1_direct is not null and d_1_direct is not null and u_2_direct is not null and d_2_direct is not null)
+
+select avg(u_1_direct) u1, avg(d_1_direct) d1, avg(u_2_direct) u2, avg(d_2_direct) d2 from agg_direct_no_nulls;
+
 
 -- find dramatic changes in directness for plotting of routes
 

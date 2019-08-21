@@ -96,7 +96,7 @@ The QUANT data provides a point of comparison for cycling travel times to be cal
 
 \subsection{2011 Census Journey to work data}
 
-The 2011 census asked each household where they lived, where they worked and how they traveled to work the preceding week (\cite{jtw}). Thus data for origin and destination by mode of transport was available. This data will be used to help define the optimal scope as well as to compute a ``connectivity ratio'' like that of \cite{furth2012low} for a network. 
+The 2011 census asked each household where they lived, where they worked and how they traveled to work the preceding week (\cite{jtw}). Thus data for origin and destination by mode of transport was available. This data will be used to help define the optimal scope as well as to compute a ``connectivity ratio'' like that of \cite{furth2016network} for a network. 
 
 This data is shared through the Nomis Labor Force website as multi-sheet excel pivot tables. Making the data usable required, stripping the meta data headings from each sheet, importing the book to pandas dataframe by sheet, melting from a pivot table to long data with origin, destination, and count columns, adding the sheet name that identified the mode of travel as a column, appending each individual sheet together into a single dataframe, and pushing the dataframe to the sql database. 
 

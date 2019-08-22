@@ -19,51 +19,31 @@
 
 \subsection{Scope}
 
-The scope of the study will be defined so as to maximize the study's representation of London's cycling commutes, capturing as many trips by origin and destination as possible as well as considering the location of road casualties in London. This will be done in the context of the computing resources available, where travel time calculations for the origin destination matrix must be reasonable. 
+The scope of the study will be defined so as to maximize the study's representation of London's cycling commutes, capturing as many trips by origin and destination as possible as well as considering the location of road casualties in London. This will be done in the context of the computing resources available, where travel time calculations for the origin destination matrix must be reasonable, less than one million pairs. 
 
 \subsection{Defining Networks}
 
 The first step in this investigation is to build a data set that represents the London cycling network as accurately as possible. This representation needs to reflect the fact that different cyclists are willing to use different streets as a function of the perceived safety of the street and the level of confidence of that cyclist. Thus the data set will be multiple representations of the city cycling network that each represent a level of confidence, only including streets with a certain level of safety. 
 
-
 A key question then is, how to quantify ``safety''. In a perfect world, this would be done empirically. This would involve a combination of cycle traffic volume collection, cycle traffic behavior observation, and interviews with a representative set of cyclists and non-cyclists about their decision making. All of this data could be compared to the cycling environment in different locations to find cyclist sensitivity to different factors. 
 
-Networks will be defined as a subset of edges in the Open Street Map network. 
+Networks will be defined as subsets of edges in the Open Street Map network. Open Street Map uses tags to associate street characteristics with the geometries that make up the map. Appendix XXXX contains the definitions from the OSM wiki page for each of the tags used.  
 
-Download the connectivity data from OSM via the Overpass APIas json . A graph is built with the nodes and ways from the Overpass data with edges coming from the Overpass data's ``way'' elements, and the nodes coming from the intersection of the edges as defined in OSM as well as the end of an edge. Getting to the point requires simplification because the Open Street Map data includes many more nodes than just the endpoints and intersections. The network is simplified by removing nodes with degree 2, where the node simply connects one street to one other, unless there is a difference in directionality between them. That is, when a street changes from 2 way to one way, a node is placed at the intersection to denote that change. 
-
-Cite OSMnx \cite{osmnx} and Networkx \cite{networkx}
-
-How were the representative networks built? 
-
-Open Street Map uses tags to associate street characteristics with the geometries that make up the map. Appendix XXXX contains the definitions from the OSM wiki page for each of the tags used. Most important to note is that this research uses 5 ``levels'' of street stress. The highest level allows all street conditions. The second level allows all but ``primary'' streets, the largest busiest streets. Then ``secondary'' streets are removed in the third filter. ``Tertiary'' type streets are moved to build the fourth filter. The fifth filter moves ``living streets'' and ``residential'' streets which both are specified to be low traffic streets used primarily for local trips. Thus the most conservative layer of the network contains only edges where there is no expectation of interaction with motor vehicles. 
+Using the network filters, the connectivity data is downloaded from OSM via the Overpass API as a JSON file. A graph is built with the nodes and ways from the Overpass data with edges coming from the ``way'' elements, and the nodes coming from the intersection of the edges as defined in OSM as well as the end of an edge. This requires simplification because the Open Street Map data includes many more nodes than just the endpoints and intersections. The network is simplified by removing nodes with degree 2, where the node simply connects one street to one other, unless there is a difference in directionality between them. That is, when a street changes from 2 way to one way, a node is placed at the intersection to denote that change.  Each of these steps can be accomplished using a combination of python packages OSMnx, (\cite{osmnx}) and Networkx (\cite{networkx}).
 
 \subsection{Defining Origins and Destinations}
-
-QUANT uses the node of highest degree in a given LSOA. 
-
-For calculating a sample of routes on the networks, this analysis used the node closest to the centroid of each lsoa. 
+London was divided into 4765 Lower Super Output Areas (LSOA) for the 2011 census (\cite{lsoa}). One Origin/Destination (O/D) point will be selected for each LSOA in the scope. QUANT uses the node of highest degree in a given LSOA. For calculating a sample of routes on the networks, this analysis used the node closest to the centroid of each LSOA. 
 
 \subsection{Assessing Networks}
 
-Test citation for \cite{osmnx}. Did it work
-Test citation for \cite{networkx}. Did it work
-Test citation for \cite{qgis}. Did it work
-Test citation for \cite{python}. Did it work
+A key point of interest is the network structures that result from different filters. For different filters, the count of nodes and edges, and therefore the overall density of the network will be considered. The size of the largest component will be considered as well as the number of O/D pairs connected by the network. 
 
-Travel times will be calculated for each network with a significant portion of the area of investigation connected by a single component.
+The distance of the shortest path between each origin and destination will be calculated for each network with more than 50\% of pairs connected. These data will be converted to measures of directness, dividing by the straightline distance between the two points, and into travel times, dividing by the speed of a cyclist as estimated by Google Maps. 
 
-In addition to calculating the multi-directed graphs for different OSM filters, travel times are calculated for undirected versions of the graph. This will be used to investigate how building infrastructure for cyclists to travel safely against traffic could further raise accessibility or replace the need to build infrastructure that allows a cyclist to safely travel on main roads. 
+In addition to calculating the multi-directed graphs for different OSM filters, distances are calculated for undirected versions of the graph. This will be used to investigate how building infrastructure for cyclists to travel safely against traffic could further raise accessibility or replace the need to build infrastructure that takes space from other users on main roads. 
 
- This is for comparison between filters, how do travel times change with the inclusion or exclusion of street types. This is also for comparison with public transport times within the area of investigation. 
-
-A key point of interest is the networks that result from different filters. For different filters, the count of nodes and edges, and therefore the overall density of the network will be considered. The number of independent components will be considered. 
-
-While this work is unable to construct a continuous measure of traffic stress for each edge, the OSM tags for a given edge will be used to conduct a percolation type construction of the graph, adding edge types. The change in largest connected component will demonstrate the importance of the different types of edges to the network. 
-
-Compare the mean of the distributions and compare the shape of the cycling distribution to the shape of the QUANT transport distribution. 
-
+Finally, mean and shape of the cycling distribution will be compared to the shape of the QUANT transport distribution. 
 
 \subsection{Accessibility}
 
-a connectivity ratio will be calculated following \cite{furth2016network}. This will be the ratio of journey's to work, possible for the network level, where travel time is within 25\% of SOMETHING. Visualizations of travel times will be built to understand whether there are particular areas within the scope of investigation with better or worse efficiency. 
+A connectivity ratio will be calculated following \cite{furth2016network}. This will be the ratio of journeys to work, possible for the network level, where travel time is within 25\% of  the distance of the shortest possible route relative to the total number of journeys to work in the scope. Visualizations of travel times will be built to understand whether there are particular areas within the scope of investigation with better or worse efficiency. 

@@ -6,4 +6,41 @@
 
 bike 5
 
- [out:json][timeout:180];(way["highway"]["area"!~"yes"]["highway"!~"living_street|residential|tertiary|tertiary_link|secondary|secondary_link|primary|primary_link|trunk|trunk_link|footway|steps|corridor|elevator|escalator|motor|proposed|construction|abandoned|platform|raceway"]["bicycle"!~"no"]["service"!~"private"]["access"!~"private"](51.474015,-0.180287,51.539253,-0.053244);>;);out;
+ [out:json][timeout:180];
+
+ way["highway"]["area"!~"yes"]["highway"!~"living_street|residential|tertiary|tertiary_link|secondary|secondary_link|primary|primary_link|trunk|trunk_link|footway|steps|corridor|elevator|escalator|motor|proposed|construction|abandoned|platform|raceway"]["bicycle"!~"no"]["service"!~"private"]["access"!~"private"]
+
+ (51.474015,-0.180287,51.539253,-0.053244);>;);
+
+ out;
+
+
+
+
+
+ 1
+
+way["highway"]["area"!~"yes"]["highway"!~"footway|steps|corridor|elevator|escalator|motor|proposed|construction|abandoned|platform|raceway"]["bicycle"!~"no"]["service"!~"private"]["access"!~"private"]
+
+ 2
+
+way["highway"]["area"!~"yes"]["highway"!~"primary|primary_link|trunk|trunk_link|footway|steps|corridor|elevator|escalator|motor|proposed|construction|abandoned|platform|raceway"]["bicycle"!~"no"]["service"!~"private"]["access"!~"private"]
+
+ 3
+
+way["highway"]["area"!~"yes"]["highway"!~"secondary|secondary_link|primary|primary_link|trunk|trunk_link|footway|steps|corridor|elevator|escalator|motor|proposed|construction|abandoned|platform|raceway"]["bicycle"!~"no"]["service"!~"private"]["access"!~"private"]
+
+ 4
+
+way["highway"]["area"!~"yes"]["highway"!~"tertiary|tertiary_link|secondary|secondary_link|primary|primary_link|trunk|trunk_link|footway|steps|corridor|elevator|escalator|motor|proposed|construction|abandoned|platform|raceway"]["bicycle"!~"no"]["service"!~"private"]["access"!~"private"]
+
+ 5
+
+ way["highway"]["area"!~"yes"]["highway"!~"living_street|residential|tertiary|tertiary_link|secondary|secondary_link|primary|primary_link|trunk|trunk_link|footway|steps|corridor|elevator|escalator|motor|proposed|construction|abandoned|platform|raceway"]["bicycle"!~"no"]["service"!~"private"]["access"!~"private"]
+
+
+
+
+ also
+
+ way["highway"]["highway"!~"footway|steps|corridor|elevator|escalator|motor|proposed|construction|abandoned|platform|raceway"]["area"!~"yes"]["bicycle"!~"no"]["service"!~"private"]["access"!~"private"]

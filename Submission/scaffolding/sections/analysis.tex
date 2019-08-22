@@ -20,9 +20,9 @@ Did removing directionality mediate the effect of removing primary and trunk str
 
 Scope was defined to capture the largest computationally feasible network with a simple set of rules. 
 
-The first rule was to restrict the network to ``inner london''. This has the advantage of a formal designation by the GLA for each borough (\cite{innerlondon}). The second rule was to restrict the scope to the area north of the River Thames. This has two advantages. First it further refines the study area to a higher density segment of the city with a higher portion of journeys to work done by bicycle. Second, it removes the need for a trip to cross the river via a bridge. Including bridges in the analysis would have made drawing conclusions more difficult as the ability to cross the river would have been a deciding factor in the possibility of a journey and a key determinant of the journey's distance, requiring a cyclist to go far out of their way to use one of only a dozen bridges potentially available. 
+The first rule was to restrict the network to ``Inner London''. This has the advantage of a formal designation by the GLA for each borough (\cite{innerlondon}). The second rule was to restrict the scope to the area north of the River Thames. This has two advantages. First it further refines the study area to a higher density segment of the city with a higher portion of journeys to work done by bicycle. Second, it removes the need for a trip to cross the river via a bridge. Including bridges in the analysis would have made drawing conclusions more difficult as the ability to cross the river would have been a deciding factor in the possibility of a journey and a key determinant of the journey's distance, requiring a cyclist to go far out of their way to use one of only a dozen bridges potentially available. 
 
-Table 1XXXX contains some data about journeys to work in the scope of the study area. The area defined captures 18\% of the population, 16.8\% of the working adults, and 25\% of the jobs in the city. 8.2\% of the journey's to work are contained in this area. Additionally, rates of cycling are higher in inner London than in the periphery as seen in the 5\% rate of cycling between locations within the area compared to the 2.4\% London average. Finally, the area contains 25\% of the traffic incidents where a cyclist was killed or seriously injured between 1989 and 2004. 
+Table \ref{table:commute_data} contains some data about journeys to work in the scope of the study area. The area defined captures 18\% of the population, 16.8\% of the working adults, and 25\% of the jobs in the city. 8.2\% of the journey's to work are contained in this area. Additionally, rates of cycling are higher in inner London than in the periphery as seen in the 5\% rate of cycling between locations within the area compared to the 2.4\% London average. Finally, the area contains 25\% of the traffic incidents where a cyclist was killed or seriously injured between 1989 and 2004 (\cite{cyclistksi}). 
  
 \begin{table}[]
 \centering
@@ -45,11 +45,35 @@ text
 
 There are three possible ways to construct a set of ways and nodes from OSM. These are; a positive filter; a negative filter; and selecting by relation. A positive filter specifies tags that an way or node must have to be included. A negative filter includes all ways and nodes without the tags specified. A relation is the OSM term for a collection of ways and nodes that belong to a set identified by an OSM contributor. 
 
-OSM relations in London identified as being cycle routes are mapped in Figure 4 XXXXX. The query for selecting this set can be found in the appendix XXXXX. It is clear that this is an extensive set of geometries. Clearly though the density of that network is fairly low and for almost any trip a user would need to venture beyond the relation geometries. Further, many of the ways included in the cycling relations are in fact no different from other streets. As seen in figure XXX a picture of Brandon Way. This has no safety improvements for cyclists, it has been observed that speeds can far exceed the 20 mph limit. Thus, the cycle relations on their own are insufficient for building representative networks. 
+OSM relations in London identified as being cycle routes are mapped in Figure \ref{fig:bicycle_relation}. The query for selecting this set can be found in the Appendix table \ref{table:osm_tags}. It is clear that this is an extensive set of geometries. Clearly though the density of that network is fairly low and for almost any trip a user would need to venture beyond the relation geometries. Further, many of the ways included in the cycling relations are in fact no different from other streets. As seen in Figure \ref{fig:brandon} a picture of Brandon Way. This has no safety improvements for cyclists, it has been observed that speeds can far exceed the 20 mph limit. Thus, the cycle relations on their own are insufficient for building representative networks. 
 
-good example of the difficulty of building a good network representation is castle baynard st. It connects the Central London part of cycle superhighway 3 with the East London section that continues out to Limehouse. This is a tunnel that serves as a bike path and as a driveway of sorts to an underground car park. A network built from the relation[route=bicycle] set of ways and nodes would include this but the negative filters do not. 
+good example of the difficulty of building a good network representation is Castle Baynard St. It connects the Central London part of cycle superhighway 3 with the East London section that continues out to Limehouse. This is a tunnel that serves as a bike path and as a driveway of sorts to an underground car park. A network built from the relation[route=bicycle] set of ways and nodes would include this but despite being quite and low traffic the street has no dedicated cycle infrastructure, therefore tagged as ``highway = unclassified''. 
 
 "to measure miles of designated bike facilities can be misleading. Some designated bicycling facilities involve LTS values that most people will not tolerate" (\cite{furth2016network}).
+
+Add paragraph comparing bicycle relation to primary+trunk network. 
+
+Some of this content is also in the Data OSM section...
+
+In the case of the relation, the Camden Hackney Quietway was examined in person. Figure \ref{fig:brandon} shows an image of Brandon rd, a part of the Quietway. This way is tagged ``highway=unclassified'' and connects to Agar Grove, tagged ``highway = tertiary''. The unclassified marker indicates that the street is less important than a tertiary street but is neither residential or a service road. As can been seen in the image, Brandon Rd. has no actual cycle infrastructure. There is a tag noting the max speed is 20 mph. Data collected for 20 mph streets found that as many as 80\% of drivers exceeded these limits. 
+% https://www.thesun.co.uk/news/7253694/20-mph-zones-cause-more-deaths/
+
+In other cases, OSM underestimates the quality of cycling infrastructure. For instance the intersection of Mile end Road and Cambridge Health Road in the borough of tower hamlets is a high traffic intersection both for automobiles and for cyclists. It is an integral part of the Stratford to Aldgate cycle super highway. This intersection has been reworked to be safer for cyclists. In OpenStreetMap though, it is labeled a "trunk" highway, due to its high traffic nature. It is way 7058092014. There is also a tag cycleway:left=lane indicating that there is a cyclelane on the left side of the street. (\cite{osm})
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{brandon_rd_cropped}
+\caption{image of quietway}
+\label{fig:brandon}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{euston_rd_cropped}
+\caption{An image of Euston Road}
+\label{fig:euston}
+\end{figure}
 
 \begin{figure}
   \centering
@@ -65,7 +89,7 @@ good example of the difficulty of building a good network representation is cast
 \label{fig:bicycle_relation}
 \end{figure}
 
-A positive filter was explored as a way to include exactly the edges and nodes that met a given level of stress for cycling. This method was challenged by the fact that a single road segment not tagged accurately would disconnect a network part. Further, there was not a method found to work correctly for selecting roads with any one of many tag values.  Table XXXX details all of the possible tags related to cycling that were found in the London OSM data.  In the Overpass Turbo application, this could be accomplished by using multiple subqueries as detailed in the Overpass Turbo Cycling network query listed in the Appendix. In OSMnx this multiple query statement structure was not an option. Thus a method for building full and accurate networks of OSM geometries using a positive filter was not found. 
+A positive filter was explored as a way to include exactly the edges and nodes that met a given level of stress for cycling. This method was challenged by the fact that a single road segment not tagged accurately would disconnect a network part. Further, there was not a method found to work correctly for selecting roads with any one of many tag values.  Table \ref{table:osm_tags} details all of the possible tags related to cycling that were found in the London OSM data.  In the Overpass Turbo application, this could be accomplished by using multiple subqueries as detailed in the Overpass Turbo Cycling network query listed in the Appendix. In OSMnx this multiple query statement structure was not an option. Thus a method for building full and accurate networks of OSM geometries using a positive filter was not found. 
 
 
 
@@ -77,7 +101,7 @@ A positive filter was explored as a way to include exactly the edges and nodes t
 \label{fig:primary_trunk}
 \end{figure}
 
-The negative filter, implemented as a modification of the filters built into OSMnx version 0.11dev was the most successful. The first filter included all ways and nodes not explicitly tagged with values indicating that cycling was not allowed. Row XXXX of Appendix XXXX. The second filter was the same as the first but excluded streets tagged as primary and trunk. These are the two tags used for the highest priority street types as seen in Table XXXX describing standard tags for the ``highway'' key in OSM. These streets are visualized in Figure ~\ref{fig:primary_trunk} The third filter restricted secondary streets in addition to the restrictions of the second. The fourth filter restricted tertiary streets leaving only living and residential streets in a addition to non-motor vehicle ways like canal paths and segregated cycle lanes. The final filter, 5, restricted all edges where a cyclist might interact with motor vehicles. Samples of these filters are displayed in Figures ~\ref{fig:sub1} through ~\ref{fig:sub4}
+The negative filter, implemented as a modification of the filters built into OSMnx version 0.11dev was the most successful. The first filter included all ways and nodes not explicitly tagged with values indicating that cycling was not allowed. Row XXXX of Appendix \ref{table:filters}. The second filter was the same as the first but excluded streets tagged as primary and trunk. These are the two tags used for the highest priority street types as seen in Table \ref{table:osm_tags} describing standard tags for the ``highway'' key in OSM. These streets are visualized in Figure ~\ref{fig:primary_trunk} The third filter restricted secondary streets in addition to the restrictions of the second. The fourth filter restricted tertiary streets leaving only living and residential streets in a addition to non-motor vehicle ways like canal paths and segregated cycle lanes. The final filter, 5, restricted all edges where a cyclist might interact with motor vehicles. Samples of these filters are displayed in Figures ~\ref{fig:sub1} through ~\ref{fig:sub4}
 
 \begin{figure}
   \centering
@@ -200,14 +224,9 @@ the min is unchanged, while the max
 
 Travel times by bicycle for aggressive cyclists are XXXXX compared to the QUANT travel times by public transport. 
 
-
 Transit times are consistently lower than cycling times. However, transit times are from hub to hub, so there is in most cases, an additional walking time to get from the transit hub to the actual destination that would be less of a factor for a journey by bicycle. 
 
-
 The connectedness estimated may understate the true connectedness. This is seen in that unconnected node pairs in almost every case have one node that is unconnected from all other nodes. Thus there are not local islands of connectivity, there are nodes being disconnected from the network due to the removal of a single edge. 
-
-
-\subsubsection{test for differences}
 
 The network doesn't really fracture. Where connectivity goes down, it is usually an individual node becoming disconnected from all others, not a sub group being separated of. MOst nodes not connected to another node, were not connected to any other nodes. 
 

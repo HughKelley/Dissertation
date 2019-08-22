@@ -1,29 +1,31 @@
+\subsection{Key Questions}
+what was the scope and how was it defined \\ 
+what filters were used \\
+what were the walking and cycling speeds used \\
+what were the travel times calculated \\
+what was the directness of travel on different networks \\
+what is the distribution of travel times in the different networks \\
+what lsoas changed the most and least across networks \\
+how did removing road types affect the number of lsoa centers connected? \\
+how long did the calculations take? \\
+Did removing directionality from the networks have a significant effect? \\
+Did removing directionality mediate the effect of removing primary and trunk streets? \\
+
+
+
 \subsection{Results}
 
-\subsection{Key Questions}
-what was the scope and how was it defined
-what filters were used
-what were the walking and cycling speeds used
-what were the travel times calculated
-what was the directness of travel on different networks
-what is the distribution of travel times in the different networks
-what lsoas changed the most and least across networks
-how did removing road types affect the number of lsoa centers connected?
-how long did the calculations take?
-Did removing directionality from the networks have a significant effect?
-Did removing directionality mediate the effect of removing primary and trunk streets?
+Something here about spanning trees not being very resilient? 
 
+Most generally, it was found that a decent representation of the London cycling network could be constructed from Open Street Map data using OSMnx and Networkx. With some specific improvements to the software and data a good job could be done of estimating accessibility in London by bicycle. Access to commuting resources is a key consideration.
 
-
-Something here about spanning trees not being very resiient? 
-
-Most generally, it was found that a decent representation of the London cycling network could be constructed from Open Street Map data using OSMnx and Networkx. With some specific improvements to the software and data a good job could be done of estimating accessibility in London by bicycle. Access to comuting resources is a key consideration.
+Removing direction restrictions for cyclists is probably not a good way to improve cycling safety and the directness of travel by bicycle. 
 
 \subsection{Limitations}
 
-Selection of origin and destination locations is important. For one thing, Quant uses the transit station of highest degree as the origin and destination points, meaning that there is no walking time included in the calculation. Additionally, QUANT travel times are probabilistic in the sense that the precise start time affects the travel time because there may be a wait time for a bus or train. This is a key advantage that cycling has over public transport, a more linear relationship between distance and travel time. 
+Selection of origin and destination locations is important. QUANT uses the transit station of highest degree as the origin and destination points, meaning that there is no walking time included in the calculation. Additionally, QUANT travel times are probabilistic in the sense that the precise start time affects the travel time because there may be a wait time for a bus or train. This is a key advantage that cycling has over public transport, a more linear relationship between distance and travel time. 
 
-The networks could be improved. OSMNX makes working with the Overpass API easier by abstracting away a lot of the process. Unfortunately this ease comes with a cost, a diminished ability to build an accurate network using all of the possible attributes of OSM geometries. 
+The networks could be improved. OSMNX makes working with the Overpass API easier by abstracting away a lot of the process. Unfortunately this ease comes with a cost, a diminished ability to build an accurate network using all of the possible attributes of OSM geometries. A key feature for OSMnx that would improve the ability to define networks accurately would be the option to ``stack'' multiple types of requests into a full network.  
 
 As mentioned in previous works, computation times are a factor in determining the scope and the resolution of the analysis. 
 
@@ -33,17 +35,11 @@ One of the biggest advantages of using OSMnx was the ease with which individual 
 
 \subsection{Opportunities for improvement and extension}
 
-
-One key way that planners could mediate the effects of competition for space on primary roads is by removing direction restrictions on side roads. 
-
-the variability of cycling travel times was lower than public transport, but public transport allowed efficient access to the highest number of employment opportunities. 
-
-
 Public transport accessibility was more strongly linked with income reflecting cyclings potential to mediate income inequality by leveling the transportation playing field
 
-while removing edges from the network did have a significant effect on connectivity, reducing the connected origin and destination pairs by XXXXXX\% the study showed that less cconfident cyclists have route options available to them if they are willing to go out of their way along less direct paths. 
+while removing edges from the network did have a significant effect on connectivity, reducing the connected origin and destination pairs by XXXXXX\% the study showed that less confident cyclists have route options available to them if they are willing to go out of their way along less direct paths. 
 
 
-This raises the topic of "rat-running" in London, where traffic filters off of main routes onto side roads to avoid traffic. This behavior is a key reason that Open Street Map highway types may not have a real relationship with traffic stress or danger. A "quiet" street may get relatively more traffic than it is built to handle relative to primary routes. this is consistent with anecdotal observations of the author that on some quiet ways trafffic behavior is more dangerous and less predictable than on primary routes . it is not clear that dense slow moving traffic is more dangerous than sparse high speed traffic on back roads. 
+This raises the topic of "rat-running" in London, where traffic filters off of main routes onto side roads to avoid traffic. This behavior is a key reason that Open Street Map highway types may not have a real relationship with traffic stress or danger. A "quiet" street may get relatively more traffic than it is built to handle relative to primary routes. this is consistent with anecdotal observations of the author that on some quiet ways traffic behavior is more dangerous and less predictable than on primary routes . it is not clear that dense slow moving traffic is more dangerous than sparse high speed traffic on back roads. 
 
 This would argue for making quiet ways through streets for only cyclists using "gates" .

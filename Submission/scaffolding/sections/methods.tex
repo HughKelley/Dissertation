@@ -1,4 +1,4 @@
-% 1254 words
+% 736 words
 
 
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -19,17 +19,17 @@
 
 \subsection{Scope}
 
-The scope of the study will be defined so as to maximize the study's representation of London's cycling commutes, capturing as many trips by origin and destination as possible as well as considering the location of road casualties in London. This will be done in the context of the computing resources available, where travel time calculations for the origin destination matrix must be reasonable, less than one million pairs. 
+The scope of the study will be defined to maximize the study's representation of London's cycling commutes, capturing as many trips by origin and destination as possible as well as considering the location of road casualties in London. This will be done in the context of the computing resources available, where travel time calculations for the origin destination matrix must be reasonable, less than one million pairs. 
 
 \subsection{Defining Networks}
 
-The first step in this investigation is to build a data set that represents the London cycling network as accurately as possible. This representation needs to reflect the fact that different cyclists are willing to use different streets as a function of the perceived safety of the street and the level of confidence of that cyclist. Thus the data set will be multiple representations of the city cycling network that each represent a level of confidence, only including streets with a certain level of safety. 
+The first step in this investigation is to build a data set that represents the London cycling network as accurately as possible. This representation needs to reflect the fact that different cyclists are willing to use different streets as a function of the perceived safety of the street and the level of confidence of that cyclist. Thus, the data set will be multiple representations of the city cycling network that each represent a level of confidence, only including streets with a certain level of safety. 
 
 A key question then is, how to quantify ``safety''. In a perfect world, this would be done empirically. This would involve a combination of cycle traffic volume collection, cycle traffic behavior observation, and interviews with a representative set of cyclists and non-cyclists about their decision making. All of this data could be compared to the cycling environment in different locations to find cyclist sensitivity to different factors. 
 
 Networks will be defined as subsets of edges in the Open Street Map network. Open Street Map uses tags to associate street characteristics with the geometries that make up the map. Appendix XXXX contains the definitions from the OSM wiki page for each of the tags used.  
 
-Using the network filters, the connectivity data is downloaded from OSM via the Overpass API as a JSON file. A graph is built with the nodes and ways from the Overpass data with edges coming from the ``way'' elements, and the nodes coming from the intersection of the edges as defined in OSM as well as the end of an edge. This requires simplification because the Open Street Map data includes many more nodes than just the endpoints and intersections. The network is simplified by removing nodes with degree 2, where the node simply connects one street to one other, unless there is a difference in directionality between them. That is, when a street changes from 2 way to one way, a node is placed at the intersection to denote that change.  Each of these steps can be accomplished using a combination of python packages OSMnx, (\cite{osmnx}) and Networkx (\cite{networkx}).
+Using the network filters, the connectivity data is downloaded from OSM via the Overpass API as a JSON file. A graph is built with the nodes and ways from the Overpass data with edges coming from the ``way'' elements, and the nodes coming from the intersection of the edges as defined in OSM as well as the end of an edge. This requires simplification because the Open Street Map data includes many more nodes than just the endpoints and intersections. The network is simplified by removing nodes with degree 2, where the node simply connects one street to one other, unless there is a difference in directionality between them. That is, when a street changes from two way to one way, a node is placed at the intersection to denote that change.  Each of these steps can be accomplished using a combination of python packages OSMnx, (\cite{osmnx}) and Networkx (\cite{networkx}).
 
 \subsection{Defining Origins and Destinations}
 London was divided into 4765 Lower Super Output Areas (LSOA) for the 2011 census (\cite{lsoa}). One Origin/Destination (O/D) point will be selected for each LSOA in the scope. QUANT uses the node of highest degree in a given LSOA. For calculating a sample of routes on the networks, this analysis used the node closest to the centroid of each LSOA. 
@@ -38,11 +38,11 @@ London was divided into 4765 Lower Super Output Areas (LSOA) for the 2011 census
 
 A key point of interest is the network structures that result from different filters. For different filters, the count of nodes and edges, and therefore the overall density of the network will be considered. The size of the largest component will be considered as well as the number of O/D pairs connected by the network. 
 
-The distance of the shortest path between each origin and destination will be calculated for each network with more than 50\% of pairs connected. These data will be converted to measures of directness, dividing by the straightline distance between the two points, and into travel times, dividing by the speed of a cyclist as estimated by Google Maps. 
+The distance of the shortest path between each origin and destination will be calculated for each network with more than 50\% of pairs connected. These data will be converted to measures of directness, dividing by the straight-line distance between the two points, and into travel times, dividing by the speed of a cyclist as estimated by Google Maps. 
 
 In addition to calculating the multi-directed graphs for different OSM filters, distances are calculated for undirected versions of the graph. This will be used to investigate how building infrastructure for cyclists to travel safely against traffic could further raise accessibility or replace the need to build infrastructure that takes space from other users on main roads. 
 
-Finally, mean and shape of the cycling distribution will be compared to the shape of the QUANT transport distribution. 
+Finally, the mean and shape of the cycling distribution will be compared to the shape of the QUANT transport distribution. 
 
 \subsection{Accessibility}
 

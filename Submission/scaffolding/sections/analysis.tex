@@ -1,4 +1,4 @@
-% 2654 words
+% 2783 words
 
 %\subsection{Key Questions}
 %what was the scope and how was it defined \\
@@ -185,49 +185,9 @@ Because urban density increases as one approached the center of a city, there co
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Travel Times}
 
-Travel times were converted from distances using a walking speed of 3 mph and a cycling speed of 8 mph based on data taken from Google maps estimates for journeys as seen in that table. These were converted to kilometers per minutes, waking: $0.0805$ and biking $0.215$. 
+Travel times were converted from distances using a walking speed of 3 mph and a cycling speed of 8 mph based on data taken from Google maps estimates for journeys in London. These were converted to kilometers per minutes, waking: $0.0805$ and biking: $0.215$. 
 
-\begin{table}
-\centering
-\caption{Google Maps travel speeds}
-\label{table:travel_speeds}
-\end{table}
-
-As seen in table XXXXX travel times for bike network 2, without trunk or primary highways, are substantially longer than travel times for bike network 1. This indicates that the effect of removing these edges is not just to disconnect the network but also requires a network user to take a less direct route, straying further from the straight line between origin and destination. 
-
-The difference between directed and undirected distances is also notable. 
-
-the standard deviation 
-
-the min is unchanged, while the max 
-
-Travel times by bicycle for aggressive cyclists are XXXXX compared to the QUANT travel times by public transport. 
-
-Transit times are consistently lower than cycling times. However, transit times are from hub to hub, so there is in most cases, an additional walking time to get from the transit hub to the actual destination that would be less of a factor for a journey by bicycle. 
-
-The connectedness estimated may understate the true connectedness. This is seen in that unconnected node pairs in almost every case have one node that is unconnected from all other nodes. Thus there are not local islands of connectivity, there are nodes being entirely disconnected from the network due to the removal of a single edge. 
-
-The network doesn't really fracture. Where connectivity goes down, it is usually an individual node becoming disconnected from all others, not a sub group being separated of. MOst nodes not connected to another node, were not connected to any other nodes. 
-
-
-\begin{table}
-\centering
-\begin{tabular}{@{}lllll@{}}
-\toprule
-networks & u\_1   & d\_1  & u\_2            & d\_2          \\ \midrule
-         &        &       & \multicolumn{2}{l}{$\Delta$ time (mins)}  \\
-u\_1     &       &  0.79 & 8.16            & 14.46         \\
-d\_1     & 0      &      & 7.38            & 13.68         \\
-u\_2     & 36.9   & 36.9  &                & 6.30          \\
-d\_2     & 47.8   & 47.8  & 4.7             &              \\
-         & \multicolumn{3}{l}{$\Delta$ \% connected} &               \\ \bottomrule
-\end{tabular}
-\caption{Changes between networks, \% connected and directness}
-\label{table:change between nets}
-\end{table}
-
-There's got to be a significant difference between the distances for the different networks right?
-
+As seen in Table \ref{table:travel_time_stats} travel times for bike network 2, without trunk or primary highways, are substantially longer than travel times for bike network 1. This indicates that the effect of removing these edges is not just to disconnect the network but also requires a network user to take a less direct route, straying further from the straight line between origin and destination. 
 
 \begin{table}[]
 %\centering
@@ -246,27 +206,39 @@ travel time std. dev*    & 16.8    & 17.1    & 20.4  & 23.6  & 8.6   & -      & 
 \label{table:travel_time_stats}
 \end{table}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Maps}
+\subsubsection{Street Types}
 
-LSOA's colored by travel times difference between cycling and quant. 
+Removing primary and trunk highways raises travel times by about 33\%. nearly 40\% of origin destination pairs are disconnected in this scenario. 
 
-\begin{figure}
+The network doesn't really fracture. Where connectivity goes down, it is usually an individual node becoming disconnected from all others, not a sub group being separated of. MOst nodes not connected to another node, were not connected to any other nodes. 
+
+\subsubsection{Directedness}
+
+The difference between directed and undirected distances is also notably small. This indicates that building multidirectional cycle infrastructure on side streets is probably not a good way to improve cyclist access.  
+
+
+\subsubsection{Public Transit}
+
+QUANT public transit times are substantially faster than cycling times. There was no origin destination pair where cycling was found to be faster than public transport. 
+
+However, transit times are from hub to hub, so there is in most cases, an additional walking time to get from the transit hub to the actual destination that would be less of a factor for a journey by bicycle. 
+
+\begin{table}
 \centering
-\includegraphics[width=0.85\linewidth]{d_1_d_2_directness}
-\caption{Difference in directness D1 and D2}
-\label{fig:d1_d2_directness}
-\end{figure}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+networks & u\_1   & d\_1  & u\_2            & d\_2          \\ \midrule
+         &        &       & \multicolumn{2}{l}{$\Delta$ time (mins)}  \\
+u\_1     &       &  0.79 & 8.16            & 14.46         \\
+d\_1     & 0      &      & 7.38            & 13.68         \\
+u\_2     & 36.9   & 36.9  &                & 6.30          \\
+d\_2     & 47.8   & 47.8  & 4.7             &              \\
+         & \multicolumn{3}{l}{$\Delta$ \% connected} &               \\ \bottomrule
+\end{tabular}
+\caption{Changes between networks, \% connected and directness}
+\label{table:change between nets}
+\end{table}
 
-
-lsoa's colored by change in directness 
-
-\begin{figure}
-\centering
-\includegraphics[width=0.85\linewidth]{quant_plus_d1_time_diff_perc}
-\caption{\% Different in travel time, QUANT+ and D1}
-\label{fig:quant_d1_time}
-\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Distributions of travel times}
@@ -302,19 +274,11 @@ Not only are the two modes of travel different in their means, the shape of the 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Changes in Routing}
+\subsubsection{Changes in Routing} 
 
-Seen in Figure \ref{fig:routing_1} and \ref{fig:routing_2} compare longest path for directed network 2 to the path between those nodes in directed network 1. 
+There are three types of changes in routing that increase the distance a cyclist would have to travel that are exhibited in the data. 
 
-Compare longest path for directed network 1 to undirected network 1. 
-
-compare o/d pair with largest increase in distance between directed 1 and directed 2 to the distance in undirected 2. 
-
-Is allowing travel in any direction on side roads a good replacement for primary and trunk routes? No, the difference in average distance and in the percentage of connected origin destination pairs was much larger between entwork one and network two than the changes between directed network 2 and undirected network 2.  
-
-There are two types of changes in routing that increase the distance a cyclist would have to travel that are exhibited in the data. 
-
-The first is a large detour added to an otherwise fairly direct path. Figure \ref{fig:routing_1} shows the shortest route between Finsbury Park and the North side of Hyde Park. Removing the Primary and Trunk highways to produce the shortest route in Figure \ref{fig:routing_2}, a substantial detour up through North Kensington is added, nearly doubling the total distance traveled. This is a trip that \cite{furth2016network} assumes would not take place, either the cyclist would use a higher stress route or the trip would not be accomplished by bicycle. 
+The first is a large detour added to an otherwise fairly direct path. Figure \ref{fig:routing_1} shows the shortest route between Finsbury Park and the north side of Hyde Park. Removing the Primary and Trunk highways to produce the shortest route in Figure \ref{fig:routing_2}, a substantial detour through North Kensington is added, nearly doubling the total distance traveled. This is a trip that \cite{furth2016network} assumes would not take place, either the cyclist would use a higher stress route or the trip would not be accomplished by bicycle. The limit they set was a 25\% increase in the trip distance to avoid a high stress road. 
 
 \begin{figure}
 \centering
@@ -332,12 +296,9 @@ The first is a large detour added to an otherwise fairly direct path. Figure \re
 \end{minipage}
 \end{figure}
 
-
-
 The second is the addition of a large number of small turns and detours throughout the trip. Consider the different between the routing on directed network 1 in figure \ref{fig:routing_1} compared to the routing of the shortest path between the same origin and destination on direct network 2 in figure \ref{fig:routing_2}, where primary and trunk streets are excluded. The network 2 route never strays very far from the the network 1 route but the distance increases by 10\%. Comparing by distance is informative but it is useful to keep in mind that traveling through intersections probably lowers the overall speed of a trip so that actual travel time and power expended probably increase by more than distance increases. 
 
 % death by 1000 cuts routing.
-
 \begin{figure}
 \centering
 \begin{minipage}{.5\textwidth}
@@ -370,7 +331,35 @@ The second is the addition of a large number of small turns and detours througho
 \end{minipage}
 \end{figure}
 
-A final illustrative example has to do with the compounding of detours. Figure \ref{fig:routing_5} shows the shortest route between Dalston and North Kensington. Avoiding primary and trunk streets in Figure \ref{fig:routing_6} increases distance by 30\%. This is because, while much of the route is along the Regents Canal Path, A stretch of Euston Rd between the end of the path in Angel and Regents part is a ``trunk'' highway. Avoiding this stretch renders the canal path useless. Thus in true network fashion, isolated changes have large effects on the usefulness of other segments of the network. 
+A third illustrative example has to do with the compounding of detours. Figure \ref{fig:routing_5} shows the shortest route between Dalston and North Kensington. Avoiding primary and trunk streets in Figure \ref{fig:routing_6} increases distance by 30\%. This is because, while much of the route is along the Regents Canal Path, A stretch of Euston Rd between the end of the path in Angel and Regents part is a ``trunk'' highway. Avoiding this stretch renders the canal path useless. Thus in true network fashion, isolated changes have large effects on the usefulness of other segments of the network. 
+
+Finally, in exploring individual changes in routing, it was noticed generally that trips through the nothern most and western most sections of the area investigated tended to be the trips with dramatic increases in distance. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Maps}
+
+To explore whether this trend in northern and western London was real maps were built showing the average values for each LSOA. In each map, areas within the boundary that are not colored are LSOA's that are not connected to any other LSOA. for Directed network 2, this is about 100 of 900 areas.  
+
+It can be seen in Figure \ref{fig:d1_d2_directness} that directness decreases substantially in the northern and western parts of the area as seen by the darker red areas there. This is consistent with the anecdotal observation that many of the larger changes in routing distance involved passing through or around these areas. 
+
+A different pattern is seen in comparing cycling time with public transport time Figure \ref{quant_d1_time}. Here Canary Wharf is relatively difficult to access by bicycle. This may be influenced by the fact that it is on the periphery of the area of investigation. It could also be influenced by public transit that travels across the river and through south London. This routing option was not available to the cycling routes as it was outside the scope of the network defined. It is though that the quickest option for cycling to Canary Wharf would involve Mile End Road or Cycle Super Highway Three, and not crossing to the south side of the river due to the difficulty of crossing back over around the eastern end of the river. 
+
+\begin{figure}
+\centering
+\includegraphics[width=0.85\linewidth]{d_1_d_2_directness}
+\caption{Difference in directness D1 and D2}
+\label{fig:d1_d2_directness}
+\end{figure}
+
+
+lsoa's colored by change in directness 
+
+\begin{figure}
+\centering
+\includegraphics[width=0.85\linewidth]{quant_plus_d1_time_diff_perc}
+\caption{\% Difference in travel time, QUANT+ and D1}
+\label{fig:quant_d1_time}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Notes about computation}

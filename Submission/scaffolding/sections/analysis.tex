@@ -43,13 +43,14 @@ Table \ref{table:commute_data} contains some data about journeys to work in the 
 
 There are three possible ways to construct a set of ways and nodes from OSM. These are; a positive filter; a negative filter; and selecting by relation. A positive filter specifies tags that a way or node must have to be included. A negative filter includes all ways and nodes without the tags specified. A relation is the OSM term for a collection of ways and nodes that belong to a set identified by an OSM contributor. 
 
+The key challenge is described by \textcite{furth2016network} as; ``to measure miles of designated bike facilities can be misleading. Some designated bicycling facilities involve LTS values that most people will not tolerate.''
+
 OSM relations in London identified as being cycle routes are mapped in Figure \ref{fig:bicycle_relation}. The query for selecting this set can be found in the Appendix table \ref{table:osm_tags}. It is clear that this is an extensive network, but the density of is fairly low and for almost any trip a user would need to venture beyond the relation geometries. Further, many of the ways included in the cycling relations are in fact no different from other streets. As seen in Figure \ref{fig:brandon} a picture of Brandon Way. This has no safety improvements for cyclists, and it has been observed that speeds can far exceed the 20 mph limit. Thus, the cycle relations on their own are insufficient for building representative networks. 
 
 A good example of the difficulty of building a good network representation is Castle Baynard Street. It connects the Central London part of Cycle Super Highway 3 with the East London section that continues out to Limehouse. This is a tunnel that serves as a bike path and as a driveway to an underground car park. A network built from the relation[route=bicycle] set of ways and nodes would include this but the street has no dedicated cycle infrastructure and is therefore tagged as ``highway = unclassified.'' 
 
-``to measure miles of designated bike facilities can be misleading. Some designated bicycling facilities involve LTS values that most people will not tolerate'' (\cite{furth2016network}).
 
-Add paragraph comparing bicycle relation to primary+trunk network. 
+
 
 Compare Relation = cycleway to a list of edges and nodes tagged cycleway
 
@@ -62,7 +63,7 @@ but this also reflects the fact that getting somewhere within London nearly alwa
 In the case of the relation, the Camden Hackney Quietway was examined in person. Figure \ref{fig:brandon} shows an image of Brandon Road, a part of the Quietway. This way is tagged ``highway=unclassified'' and connects to Agar Grove, tagged ``highway = tertiary''. The unclassified marker indicates that the street is less important than a tertiary street but is neither residential or a service road. As can been seen in the image, Brandon Rd. has no actual cycle infrastructure. There is a tag noting the max speed is 20 mph. Data collected for 20 mph streets found that as many as 80\% of drivers exceeded these limits. CITE?
 % https://www.thesun.co.uk/news/7253694/20-mph-zones-cause-more-deaths/
 
-In other cases, OSM underestimates the quality of cycling infrastructure. For instance the intersection of Mile End Road and Cambridge Heath Road in the borough of Tower Hamlets is a high traffic intersection both for automobiles and for cyclists. It is an integral part of the Stratford to Aldgate cycle super highway. This intersection has been reworked to be safer for cyclists. In OpenStreetMap though, it is labeled \texttt{highway=trunk}, due to its high traffic nature. It is way 7058092014. There is also a tag \texttt{cycleway:left=lane} indicating that there is a cycle lane on the left side of the street. (\cite{osm})
+In other cases, OSM underestimates the quality of cycling infrastructure. For instance the intersection of Mile End Road and Cambridge Heath Road in the borough of Tower Hamlets is a high traffic intersection both for automobiles and for cyclists. It is an integral part of the Stratford to Aldgate cycle super highway. This intersection has been reworked to be safer for cyclists. In OpenStreetMap though, it is labeled \texttt{highway=trunk}, due to its high traffic nature. It is way \texttt{7058092014}. There is also a tag \texttt{cycleway:left=lane} indicating that there is a cycle lane on the left side of the street. (\cite{osm})
 
 
 \begin{figure}
@@ -95,7 +96,12 @@ In other cases, OSM underestimates the quality of cycling infrastructure. For in
 
 A positive filter was explored to include exactly the edges and nodes that met a given level of stress for cycling. This method was challenged by the fact that a single road segment not tagged accurately would disconnect a network part. Further, there was not a method found to work correctly for selecting roads with any one of many tag values.  Table \ref{table:osm_tags} details all the possible tags related to cycling that were found in the London OSM data.  In the Overpass Turbo application, this could be accomplished by using multiple subqueries as detailed in the Overpass Turbo Cycling network query listed in the Appendix. In OSMnx this multiple query statement structure was not an option. Thus a method for building full and accurate networks of OSM geometries using a positive filter was not found. 
 
-
+\begin{figure}
+\centering
+\includegraphics[width=0.85\linewidth]{highway_cycleway}
+\caption{Highways identified as cycleways.}
+\label{fig:highway_cycleway}
+\end{figure}
 
 
 \begin{figure}
@@ -105,7 +111,7 @@ A positive filter was explored to include exactly the edges and nodes that met a
 \label{fig:primary_trunk}
 \end{figure}
 
-The negative filter, implemented as a modification of the filters built into OSMnx version \texttt{0.11dev}, was the most successful. The first filter included all ways and nodes not explicitly tagged with values indicating that cycling was not allowed. Row XXXX of Appendix \ref{table:filters}. The second filter was the same as the first but excluded streets tagged as primary and trunk. These are the two tags used for the highest priority street types as seen in Table \ref{table:osm_tags} describing standard tags for the ``highway'' key in OSM. These streets are visualized in Figure ~\ref{fig:primary_trunk} The third filter restricted secondary streets in addition to the restrictions of the second. The fourth filter restricted tertiary streets leaving only living and residential streets in addition to non-motor vehicle ways like canal paths and segregated cycle lanes. The final filter, 5, restricted all edges where a cyclist might interact with motor vehicles. Samples of these filters are displayed in Figures ~\ref{fig:sub1} through ~\ref{fig:sub4}
+The negative filter, implemented as a modification of the filters built into \texttt{OSMnx version 0.11dev}, was the most successful. The first filter included all ways and nodes not explicitly tagged with values indicating that cycling was not allowed. Row 9 of Appendix \ref{table:filters} contains the Overpass API filter used for this. The second filter was the same as the first but excluded streets tagged as \texttt{primary} and \texttt{trunk}, row 2 of the Table \ref{table:filters}. These are the two tags used for the highest priority street types as seen in Table \ref{table:osm_tags} describing standard tags for the \texttt{highway} key in OSM. These streets are visualized in Figure ~\ref{fig:primary_trunk} The third filter restricted secondary streets in addition to the restrictions of the second. The fourth filter restricted tertiary streets leaving only living and residential streets in addition to non-motor vehicle ways like canal paths and segregated cycle lanes. The final filter, 5, restricted all edges where a cyclist might interact with motor vehicles. Samples of these filters are displayed in Figures ~\ref{fig:sub1} through ~\ref{fig:sub4}
 
 \begin{figure}
 \centering
@@ -158,7 +164,7 @@ Then for each pair of nodes missing a transit time, the shortest path on the gra
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Origins and Destinations}
 
-One origin/destination node was selected for each LSOA. The node was selected as the node from the set of nodes across all network definitions that was closest to the centroid of the LSOA polygon. This is essentially a sampling technique. While individual nodes may give strange results due to the specifics of their locations, it is expected that the average results for 894 nodes that yield 798,342 origin destination pairs will be a sufficiently large sample that individual idiosyncrasies balance out. 
+One origin/destination node was selected for each LSOA. The node was selected as the node from the set of nodes across all network definitions that was closest to the centroid of the LSOA polygon. This is essentially a sampling technique. While individual nodes may give strange results due to the specifics of their locations, it is expected that the average results for 894 nodes that yield 798,342 O/D pairs will be a sufficiently large sample that individual idiosyncrasies balance out. 
 
 As seen in Figure~\ref{fig:dist_diffs} the distribution of the differences between the distance between centroids and the distance between actual nodes is well balanced. 
 
@@ -178,16 +184,16 @@ As seen in Figure~\ref{fig:dist_diffs} the distribution of the differences betwe
 \end{minipage}
 \end{figure}
 
-Node 5,816,785,884, closest to the centroid of LSOA XXXXXX is found at the entrance to a garage at the end of a one way street, making every other node in the network inaccessible on the directed versions of the networks. The edge leading to this node is tagged ``service'' so perhaps service streets should have been excluded as they are frequently dead ends. 
+Node \texttt{5816785884}, closest to the centroid of LSOA \texttt{E01004225}, is found at the entrance to a garage at the end of a one way street, making every other node in the network inaccessible on the directed versions of the networks. The edge leading to this node is tagged \texttt{service} so perhaps service streets should have been excluded as they are frequently dead ends. 
 
-Because urban density increases as one approached the center of a city, there could be a slight bias towards node distances being lower than centroid distances. This is because there is a higher probability that the closest node will be on the central side of the centroid than the outside. This was investigated and as seen in Figure ~\ref{fig:diff_dist}, the distribution of differences in straight-line distances was well balanced around 0. The same consideration was checked for the differences between distances for cycling nodes and the distances between the nodes used in the QUANT calculations. Seen in Figure ~\ref{fig:quant_dist_diffs}, that distribution was also well balanced around 0. 
+Because urban density increases as one approached the center of a city, there could be a slight bias towards node distances being lower than centroid distances. This is because there is a higher probability that the closest node will be on the central side of the centroid than the outside. This was investigated and as seen in Figure \ref{fig:dist_diffs}, the distribution of differences in straight-line distances was well balanced around 0. The same consideration was checked for the differences between distances for cycling nodes and the distances between the nodes used in the QUANT calculations. Seen in Figure \ref{fig:quant_dist_diffs}, that distribution was also well balanced around 0. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Travel Times}
 
 Travel times were converted from distances using a walking speed of 3 mph and a cycling speed of 8 mph based on data taken from Google maps estimates for journeys in London. These were converted to kilometers per minutes, waking: $0.0805$ and biking: $0.215$. 
 
-As seen in Table \ref{table:travel_time_stats} travel times for bike network 2, without trunk or primary highways, are substantially longer than travel times for bike network 1. This indicates that the effect of removing these edges is not just to disconnect the network but also requires a network user to take a less direct route, straying further from the straight line between origin and destination. 
+As seen in Table \ref{table:travel_time_stats} contains statistics about the distances and travel times calculated. To make a direct comparison, the table shows travel times for only O/D pairs that were connected for each of the 4 networks that routes were calculated for.  
 
 \begin{table}[]
 %\centering
@@ -202,7 +208,7 @@ mean travel time*        & 33.0    & 33.8    & 41.1  & 47.4  & 22.6  & -      & 
 max travel time*         & 88.8    & 91.2    & 114.0 & 124.0 & 51.9  & -      & -    & -    & -    \\
 travel time std. dev*    & 16.8    & 17.1    & 20.4  & 23.6  & 8.6   & -      & -    & -    & -   \\ \bottomrule
 \end{tabular}
-\caption{Network routing statistics \\ $*$ includes only pairs connected by all networks.}
+\caption{Network routing statistics \\ $*$ includes only pairs connected by all four networks.}
 \label{table:travel_time_stats}
 \end{table}
 
@@ -210,11 +216,11 @@ travel time std. dev*    & 16.8    & 17.1    & 20.4  & 23.6  & 8.6   & -      & 
 
 Removing primary and trunk highways raises travel times by about 33\%. nearly 40\% of origin destination pairs are disconnected in this scenario. 
 
-The network doesn't really fracture. Where connectivity goes down, it is usually an individual node becoming disconnected from all others, not a sub group being separated of. MOst nodes not connected to another node, were not connected to any other nodes. 
+The network doesn't really fracture. Where connectivity goes down, it is usually an individual node becoming disconnected from all others, not a sub group being separated of. Most nodes not connected to another node, were not connected to any other nodes. 
 
 \subsubsection{Directedness}
 
-The difference between directed and undirected distances is also notably small. This indicates that building multidirectional cycle infrastructure on side streets is probably not a good way to improve cyclist access.  
+The difference between directed and undirected distances is relatively small. This indicates that building multidirectional cycle infrastructure on side streets is probably not a good way to improve cyclist access.  
 
 
 \subsubsection{Public Transit}
@@ -241,11 +247,11 @@ d\_2     & 47.8   & 47.8  & 4.7             &              \\
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection{Distributions of travel times}
+\subsubsection{Distributions of Travel Times}
 
-insert histograms of directness and travel times.
+Not only are the two modes of travel different in their means, the shape of the distribution is pretty different too. This is seen in Figures \ref{fig:d1_distrib} through \ref{fig:quant_distrib}. 
 
-Not only are the two modes of travel different in their means, the shape of the distribution is pretty different too. 
+Some interesting observation about this. XXXXXXXXXX
 
 % need consistent axes
 
@@ -296,7 +302,7 @@ The first is a large detour added to an otherwise fairly direct path. Figure \re
 \end{minipage}
 \end{figure}
 
-The second is the addition of a large number of small turns and detours throughout the trip. Consider the different between the routing on directed network 1 in figure \ref{fig:routing_1} compared to the routing of the shortest path between the same origin and destination on direct network 2 in figure \ref{fig:routing_2}, where primary and trunk streets are excluded. The network 2 route never strays very far from the the network 1 route but the distance increases by 10\%. Comparing by distance is informative but it is useful to keep in mind that traveling through intersections probably lowers the overall speed of a trip so that actual travel time and power expended probably increase by more than distance increases. 
+The second is the addition of a large number of small turns and detours throughout the trip. Consider the different between the routing on directed network 1 in Figure \ref{fig:routing_1} compared to the routing of the shortest path between the same origin and destination on direct network 2 in Figure \ref{fig:routing_2}, where primary and trunk streets are excluded. The network 2 route never strays very far from the network 1 route but the distance increases by 10\%. Comparing by distance is informative but it is useful to keep in mind that traveling through intersections probably lowers the overall speed of a trip so that actual travel time and power expended probably increase by more than distance increases. 
 
 % death by 1000 cuts routing.
 \begin{figure}
@@ -331,18 +337,20 @@ The second is the addition of a large number of small turns and detours througho
 \end{minipage}
 \end{figure}
 
-A third illustrative example has to do with the compounding of detours. Figure \ref{fig:routing_5} shows the shortest route between Dalston and North Kensington. Avoiding primary and trunk streets in Figure \ref{fig:routing_6} increases distance by 30\%. This is because, while much of the route is along the Regents Canal Path, A stretch of Euston Rd between the end of the path in Angel and Regents part is a ``trunk'' highway. Avoiding this stretch renders the canal path useless. Thus in true network fashion, isolated changes have large effects on the usefulness of other segments of the network. 
+A third illustrative example has to do with the compounding of detours. Figure \ref{fig:routing_5} shows the shortest route between Dalston and North Kensington. Avoiding primary and trunk streets in Figure \ref{fig:routing_6} increases distance by 30\%. This is because, while much of the route is along the Regents Canal Path, a stretch of Euston Road between the end of the path in Angel and Regents part is a \texttt{trunk} highway. Avoiding this stretch renders the canal path useless. Thus in true network fashion, isolated changes can have large effects on the importance of other segments of the network. 
 
-Finally, in exploring individual changes in routing, it was noticed generally that trips through the nothern most and western most sections of the area investigated tended to be the trips with dramatic increases in distance. 
+Finally, in exploring individual changes in routing, it was noticed generally that trips through the northern most and western most sections of the area investigated tended to be the trips with dramatic increases in distance. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Maps}
 
-To explore whether this trend in northern and western London was real maps were built showing the average values for each LSOA. In each map, areas within the boundary that are not colored are LSOA's that are not connected to any other LSOA. for Directed network 2, this is about 100 of 900 areas.  
+To explore whether this trend in northern and western London was real maps were built showing the average values for each LSOA. In each map, areas within the boundary that are not colored are LSOA's that are not connected to any other LSOA. For Directed network 2, this is about 100 of 900 areas.  
 
 It can be seen in Figure \ref{fig:d1_d2_directness} that directness decreases substantially in the northern and western parts of the area as seen by the darker red areas there. This is consistent with the anecdotal observation that many of the larger changes in routing distance involved passing through or around these areas. 
 
-A different pattern is seen in comparing cycling time with public transport time Figure \ref{quant_d1_time}. Here Canary Wharf is relatively difficult to access by bicycle. This may be influenced by the fact that it is on the periphery of the area of investigation. It could also be influenced by public transit that travels across the river and through south London. This routing option was not available to the cycling routes as it was outside the scope of the network defined. It is though that the quickest option for cycling to Canary Wharf would involve Mile End Road or Cycle Super Highway Three, and not crossing to the south side of the river due to the difficulty of crossing back over around the eastern end of the river. 
+A different pattern is seen in comparing cycling time with public transport time Figure \ref{fig:quant_d1_time}. Here Canary Wharf is relatively difficult to access by bicycle. This may be influenced by the fact that it is on the periphery of the area of investigation. It could also be influenced by public transit that travels across the river and through South London. This routing option was not available to the cycling routes as it was outside the scope of the network defined. It is thought that the quickest option for cycling to Canary Wharf would involve Mile End Road or Cycle Super Highway Three, and not crossing to the south side of the river due to the difficulty of crossing back over around the eastern end of the river. 
+
+
 
 \begin{figure}
 \centering
@@ -350,9 +358,6 @@ A different pattern is seen in comparing cycling time with public transport time
 \caption{Difference in directness D1 and D2}
 \label{fig:d1_d2_directness}
 \end{figure}
-
-
-lsoa's colored by change in directness 
 
 \begin{figure}
 \centering
@@ -362,7 +367,7 @@ lsoa's colored by change in directness
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Notes about computation}
+\subsection{Notes About Computation}
 
 Several related works mention computational limitations to their analysis as a factor determining the scope. These sources did not provide data about their computations, which could have informed this analysis. That data is included here in the hope of assisting future research planning and the search for possible improvements in efficiency. 
 
@@ -370,7 +375,7 @@ Runtimes for the distances between nodes were long. Computations were done on an
 
 Runtimes increased with the number of connected origin destination pairs, since unconnected pairs  did not require the calculation of a shortest path. Thus bike 1 travel times took longer than bike level 2. Additionally, the undirected network calculations took substantially longer than the directed networks because there were significantly more route possibilities with more edges available at each node. 
 
-Distances between 1000 pairs were calcualted as a test using three search algorithms from \texttt{Networkx}. The results are found in Table \ref{table:comp_times_algos}. 
+Distances between 1000 pairs were calculated as a test using three search algorithms from \texttt{Networkx}. The results are found in Table \ref{table:comp_times_algos} XXXX. 
 
 Table \ref{table:net_calc_times} contains calculation times by network type. 
 

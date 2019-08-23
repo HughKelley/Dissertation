@@ -1,4 +1,4 @@
-% 2266 words
+% 2654 words
 
 %\subsection{Key Questions}
 %what was the scope and how was it defined \\
@@ -47,7 +47,7 @@ OSM relations in London identified as being cycle routes are mapped in Figure \r
 
 A good example of the difficulty of building a good network representation is Castle Baynard Street. It connects the Central London part of Cycle Super Highway 3 with the East London section that continues out to Limehouse. This is a tunnel that serves as a bike path and as a driveway to an underground car park. A network built from the relation[route=bicycle] set of ways and nodes would include this but the street has no dedicated cycle infrastructure and is therefore tagged as ``highway = unclassified.'' 
 
-"to measure miles of designated bike facilities can be misleading. Some designated bicycling facilities involve LTS values that most people will not tolerate" (\cite{furth2016network}).
+``to measure miles of designated bike facilities can be misleading. Some designated bicycling facilities involve LTS values that most people will not tolerate'' (\cite{furth2016network}).
 
 Add paragraph comparing bicycle relation to primary+trunk network. 
 
@@ -108,57 +108,45 @@ A positive filter was explored to include exactly the edges and nodes that met a
 The negative filter, implemented as a modification of the filters built into OSMnx version \texttt{0.11dev}, was the most successful. The first filter included all ways and nodes not explicitly tagged with values indicating that cycling was not allowed. Row XXXX of Appendix \ref{table:filters}. The second filter was the same as the first but excluded streets tagged as primary and trunk. These are the two tags used for the highest priority street types as seen in Table \ref{table:osm_tags} describing standard tags for the ``highway'' key in OSM. These streets are visualized in Figure ~\ref{fig:primary_trunk} The third filter restricted secondary streets in addition to the restrictions of the second. The fourth filter restricted tertiary streets leaving only living and residential streets in addition to non-motor vehicle ways like canal paths and segregated cycle lanes. The final filter, 5, restricted all edges where a cyclist might interact with motor vehicles. Samples of these filters are displayed in Figures ~\ref{fig:sub1} through ~\ref{fig:sub4}
 
 \begin{figure}
+\centering
+\begin{minipage}{.5\textwidth}
   \centering
-  \includegraphics[width=0.5\linewidth]{bbox_bike_1_filter_cropped}
-  \caption{Filter 1: most confident cyclists}
+  \includegraphics[width=0.98\linewidth]{bbox_bike_1_filter_cropped}
+  \captionof{figure}{D1: most confident cyclists}
   \label{fig:sub1}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.98\linewidth]{bbox_bike_5_filter_cropped}
+  \captionof{figure}{D5: no interaction with cars}
+  \label{fig:sub2}
+\end{minipage}
 \end{figure}
 
-\begin{figure}
-  \centering
-  \includegraphics[width=0.5\linewidth]{bbox_bike_5_filter_cropped}
-  \caption{Filter 5: no interaction with cars }
-  \label{fig:sub2}
-\end{figure}
 
 Lastly, two more networks were specified. These were networks 1 and 2, all streets and all streets but primary and trunk, with the directionality of the streets removed. These networks would be used to test the effect of direction restrictions on travel times and whether removing direction restrictions for cyclists could successfully replace the need to use some more busy and dangerous streets. 
 
 \begin{figure}
+\centering
+\begin{minipage}{.5\textwidth}
   \centering
-  \includegraphics[width=0.5\linewidth]{bbox_bike_2_filter_cropped}
-  \caption{Filter 3: all but primary and trunk streets}
+  \includegraphics[width=0.98\linewidth]{bbox_bike_2_filter_cropped}
+  \captionof{figure}{no primary or trunk streets}
   \label{fig:sub3}
-\end{figure}
-
-
-
-\begin{figure}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
   \centering
-  \includegraphics[width=0.5\linewidth]{bbox_bike_4_filter_cropped}
-  \caption{Filter 4: only residential and living streets}
+  \includegraphics[width=0.98\linewidth]{bbox_bike_4_filter_cropped}
+  \captionof{figure}{residential \& living streets}
   \label{fig:sub4}
+\end{minipage}
 \end{figure}
+
+
 
 The weakness of the negative filter was the inability to include streets tagged as multiple types. Negative filter 2 excluded any highway tagged primary regardless of whether it was also tagged with \texttt{cycleway} or \texttt{cycleway:left=lane}. Thus the negative filters also do not fully reflect the reality of the London street network for a cyclist. However, it was the best method for testing the importance of street types and the effect of directionality on travel times. 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\subsubsection{Network Characteristics}
-%
-%chart of largest connected component of network as edge types are included.  Figure ~\ref{fig:connected_component}. Table ~\ref{table:network_stats}.
 
-%\begin{figure}
-%\centering
-%\caption{largest component of network type}
-%\label{fig:connected_component}
-%\end{figure}
-
-%\begin{table}
-%\centering
-%\caption{table of network statistics}
-%\label{table:network_stats}
-%\end{table}
- 
- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Quant Network}
 
 The QUANT dataset has 23,377,225 pairs of origins and destinations. The subset matching the scope of this investigation has 799,236 pairs. That subset has 200,041 pairs missing distances where there was no connection between the origin and destination transit hubs.
@@ -176,27 +164,23 @@ As seen in Figure~\ref{fig:dist_diffs} the distribution of the differences betwe
 
 \begin{figure}
 \centering
-\includegraphics[width=0.5\linewidth]{node_centroid_dist_diff}
-\caption{Distribution of distances between nodes minus distances between centroids}
-\label{fig:dist_diffs}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=0.5\linewidth]{quant_node_dist_diff}
-\caption{Distribution of distances between cycle network nodes minus distances between QUANT nodes}
-\label{fig:quant_dist_diffs}
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.98\linewidth]{node_centroid_dist_diff}
+  \captionof{figure}{Node v. Centroid distances}
+  \label{fig:dist_diffs}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.98\linewidth]{quant_node_dist_diff}
+  \captionof{figure}{Node v. QUANT distances}
+  \label{fig:quant_dist_diffs}
+\end{minipage}
 \end{figure}
 
 Node 5,816,785,884, closest to the centroid of LSOA XXXXXX is found at the entrance to a garage at the end of a one way street, making every other node in the network inaccessible on the directed versions of the networks. The edge leading to this node is tagged ``service'' so perhaps service streets should have been excluded as they are frequently dead ends. 
 
 Because urban density increases as one approached the center of a city, there could be a slight bias towards node distances being lower than centroid distances. This is because there is a higher probability that the closest node will be on the central side of the centroid than the outside. This was investigated and as seen in Figure ~\ref{fig:diff_dist}, the distribution of differences in straight-line distances was well balanced around 0. The same consideration was checked for the differences between distances for cycling nodes and the distances between the nodes used in the QUANT calculations. Seen in Figure ~\ref{fig:quant_dist_diffs}, that distribution was also well balanced around 0. 
-
-%\begin{figure}
-%\centering
-%\caption{\% of connected pairs by network}
-%\label{fig:connected_pairs}
-%\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Travel Times}
@@ -221,7 +205,7 @@ Travel times by bicycle for aggressive cyclists are XXXXX compared to the QUANT 
 
 Transit times are consistently lower than cycling times. However, transit times are from hub to hub, so there is in most cases, an additional walking time to get from the transit hub to the actual destination that would be less of a factor for a journey by bicycle. 
 
-The connectedness estimated may understate the true connectedness. This is seen in that unconnected node pairs in almost every case have one node that is unconnected from all other nodes. Thus there are not local islands of connectivity, there are nodes being disconnected from the network due to the removal of a single edge. 
+The connectedness estimated may understate the true connectedness. This is seen in that unconnected node pairs in almost every case have one node that is unconnected from all other nodes. Thus there are not local islands of connectivity, there are nodes being entirely disconnected from the network due to the removal of a single edge. 
 
 The network doesn't really fracture. Where connectivity goes down, it is usually an individual node becoming disconnected from all others, not a sub group being separated of. MOst nodes not connected to another node, were not connected to any other nodes. 
 
@@ -232,10 +216,10 @@ The network doesn't really fracture. Where connectivity goes down, it is usually
 \toprule
 networks & u\_1   & d\_1  & u\_2            & d\_2          \\ \midrule
          &        &       & \multicolumn{2}{l}{$\Delta$ time (mins)}  \\
-u\_1     & x      &  0.79 & 8.16            & 14.46         \\
-d\_1     & 0      & x     & 7.38            & 13.68         \\
-u\_2     & 36.9   & 36.9  & x               & 6.30          \\
-d\_2     & 47.8   & 47.8  & 4.7             & x             \\
+u\_1     &       &  0.79 & 8.16            & 14.46         \\
+d\_1     & 0      &      & 7.38            & 13.68         \\
+u\_2     & 36.9   & 36.9  &                & 6.30          \\
+d\_2     & 47.8   & 47.8  & 4.7             &              \\
          & \multicolumn{3}{l}{$\Delta$ \% connected} &               \\ \bottomrule
 \end{tabular}
 \caption{Changes between networks, \% connected and directness}
@@ -249,9 +233,8 @@ There's got to be a significant difference between the distances for the differe
 %\centering
 \begin{tabular}{lrrrrrrrrr}
 \toprule
-network                  & u\_1    & d\_1    & u\_2  & d\_2  & quant & quant+ & d\_3 & d\_4 & d\_5 \\ \hline
-                         &         &         &       &       &       &        &      &      &      \\
-largest component edges  &         &         &       &       &  -    & -      &      &      &      \\
+network                  & u\_1    & d\_1    & u\_2  & d\_2  & quant & quant+ & d\_3 & d\_4 & d\_5 \\ \midrule
+%largest component edges  &         &         &       &       &  -    & -      &      &      &      \\
 \% pairs connected       & 100     & 100     &  63.1 & 58.2  & 74.9  & 100    & 21.9 & 1.4  & 0.03 \\
 average directness *     & 1.20    & 1.23    & 1.53  & 1.80  & -     & -      & -    & -    & -    \\
 min travel time*         & 0.4     & 0.4     & 0.4   & 0.4   & 0.1   & -      & -    & -    & -    \\
@@ -263,16 +246,10 @@ travel time std. dev*    & 16.8    & 17.1    & 20.4  & 23.6  & 8.6   & -      & 
 \label{table:travel_time_stats}
 \end{table}
 
-\begin{table}
-\centering
-\caption{travel time statistics}
-\label{table:travel_time_stats}
-\end{table}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Maps}
 
-lsoa's colored by travel times difference between cycling and quant. 
+LSOA's colored by travel times difference between cycling and quant. 
 
 \begin{figure}
 \centering
@@ -291,28 +268,29 @@ lsoa's colored by change in directness
 \label{fig:quant_d1_time}
 \end{figure}
 
-%\begin{figure}
-%\centering
-%\caption{LSOA's colored by directness of routes to other lsoas}
-%\label{fig:lsoa_directness}
-%\end{figure}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Distributions of travel times}
 
-insert histograms of directness and travel times
-\begin{figure}
-\centering
-\includegraphics[width=0.85\linewidth]{d_1_travel_times_dist}
-\caption{Distribution of travel times for D1}
-\label{fig:d1_distrib}
-\end{figure}
+insert histograms of directness and travel times.
+
+Not only are the two modes of travel different in their means, the shape of the distribution is pretty different too. 
+
+% need consistent axes
 
 \begin{figure}
 \centering
-\includegraphics[width=0.85\linewidth]{d_2_travel_times}
-\caption{Distribution of travel times for D1}
-\label{fig:d2_distrib}
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.98\linewidth]{d_1_travel_times_dist}
+  \captionof{figure}{D1 Travel Time Distribution}
+  \label{fig:d1_distrib}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.98\linewidth]{d_2_travel_times}
+  \captionof{figure}{D2 Travel Time Distribution}
+  \label{fig:d2_distrib}
+\end{minipage}
 \end{figure}
 
 \begin{figure}
@@ -332,73 +310,88 @@ Compare longest path for directed network 1 to undirected network 1.
 
 compare o/d pair with largest increase in distance between directed 1 and directed 2 to the distance in undirected 2. 
 
-Is allowing travel in any direction on side roads a good replacement for primary and trunk routes?
+Is allowing travel in any direction on side roads a good replacement for primary and trunk routes? No, the difference in average distance and in the percentage of connected origin destination pairs was much larger between entwork one and network two than the changes between directed network 2 and undirected network 2.  
 
+There are two types of changes in routing that increase the distance a cyclist would have to travel that are exhibited in the data. 
+
+The first is a large detour added to an otherwise fairly direct path. Figure \ref{fig:routing_1} shows the shortest route between Finsbury Park and the North side of Hyde Park. Removing the Primary and Trunk highways to produce the shortest route in Figure \ref{fig:routing_2}, a substantial detour up through North Kensington is added, nearly doubling the total distance traveled. This is a trip that \cite{furth2016network} assumes would not take place, either the cyclist would use a higher stress route or the trip would not be accomplished by bicycle. 
 
 \begin{figure}
 \centering
-\includegraphics[width=0.85\linewidth]{route_diff_d1_ex9}
-\caption{Example of routing on directed network 1}
-\label{fig:routing_1}
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.98\linewidth]{cropped_route_diff_d1_ex4}
+  \captionof{figure}{Example 1, Network 1}
+  \label{fig:routing_1}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.98\linewidth]{cropped_route_diff_d2_ex4}
+  \captionof{figure}{Example 1, Network 2}
+  \label{fig:routing_2}
+\end{minipage}
+\end{figure}
+
+
+
+The second is the addition of a large number of small turns and detours throughout the trip. Consider the different between the routing on directed network 1 in figure \ref{fig:routing_1} compared to the routing of the shortest path between the same origin and destination on direct network 2 in figure \ref{fig:routing_2}, where primary and trunk streets are excluded. The network 2 route never strays very far from the the network 1 route but the distance increases by 10\%. Comparing by distance is informative but it is useful to keep in mind that traveling through intersections probably lowers the overall speed of a trip so that actual travel time and power expended probably increase by more than distance increases. 
+
+% death by 1000 cuts routing.
+
+\begin{figure}
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.98\linewidth]{cropped_route_diff_d1_ex9}
+  \captionof{figure}{Example 2, Network 1}
+  \label{fig:routing_3}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.98\linewidth]{cropped_route_diff_d2_ex9}
+  \captionof{figure}{Example 2, Network 2}
+  \label{fig:routing_4}
+\end{minipage}
 \end{figure}
 
 \begin{figure}
 \centering
-\includegraphics[width=0.85\linewidth]{route_diff_d2_ex9}
-\caption{Example of routing on directed network 2}
-\label{fig:routing_2}
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.98\linewidth]{cropped_route_diff_d1_ex7}
+  \captionof{figure}{Example 3, Network 1}
+  \label{fig:routing_5}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+  \includegraphics[width=0.98\linewidth]{cropped_route_diff_d2_ex7}
+  \captionof{figure}{Example 3, Network 2}
+  \label{fig:routing_6}
+\end{minipage}
 \end{figure}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\subsection{Accessibility}
-%
-%connectivity ratio.
-%
-% 
-%
-%simple \% of trips possible
-%
-%\% of trips possible with time restriction. 
-%
-%in qgis, color lsoa's by travel time to central lsoa. 
-%
-%in QGIS color lsoa's by travel time from lsoa with highest average distance. 
-%
-%in QGIS color lsoa's by  average directness, distance divided by straight-line distance. 
-%
-%Plot a few paths in osmnx to look at low directness. 
-
-
-
-
+A final illustrative example has to do with the compounding of detours. Figure \ref{fig:routing_5} shows the shortest route between Dalston and North Kensington. Avoiding primary and trunk streets in Figure \ref{fig:routing_6} increases distance by 30\%. This is because, while much of the route is along the Regents Canal Path, A stretch of Euston Rd between the end of the path in Angel and Regents part is a ``trunk'' highway. Avoiding this stretch renders the canal path useless. Thus in true network fashion, isolated changes have large effects on the usefulness of other segments of the network. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Notes about computation}
 
-runtimes for the distances between nodes were long. Computations were done on an Intel i74700HQ processor with the database contained on the internal Solid State Drive. 
+Several related works mention computational limitations to their analysis as a factor determining the scope. These sources did not provide data about their computations, which could have informed this analysis. That data is included here in the hope of assisting future research planning and the search for possible improvements in efficiency. 
+
+Runtimes for the distances between nodes were long. Computations were done on an Intel i74700HQ processor with the database contained on the internal Solid State Drive. 
 
 Runtimes increased with the number of connected origin destination pairs, since unconnected pairs  did not require the calculation of a shortest path. Thus bike 1 travel times took longer than bike level 2. Additionally, the undirected network calculations took substantially longer than the directed networks because there were significantly more route possibilities with more edges available at each node. 
 
+Distances between 1000 pairs were calcualted as a test using three search algorithms from \texttt{Networkx}. The results are found in Table \ref{table:comp_times_algos}. 
+
 Table \ref{table:net_calc_times} contains calculation times by network type. 
-
-% table for computation times across algorithm types
-
-% table for computation times across network types
-%\begin{table}[]
-%\centering
-%\begin{tabular}{lllll}
-%network  & 1 & 1 undirected & 2  & 2 undirected   \\
-%time     & 24:00   & 72:00??  & 9:03  & 36:00        \\        
-%\end{tabular}
-%\caption{Computation Times}
-%\label{table:1}
-%\end{table}
 
 \begin{table}[]
 \centering
-\begin{tabular}{@{}l|llll@{}}
-network     & 1           & 1 undirected & 2    & 2 undirected \\ \hline
-time(hours) & 24 & 72  & 9 & 36
+\begin{tabular}{@{}lcccc@{}}
+%\toprule
+network     & 1 directed  & 1 undirected & 2 directed  & 2 undirected \\ 
+\midrule
+time(hours) & 24 & 72  & 9 & 36 \\ \bottomrule
 \end{tabular}
 \caption{Calculation times for routes}
 \label{table:net_calc_times}
@@ -409,6 +402,3 @@ time(hours) & 24 & 72  & 9 & 36
 %\caption{Computation times using different algorithms}
 %\label{table:comp_times_algo}
 %\end{table}
-
-
-text

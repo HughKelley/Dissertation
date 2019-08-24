@@ -371,11 +371,11 @@ A different pattern is seen in comparing cycling time with public transport time
 
 Several related works mention computational limitations to their analysis as a factor determining the scope. These sources did not provide data about their computations, which could have informed this analysis. That data is included here in the hope of assisting future research planning and the search for possible improvements in efficiency. 
 
-Runtimes for the distances between nodes were long. Computations were done on an Intel i74700HQ processor with the database contained on the internal Solid State Drive. 
+Runtimes for the distances between nodes were long. Computations were done on an Intel i74700HQ processor with the database contained on the internal solid state drive. 
 
 Runtimes increased with the number of connected origin destination pairs, since unconnected pairs  did not require the calculation of a shortest path. Thus bike 1 travel times took longer than bike level 2. Additionally, the undirected network calculations took substantially longer than the directed networks because there were significantly more route possibilities with more edges available at each node. 
 
-Distances between 1000 pairs were calculated as a test using three search algorithms from \texttt{Networkx}. The results are found in Table \ref{table:comp_times_algos} XXXX. 
+Distances between 1000 pairs were calculated as a test using three search algorithms from \texttt{Networkx}. The results are found in Table \ref{table:comp_times_algos}. 
 
 Table \ref{table:net_calc_times} contains calculation times by network type. 
 
@@ -391,8 +391,8 @@ time(hours) & 24 & 72  & 9 & 36 \\ \bottomrule
 \label{table:net_calc_times}
 \end{table}
 
-%\begin{table}
-%\centering
-%\caption{Computation times using different algorithms}
-%\label{table:comp_times_algo}
-%\end{table}
+\begin{table}
+\centering
+\caption{Computation times using different algorithms}
+\label{table:comp_times_algo}
+\end{table}

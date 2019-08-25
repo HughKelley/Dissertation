@@ -45,25 +45,69 @@ There are three possible ways to construct a set of ways and nodes from OSM. The
 
 The key challenge is described by \textcite{furth2016network} as; ``to measure miles of designated bike facilities can be misleading. Some designated bicycling facilities involve LTS values that most people will not tolerate.''
 
+\begin{table}
+\centering
+\begin{tabular}{lrl}
+\\ \toprule
+tag & count & definition \\
+\midrule
+bridleway& 46 & For horse riders\\
+crossing & 2 & A crosswalk or zebra crossing \\
+cycleway & 4726 & Designated Cycleway\\
+living street & 153 & Pedestrians have legal priority over cars. Low speeds.\\
+no & 2 & Not an official tag \\
+path & 2432 & Generic, including footpaths, cycle paths, bridleways, tracks. \\
+pedestrian & 1650 & Roads mainly/exclusively for pedestrians.\\
+permissive & 2 & Not an official tag\\
+primary & 6668 & Important roads linking larger towns.\\
+primary link & 97 & link roads associated with primary roads.\\
+residential & 30021 & Roads that serve housing, without connecting settlements.\\
+ road & 4 & A highway of unknown type. \\
+secondary & 3272 & Less important than primary.\\
+secondary link & 46 & link roads associated with secondary roads.\\
+service & 16474 & Access roads to industrial or business parks, etc. \\
+tertiary & 5602 & Less important than secondary\\
+tertiary link & 26 & Link roads associated with tertiary roads. \\ 
+track & 492 & Roads for mostly agricultural or forestry uses. \\
+trunk & 2683 & Important roads that aren't motorways. \\
+trunk link & 134 & Link roads associated with trunk roads \\
+unclassified & 7637 & less important than tertiary. Artefact of UK road system.\\ 
+\\ \bottomrule
+\end{tabular}
+\caption{Highway tags used in OSM London}
+\label{table:osm_tags}
+\end{table}
+
+
 OSM relations in London identified as being cycle routes are mapped in Figure \ref{fig:bicycle_relation}. The query for selecting this set can be found in the Appendix table \ref{table:osm_tags}. It is clear that this is an extensive network, but the density of is fairly low and for almost any trip a user would need to venture beyond the relation geometries. Further, many of the ways included in the cycling relations are in fact no different from other streets. As seen in Figure \ref{fig:brandon} a picture of Brandon Way. This has no safety improvements for cyclists, and it has been observed that speeds can far exceed the 20 mph limit. Thus, the cycle relations on their own are insufficient for building representative networks. 
 
-A good example of the difficulty of building a good network representation is Castle Baynard Street. It connects the Central London part of Cycle Super Highway 3 with the East London section that continues out to Limehouse. This is a tunnel that serves as a bike path and as a driveway to an underground car park. A network built from the relation[route=bicycle] set of ways and nodes would include this but the street has no dedicated cycle infrastructure and is therefore tagged as ``highway = unclassified.'' 
+A good example of the difficulty of building a good network representation is Castle Baynard Street. It connects the Central London part of Cycle Super Highway 3 with the East London section that continues out to Limehouse. This is a tunnel that serves as a bike path and as a driveway to an underground car park. A network built from the \texttt{relation[route=bicycle]} set of ways and nodes would include this but the street has no dedicated cycle infrastructure and is therefore tagged as \texttt{highway = unclassified}. Part of the problem is the lack of consistent tagging, it only takes one line segment missing a tag to render a significant part of cycle infrastructure useless but this also reflects the fact that getting somewhere within London nearly always requires leaving cycle infrastructure at some point and using main roads.
 
+\begin{table}[]
+\centering
+\begin{tabular}{@{}llll@{}}
+\toprule
+index & id                                                                               & \begin{tabular}[c]{@{}l@{}}compatible with \\ OSMnx\end{tabular} & filter text                                                                                                                                                                                                                                                                                                \\ \midrule
+1     & u\_1                                                                             & yes                                                                 & undirected version of d\_1 \\                                                                                                                                                                                                                                                                                \\
+2     & d\_1                                                                             & yes                                                                 & no additional filters to row 10 \\                                                                                                                                                                                                                                                                                                           \\
+3     & u\_2                                                                             & yes                                                                 & undirected version of d\_2 \\                                                                                                                                                                                                                                                                                \\
+4     & d\_2                                                                             & yes                                                                 & \begin{tabular}[c]{@{}l@{}}{[}"highway"!$\sim$"primary$|$\\ primary\_link$|$trunk$|$trunk\_link"{]}\end{tabular} \\                                                                                                                                                                                                                                                                                                                                                                                                                          \\
+5     & d\_3                                                                             & yes                                                                 & \begin{tabular}[c]{@{}l@{}}{[}"highway"!$\sim$"secondary$|$secondary\_link$|$ \\ primary$|$ primary\_link$|$trunk$|$trunk\_link"{]}\end{tabular}  \\                                                                                                                                                                                                                                                                                                                                                                                                                          \\
+6     & d\_4                                                                             & yes                                                                 &  \begin{tabular}[c]{@{}l@{}}{[}"highway"!$\sim$"tertiary$|$\\ tertiary\_link$|$secondary$|$secondary\_link$|$primary$|$\\ primary\_link$|$trunk$|$trunk\_link"{]}\end{tabular} \\                                                                                                                                                                                                                                                                                                                                                                                                                           \\
+7     & d\_5                                                                             & yes                                                                 & \begin{tabular}[c]{@{}l@{}}{[}"highway"!$\sim$"living\_street|residential$|$ \\tertiary$|$tertiary\_link$|$secondary$|$secondary\_link$|$ \\vprimary$|$primary\_link$|$trunk$|$trunk\_link"{]}\end{tabular} \\                                                                                                                \\
+8     & \begin{tabular}[c]{@{}l@{}}bicycle \\ relations\end{tabular}                  & no                                                                  & relation{[}route=bicycle{]}  \\                                                                                                                                                                                                                                                                                \\
+9     & \begin{tabular}[c]{@{}l@{}}primary\\ and \\ trunk\end{tabular}                & no                                                                  & \begin{tabular}[c]{@{}l@{}}{[}"highway"="primary|primary\_link|\\ trunk|trunk\_link"{]}\end{tabular} \\
+10    & \multicolumn{2}{l}{\begin{tabular}[c]{@{}l@{}}filters d\_1 through\\ d\_5 also include\end{tabular}}      & \begin{tabular}[c]{@{}l@{}}way{[}"highway"{]}{[}"highway"!$\sim$"footway$|$ \\ steps$|$corridor$|$elevator$|$escalator$|$motor$|$proposed$|$ \\ construction$|$abandoned$|$platform$|$raceway"{]} \\{[}"area"!$\sim$"yes"{]}{[}"bicycle"!$\sim$"no"{]} \\ {[}"service"!$\sim$"private"{]}{[}"access"!$\sim$"private"{]}\end{tabular} \\
+%11    &                                                                                  &                                                                     &                                                                                                                                                                                                                                                                                                            
+\\ \bottomrule
+\end{tabular}
+\caption{ Filters used to define networks.}
+\label{table:filters}
+\end{table} 
 
+In the case of the relation, the Camden Hackney Quietway was examined in person. Figure \ref{fig:brandon} shows an image of Brandon Road, a part of the Quietway. This way is tagged \texttt{highway=unclassified} and connects to Agar Grove, tagged \texttt{highway = tertiary}. The unclassified marker indicates that the street is less important than a tertiary street but is neither residential or a service road. As can been seen in the image, Brandon Rd. has no actual cycle infrastructure. There is a tag noting the max speed is 20 mph. It has been suggested that as many as 80\% of drivers exceeded these limits \parencite{sun}. 
 
-
-Compare Relation = cycleway to a list of edges and nodes tagged cycleway
-
-Adding living streets and residential streets don't do much. 
-
-Part of the problem is the lack of consistent tagging, it only takes one line segment missing a tag to disconnect two nodes,
-
-but this also reflects the fact that getting somewhere within London nearly always requires leaving cycle infrastructure at some point and using main roads.
-
-In the case of the relation, the Camden Hackney Quietway was examined in person. Figure \ref{fig:brandon} shows an image of Brandon Road, a part of the Quietway. This way is tagged ``highway=unclassified'' and connects to Agar Grove, tagged ``highway = tertiary''. The unclassified marker indicates that the street is less important than a tertiary street but is neither residential or a service road. As can been seen in the image, Brandon Rd. has no actual cycle infrastructure. There is a tag noting the max speed is 20 mph. Data collected for 20 mph streets found that as many as 80\% of drivers exceeded these limits. CITE?
-% https://www.thesun.co.uk/news/7253694/20-mph-zones-cause-more-deaths/
-
-In other cases, OSM underestimates the quality of cycling infrastructure. For instance the intersection of Mile End Road and Cambridge Heath Road in the borough of Tower Hamlets is a high traffic intersection both for automobiles and for cyclists. It is an integral part of the Stratford to Aldgate cycle super highway. This intersection has been reworked to be safer for cyclists. In OpenStreetMap though, it is labeled \texttt{highway=trunk}, due to its high traffic nature. It is way \texttt{7058092014}. There is also a tag \texttt{cycleway:left=lane} indicating that there is a cycle lane on the left side of the street. (\cite{osm})
+In other cases, OSM underestimates the quality of cycling infrastructure. For instance the intersection of Mile End Road and Cambridge Heath Road in the borough of Tower Hamlets is a high traffic intersection both for automobiles and for cyclists. It is an integral part of the Stratford to Aldgate cycle super highway. This intersection has been reworked to be safer for cyclists. In OSM though, it is labeled \texttt{highway=trunk}, due to its high traffic nature. It is way \texttt{7058092014}. There is also a tag \texttt{cycleway:left=lane} indicating that there is a cycle lane on the left side of the street. (\cite{osm})
 
 
 \begin{figure}
@@ -111,7 +155,7 @@ A positive filter was explored to include exactly the edges and nodes that met a
 \label{fig:primary_trunk}
 \end{figure}
 
-The negative filter, implemented as a modification of the filters built into \texttt{OSMnx version 0.11dev}, was the most successful. The first filter included all ways and nodes not explicitly tagged with values indicating that cycling was not allowed. Row 9 of Appendix \ref{table:filters} contains the Overpass API filter used for this. The second filter was the same as the first but excluded streets tagged as \texttt{primary} and \texttt{trunk}, row 2 of the Table \ref{table:filters}. These are the two tags used for the highest priority street types as seen in Table \ref{table:osm_tags} describing standard tags for the \texttt{highway} key in OSM. These streets are visualized in Figure ~\ref{fig:primary_trunk} The third filter restricted secondary streets in addition to the restrictions of the second. The fourth filter restricted tertiary streets leaving only living and residential streets in addition to non-motor vehicle ways like canal paths and segregated cycle lanes. The final filter, 5, restricted all edges where a cyclist might interact with motor vehicles. Samples of these filters are displayed in Figures ~\ref{fig:sub1} through ~\ref{fig:sub4}
+The negative filter, implemented as a modification of the filters built into \texttt{OSMnx version 0.11dev}, was the most successful. The first filter included all ways and nodes not explicitly tagged with values indicating that cycling was not allowed. Row 10 of Appendix \ref{table:filters} contains the Overpass API filter used for this. The second filter was the same as the first but excluded streets tagged as \texttt{primary} and \texttt{trunk}, row 4 of  Table \ref{table:filters}. These are the tags used for the highest priority street types as seen in Table \ref{table:osm_tags} describing standard tags for the \texttt{highway} key in OSM. These streets are visualized in Figure \ref{fig:primary_trunk} The third filter restricted secondary streets in addition to the restrictions of the second. The fourth filter restricted tertiary streets leaving only living and residential streets in addition to non-motor vehicle ways like canal paths and segregated cycle lanes. The final filter, row 7, restricted all edges where a cyclist might interact with motor vehicles. Samples of these filters are displayed in Figures \ref{fig:sub1} through \ref{fig:sub4}
 
 \begin{figure}
 \centering
@@ -130,7 +174,7 @@ The negative filter, implemented as a modification of the filters built into \te
 \end{figure}
 
 
-Lastly, two more networks were specified. These were networks 1 and 2, all streets and all streets but primary and trunk, with the directionality of the streets removed. These networks would be used to test the effect of direction restrictions on travel times and whether removing direction restrictions for cyclists could successfully replace the need to use some more busy and dangerous streets. 
+Lastly, two more networks were specified. These were networks \texttt{u\_1} and \texttt{u\_2}, all streets and all streets but primary and trunk, with the directionality of the streets removed. These networks would be used to test the effect of direction restrictions on travel times and whether removing direction restrictions for cyclists could successfully replace the need to use some more busy and dangerous streets. 
 
 \begin{figure}
 \centering
@@ -150,7 +194,7 @@ Lastly, two more networks were specified. These were networks 1 and 2, all stree
 
 
 
-The weakness of the negative filter was the inability to include streets tagged as multiple types. Negative filter 2 excluded any highway tagged primary regardless of whether it was also tagged with \texttt{cycleway} or \texttt{cycleway:left=lane}. Thus the negative filters also do not fully reflect the reality of the London street network for a cyclist. However, it was the best method for testing the importance of street types and the effect of directionality on travel times. 
+The weakness of the negative filter was the inability to include streets tagged as multiple types. Negative filter 2 excluded any highway tagged primary regardless of whether it was also tagged with \texttt{cycleway} or \texttt{cycleway:left=lane}. Thus the negative filters also do not fully reflect the reality of the London street network for a cyclist. However, it was the best method for testing the importance of street types and the effect of directionality on travel times.  
 
 
 \subsubsection{Quant Network}
@@ -159,7 +203,7 @@ The QUANT dataset has 23,377,225 pairs of origins and destinations. The subset m
 
 To complete the missing distances, the QUANT travel times were built into a \texttt{Networkx Multidigraph}. There was an edge for each node pair that represented the walking time between the nodes, calculated as the straight-line distance between the nodes divided by the google walking speed 3 mph converted to 4.83 kph and converted to 0.0805 kilometers per minute giving a number of minutes walking time between the nodes that was in the same units as the number of minutes public transit time between the nodes. 
 
-Then for each pair of nodes missing a transit time, the shortest path on the graph was calculated. Each travel time can therefore be a combination of walking and riding public transit between nodes. 
+Then for each pair of nodes missing a transit time, the shortest path on the graph was calculated. Each travel time can therefore be a combination of walking and riding public transit between nodes. The QUANT travel times augmented with the ability to walk directly between nodes as well as use public transit referred to below as ``QUANT+''. Considerations around comparing the QUANT travel times with the cycling travel times are discussed below. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Origins and Destinations}
@@ -193,7 +237,7 @@ Because urban density increases as one approached the center of a city, there co
 
 Travel times were converted from distances using a walking speed of 3 mph and a cycling speed of 8 mph based on data taken from Google maps estimates for journeys in London. These were converted to kilometers per minutes, waking: $0.0805$ and biking: $0.215$. 
 
-As seen in Table \ref{table:travel_time_stats} contains statistics about the distances and travel times calculated. To make a direct comparison, the table shows travel times for only O/D pairs that were connected for each of the 4 networks that routes were calculated for.  
+Table \ref{table:travel_time_stats} contains statistics about the distances and travel times calculated. To make a direct comparison, the table shows travel times for only O/D pairs that were connected for each of the 4 networks that routes were calculated for.  
 
 \begin{table}[]
 %\centering
@@ -214,9 +258,9 @@ travel time std. dev*    & 16.8    & 17.1    & 20.4  & 23.6  & 8.6   & -      & 
 
 \subsubsection{Street Types}
 
-Removing primary and trunk highways raises travel times by about 33\%. nearly 40\% of origin destination pairs are disconnected in this scenario. 
+Removing primary and trunk highways raises travel times by about 33\%. Nearly 40\% of origin destination pairs are disconnected in this scenario. 
 
-The network doesn't really fracture. Where connectivity goes down, it is usually an individual node becoming disconnected from all others, not a sub group being separated of. Most nodes not connected to another node, were not connected to any other nodes. 
+The network doesn't really fracture into sub-components as the San Jose street network in \textcite{furth2016network}. Where connectivity goes down, it is usually an individual node becoming disconnected from all others, not a sub group being separated off. Most nodes not connected to another node, were not connected to any other nodes. 
 
 \subsubsection{Directedness}
 
@@ -227,7 +271,7 @@ The difference between directed and undirected distances is relatively small. Th
 
 QUANT public transit times are substantially faster than cycling times. There was no origin destination pair where cycling was found to be faster than public transport. 
 
-However, transit times are from hub to hub, so there is in most cases, an additional walking time to get from the transit hub to the actual destination that would be less of a factor for a journey by bicycle. 
+However, transit times are from hub to hub, so there is in most cases, an additional walking time to get from the transit hub to the actual destination that would be less of a factor for a journey by bicycle. It is very possible that the methodology used to calculate the QUANT travel times allows for effective comparison of travel times between O/D pairs within the QUANT data set but is not appropriate for comparison with another separately calculated dataset like the cycling travel times calculated in this dissertation. 
 
 \begin{table}
 \centering
@@ -251,7 +295,6 @@ d\_2     & 47.8   & 47.8  & 4.7             &              \\
 
 Not only are the two modes of travel different in their means, the shape of the distribution is pretty different too. This is seen in Figures \ref{fig:d1_distrib} through \ref{fig:quant_distrib}. 
 
-Some interesting observation about this. XXXXXXXXXX
 
 % need consistent axes
 
@@ -374,8 +417,8 @@ Several related works mention computational limitations to their analysis as a f
 Runtimes for the distances between nodes were long. Computations were done on an Intel i74700HQ processor with the database contained on the internal solid state drive. 
 
 Runtimes increased with the number of connected origin destination pairs, since unconnected pairs  did not require the calculation of a shortest path. Thus bike 1 travel times took longer than bike level 2. Additionally, the undirected network calculations took substantially longer than the directed networks because there were significantly more route possibilities with more edges available at each node. 
-
-Distances between 1000 pairs were calculated as a test using three search algorithms from \texttt{Networkx}. The results are found in Table \ref{table:comp_times_algos}. 
+%
+%Distances between 1000 pairs were calculated as a test using three search algorithms from \texttt{Networkx}. The results are found in Table \ref{table:comp_times_algos}. 
 
 Table \ref{table:net_calc_times} contains calculation times by network type. 
 

@@ -293,7 +293,7 @@ d\_2     & 47.8   & 47.8  & 4.7             &              \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Distributions of Travel Times}
 
-Not only are the two modes of travel different in their means, the shape of the distribution is pretty different too. This is seen in Figures \ref{fig:d1_distrib} through \ref{fig:quant_distrib}. 
+Not only are the two modes of travel different in their means, the shape of the distribution is pretty different too. This is seen in Figures \ref{fig:d1_distrib} through \ref{fig:quant_distrib}. The distribution of times for QUANT is noticeably more balanced than the cycling travel times. This is likely due to the option to use higher speed transit modes for longer journeys. Short journeys may be fastest by bus but for a long journey, a less direct path that uses more underground services will be faster due to the substantially higher speeds. 
 
 
 % need consistent axes
@@ -416,11 +416,13 @@ Several related works mention computational limitations to their analysis as a f
 
 Runtimes for the distances between nodes were long. Computations were done on an Intel i74700HQ processor with the database contained on the internal solid state drive. 
 
-Runtimes increased with the number of connected origin destination pairs, since unconnected pairs  did not require the calculation of a shortest path. Thus bike 1 travel times took longer than bike level 2. Additionally, the undirected network calculations took substantially longer than the directed networks because there were significantly more route possibilities with more edges available at each node. 
-%
+Seen in table \ref{table:net_calc_times}, runtimes increased with the number of connected origin destination pairs, since unconnected pairs  did not require the calculation of a shortest path. Thus d\_1 travel times took longer than d\_2. Additionally, the undirected network calculations took substantially longer than the directed networks because there were significantly more route possibilities with more edges available at each node. 
+
+Lastly, runtimes for the 200,000 missing pairs in the QUANT data were very long. This was because the walking distance between a node and all other nodes was added as an edge. This meant that each node had a degree of almost 1000. A better approach would be to only add edges where the walking distance was some reasonable value. 
+
 %Distances between 1000 pairs were calculated as a test using three search algorithms from \texttt{Networkx}. The results are found in Table \ref{table:comp_times_algos}. 
 
-Table \ref{table:net_calc_times} contains calculation times by network type. 
+
 
 \begin{table}[]
 \centering
@@ -434,8 +436,8 @@ time(hours) & 24 & 72  & 9 & 36 \\ \bottomrule
 \label{table:net_calc_times}
 \end{table}
 
-\begin{table}
-\centering
-\caption{Computation times using different algorithms}
-\label{table:comp_times_algo}
-\end{table}
+%\begin{table}
+%\centering
+%\caption{Computation times using different algorithms}
+%\label{table:comp_times_algo}
+%\end{table}

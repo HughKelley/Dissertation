@@ -4,11 +4,11 @@
 
 %Intro and overview
 
-OSM is a mapping project started in 2004 to collect volunteered geographic information. It consists of geometries drawn by users, either in person, as they travel through a city or remotely, looking at donated satellite images of cities. This data is accessible via the overpass API from several hosts. \textcite{osmnx} describes using the OSM Overpass API query language as ``notoriously difficult.''
+OSM is a mapping project started in 2004 to collect volunteered geographic information. It consists of geometries drawn by users, either in person, as they travel through a city or remotely, looking at donated satellite images of cities. This data is accessible via the overpass API from several hosts. \textcite{osmnx} describes using the OSM Overpass API query language as ``notoriously difficult''.
 
 %Data Structure
 
-Second to the actual geometry of a "way", streets and paths, node, single point on the map, or relation, collection of ways nodes and other relations are tags. Tags specify what a particular geometry is, what its characteristics are, and rules for use or other characteristics of the geometry. This allows for differentiation on the map between public and private areas, specification of what exactly a node is referencing, an intersection, mailbox, or a business location, or the type of traffic allowed or commonly seen on a street way. 
+Second to the actual geometry of a ``way'' (streets and paths), a node (single point on the map), or relation (collection of ways nodes and other relations) are tags. Tags specify what a particular geometry is, what its characteristics are, and rules for use or other characteristics of the geometry. This allows for differentiation on the map between public and private areas, specification of what exactly a node is referencing, an intersection, mailbox, or a business location, or the type of traffic allowed or commonly seen on a street way. 
 
 OSM allows users to tag features with any key value pair they see fit. This allows for maximum flexibility in handling real world conditions but also allows for errors and inconsistencies that will be addressed in the Analysis Section \ref{analysis}.
 
@@ -16,33 +16,33 @@ OSM allows users to tag features with any key value pair they see fit. This allo
 
 The Transport for London Cycling Infrastructure Database (CID) data was in the process of being publishing during the period of research for this work \parencite{tflcid}. While it was not available at the time of publication, it is notable because it promises to raise the quality and volume of OSM data for London substantially. It includes 2,000km of cycle lanes as well as hundreds of thousands of parking spaces, cycling related signs and other relevant features. \parencite{osmtflcidwiki}. 
 
-Literature review section \ref{OSMQuality} addressed to possibility for bulk data uploads to dramatically enhance OSM data quality and this may be one example. The data was professionally surveyed. 
+Literature review section \ref{OSMQuality} addressed the possibility for bulk data uploads to dramatically enhance OSM data quality, and this may be one example. The data was professionally surveyed. 
 
 \subsection{QUANT}
 
-The QUANT dataset of public transport travel times was calculated as a part of an effort to build models of interactions between areas in the United Kingdom \parencite{quant}. Of the 22 million origin-destination pairs, 5.8 million pairs had no public transport link. To clean this data, the set is cut down to match the scope of the investigation. Where there is no link between an origin destination pair, a link is constructed by combining the walking time from the origin to the node of highest degree in another LSOA where public transport is available to the destination LSOA. 
+The QUANT dataset of public transport travel times was calculated as part of an effort to build models of interactions between areas in the UK \parencite{quant}. Of the 22 million origin-destination pairs, 5.8 million pairs had no public transport link. To clean this data, the set will be cut down to match the scope of the investigation. Where there is no link between an origin destination pair, a link will be constructed by combining the walking time from the origin to the node of highest degree in another LSOA where public transport is available to the destination LSOA. 
 
-The walking speed used will be taken from Google and the distance is the straight-line distance between two points. This is less accurate than actually finding the walking route between the two points but this level of detail was not computationally feasible. 
+The walking speed used will be taken from Google and the distance is the straight-line distance between two points. This approach is less accurate than actually finding the walking route between the two points but this level of detail was not computationally feasible. 
 
 The QUANT data provides a point of comparison for cycling travel times to be calculated. 
 
 \subsection{2011 census journey to work data}
 
-The 2011 census asked each household where they lived, where they worked and how they traveled to work the preceding week \parencite{jtw}. Thus data for origin and destination by mode of transport was available. This data will be used to help define the optimal scope for the analysis. 
+The 2011 census asked each household where they lived, where they worked and how they traveled to work the preceding week \parencite{jtw}. Thus data for origin and destination by mode of transport is available. This data will be used to help define the optimal scope for the analysis. 
 
 Unfortunately, the data is publicly available only at the borough level, because of privacy concerns around high resolution home and work location data becoming personally identifiable. In order to calculate a meaningful connectivity ratio, following \cite{furth2016network} this resolution would need to match the LSOA level resolution of the origin and destination pairs of distance calculations.  
 
 % as well as to compute a ``connectivity ratio'' like that of \cite{furth2016network} for a network. 
 
-This data is shared through the Nomis Labor Force website as multi-sheet excel pivot tables \parencite{nomis}. Making the data usable required stripping the meta data headings from each sheet, importing the book to a \texttt{pandas} dataframe by sheet, melting from a pivot table to long data with origin, destination, and count columns, adding the sheet name that identified the mode of travel as a column, appending each individual sheet together into a single dataframe, and pushing the dataframe to the \texttt{PostgreSQL} database. 
+This data is shared through the Nomis Labor Force website as multi-sheet excel pivot tables \parencite{nomis}. Making the data usable requires stripping the meta data headings from each sheet, importing the book to a \texttt{pandas} dataframe by sheet, melting from a pivot table to long data with origin, destination, and count columns, adding the sheet name that identified the mode of travel as a column, appending each individual sheet together into a single dataframe, and pushing the dataframe to the \texttt{PostgreSQL} database. 
 
 \subsection{LSOA boundaries and data}
 	
-LSOA boundaries were obtained from  \textcite{lsoageoms}. The LSOA boundaries were determined as a part of the 2011 census containing approximately 5000 people each. These are used, first to specify a boundary for the scope of the study and then to specify origin and destination nodes on the network. The node closest to the centroid of each LSOA is selected as the origin and destination or that LSOA. Where LSOA's were comprised of multiple polygons, the centroid of the largest polygon was used. These polygons were used for the production of maps seen in the Analysis Section \ref{analysis}. 
+LSOA boundaries were obtained from  \textcite{lsoageoms}. The LSOA boundaries were determined as a part of the 2011 census containing approximately 5000 people each. These are used, first to specify a boundary for the scope of the study and then to specify origin and destination nodes on the network. The node closest to the centroid of each LSOA is selected as the origin and destination for that LSOA. Where LSOA's were comprised of multiple polygons, the centroid of the largest polygon is used. These polygons are used for the production of maps seen in the Analysis Section \ref{analysis}. 
 	
 \subsection{Road KSI data}
 
-Data on those killed or seriously injured on London streets is available through the London Datastore. \parencite{cyclistksi}. This was used to assist in determining the scope of the investigation. While it was hoped that the data could be used to build an estimate of danger to cyclists on London's streets several obstacles prevented this. The first is the change in infrastructure over time and lack of data about the exact infrastructure present at the time and location of each incident. Second was the lack of high resolution data about cyclist volumes. An area that has a particularly high KSI rate may be especially dangerous or may be relatively safe after adjusted for cyclist miles traveled, an unknown. London has begun collecting some data on cyclist volumes although this remains fairly sparse. 
+Data on those killed or seriously injured on London streets is available through the London Datastore. \parencite{cyclistksi}. This was used to assist in determining the scope of the investigation. While it was hoped that the data could be used to build an estimate of danger to cyclists on London's streets several obstacles prevent this. The first is the change in infrastructure over time and lack of data about the exact infrastructure present at the time and location of each incident. Second was the lack of high resolution data about cyclist volumes. An area that has a particularly high KSI rate may be especially dangerous, but it may be relatively safe after adjusting for cyclist miles traveled, which is unknown. London has begun collecting some data on cyclist volumes although this remains fairly sparse. 
 	
 \subsection{Data import, storage, cleaning, and joining}
 
